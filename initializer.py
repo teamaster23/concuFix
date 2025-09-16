@@ -318,7 +318,7 @@ Your final output must be a single JSON object in the specified format. In the `
                                 method_name=self._find_method_by_code(bug_report.method_to_method_info,method)
                                 if method_name=='':
                                     method_name=self._extract_method_declaration(method)
-                                    bug_report.method_to_method_info[method_name]=Method(name=method_name,file_path=file_path,source_code=method,class_name=class_name)
+                                    bug_report.method_to_method_info[method_name]=Method(name=method_name,file_name=os.path.basename(file_path),file_path=file_path,source_code=method,class_name=class_name)
                                     
 
             
