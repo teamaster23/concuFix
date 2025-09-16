@@ -1,0 +1,48 @@
+[
+  {
+    "access": "hJWmvgAAABwAAAAGAAAAFQAAABOgsE0A/5ItVHdvU3RhZ2UuamF2YaCwSgD/BARA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "TwoStage.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data1.value`",
+        "filename": "TwoStage.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "TwoStage.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data1.value`",
+        "filename": "TwoStage.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "TwoStage.java",
+    "hash": "1e350573cdd25c8d7923f64e2e8af843",
+    "key": "TwoStage.java|A|THREAD_SAFETY_VIOLATION_2",
+    "line": 13,
+    "procedure": "twoStage.TwoStage.A():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `TwoStage.A()` reads with synchronization from `this.data1.value`. Potentially races with unsynchronized write in method `TwoStage.A()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "e6f1c13c515f7fb0618792770f8e5a3b",
+    "snapshot2": "c259d98b1c60fd3171204570847e5a42"
+  }
+]

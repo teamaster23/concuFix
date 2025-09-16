@@ -1,0 +1,142 @@
+[
+  {
+    "access": "hJWmvgAAABEAAAAFAAAADwAAAA6gsEcA/5ImRC5qYXZhoAQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "D.java",
+    "hash": "b61c8b5f0c1d85c4dea472b85602a034",
+    "key": "D.java|m1|THREAD_SAFETY_VIOLATION_2",
+    "line": 7,
+    "procedure": "test2.D.m1():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `D.m1()` reads without synchronization from `this.x`. Potentially races with write in method `D.m1()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "25fc4ab3523a0780966486562dd6a172",
+    "snapshot2": "a6bad5f12574bd7bc662382ef73c9f91"
+  },
+  {
+    "access": "hJWmvgAAAA4AAAAEAAAADAAAAAugsEcA/5ImRC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "D.java",
+    "hash": "ebf1a9d733b61c334f3065fcfe263d09",
+    "key": "D.java|m1|THREAD_SAFETY_VIOLATION_2",
+    "line": 7,
+    "procedure": "test2.D.m1():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `D.m1()` writes to field `this.x` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "a6bad5f12574bd7bc662382ef73c9f91"
+  },
+  {
+    "access": "hJWmvgAAAA4AAAAEAAAADAAAAAugsEoA/5ImRC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "D.java",
+    "hash": "2733ec073917c9c130a173af361fcf1e",
+    "key": "D.java|m2|THREAD_SAFETY_VIOLATION_2",
+    "line": 10,
+    "procedure": "test2.D.m2():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `D.m2()` writes to field `this.x` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "7f96766873714b78928e5492179cc7bf"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAIAAAAGAAAABagsEoA/5ImRC5qYXZhoLBHAP+SJkQuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.x`",
+        "filename": "D.java",
+        "level": 0,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "D.java",
+    "hash": "66d3fc37ff1d8bf5e7c9599498fc5965",
+    "key": "D.java|m2|THREAD_SAFETY_VIOLATION_2",
+    "line": 10,
+    "procedure": "test2.D.m2():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `D.m2()` reads without synchronization from `this.x`. Potentially races with write in method `D.m1()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "65a02e1c0b7d0471af9dc043d2c3009e",
+    "snapshot2": "a6bad5f12574bd7bc662382ef73c9f91"
+  }
+]

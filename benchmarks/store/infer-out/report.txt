@@ -1,0 +1,33 @@
+#0
+Store.java:13: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Store.consume(...)` reads without synchronization from `this.customerCost`. Potentially races with write in method `Store.consume(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  11.   	//forgot to add 'synchronized' to this function;
+  12.   	public void consume(int cost) {
+  13. > 		customerCost += cost;
+  14.   	}
+  15.   	
+
+#1
+Store.java:13: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Store.consume(...)` writes to field `this.customerCost` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  11.   	//forgot to add 'synchronized' to this function;
+  12.   	public void consume(int cost) {
+  13. > 		customerCost += cost;
+  14.   	}
+  15.   	
+
+#2
+Store.java:17: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Store.getCost()` reads without synchronization from `this.customerCost`. Potentially races with write in method `Store.consume(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  15.   	
+  16.   	public int getCost() {
+  17. > 		return customerCost;
+  18.   	}
+  19.   }
+
+Found 3 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 3

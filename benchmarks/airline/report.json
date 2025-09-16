@@ -1,0 +1,258 @@
+[
+  {
+    "access": "hJWmvgAAABAAAAAEAAAADQAAAAygsGkA/5IoQnVnLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 39
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "a5e80ad2e74a1a6e2eea0e361958e7ab",
+    "key": "Bug.java|<init>|THREAD_SAFETY_VIOLATION_2",
+    "line": 39,
+    "procedure": "airline.Bug.<init>(java.lang.String,int,int)",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Bug(...)` writes to field `airline.Bug.Num_Of_Seats_Sold` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "1e671cb6c7d05a5b247a3670f738da5b"
+  },
+  {
+    "access": "hJWmvgAAAB8AAAAIAAAAGgAAABigsGkA/5IoQnVnLmphdmGgsH4A/5IoQnVnLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 39
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 39
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "44eefaac22f6a5114c465aa5354337ba",
+    "key": "Bug.java|<init>|THREAD_SAFETY_VIOLATION_2",
+    "line": 39,
+    "procedure": "airline.Bug.<init>(java.lang.String,int,int)",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Bug(...)` reads without synchronization from `airline.Bug.Num_Of_Seats_Sold`. Potentially races with write in method `Bug.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "a7ee2cf1846239a15a7091c1c7590b1c",
+    "snapshot2": "a511d5cb558715e6c4ef14c915dc5c45"
+  },
+  {
+    "access": "hJWmvgAAAB8AAAAIAAAAGgAAABigsHUA/5IoQnVnLmphdmGgsH4A/5IoQnVnLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 51
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 51
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "44eefaac22f6a5114c465aa5354337ba",
+    "key": "Bug.java|<init>|THREAD_SAFETY_VIOLATION_2",
+    "line": 51,
+    "procedure": "airline.Bug.<init>(java.lang.String,int,int)",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Bug(...)` reads without synchronization from `airline.Bug.Num_Of_Seats_Sold`. Potentially races with write in method `Bug.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "ee61a525bf970254ec897768777d2759",
+    "snapshot2": "a511d5cb558715e6c4ef14c915dc5c45"
+  },
+  {
+    "access": "hJWmvgAAABAAAAAEAAAADQAAAAygsH4A/5IoQnVnLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "d41c9b7e284c86ab0a170a6f1e04c9ed",
+    "key": "Bug.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 60,
+    "procedure": "airline.Bug.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Bug.run()` writes to field `airline.Bug.Num_Of_Seats_Sold` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "a511d5cb558715e6c4ef14c915dc5c45"
+  },
+  {
+    "access": "hJWmvgAAABEAAAAEAAAADQAAAAygsABAAP+SKEJ1Zy5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.StopSales`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 62
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "60ee2cc6410e1adfbdb3a87f145b181c",
+    "key": "Bug.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 62,
+    "procedure": "airline.Bug.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Bug.run()` writes to field `this.StopSales` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "dff0724544bc3693a6f74bb9e542eaa6"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAGAAAAFAAAABOgsH4A/5IoQnVnLmphdmGgsH4A/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "961c9f7cb536ce4b638f0d8a61c060b8",
+    "key": "Bug.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 60,
+    "procedure": "airline.Bug.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Bug.run()` reads without synchronization from `airline.Bug.Num_Of_Seats_Sold`. Potentially races with write in method `Bug.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "4330978f8f8daa08a047c2bbf1053c99",
+    "snapshot2": "a511d5cb558715e6c4ef14c915dc5c45"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAGAAAAFAAAABOgsH8A/5IoQnVnLmphdmGgsH4A/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 61
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 61
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      },
+      {
+        "column_number": -1,
+        "description": "access to `airline.Bug.Num_Of_Seats_Sold`",
+        "filename": "Bug.java",
+        "level": 0,
+        "line_number": 60
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Bug.java",
+    "hash": "961c9f7cb536ce4b638f0d8a61c060b8",
+    "key": "Bug.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 61,
+    "procedure": "airline.Bug.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Bug.run()` reads without synchronization from `airline.Bug.Num_Of_Seats_Sold`. Potentially races with write in method `Bug.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "0b2f3437bd6e950bc2e08c115460bca9",
+    "snapshot2": "a511d5cb558715e6c4ef14c915dc5c45"
+  }
+]

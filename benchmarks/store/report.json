@@ -1,0 +1,118 @@
+[
+  {
+    "access": "hJWmvgAAABUAAAAFAAAAEAAAAA+gsE0A/5IqU3RvcmUuamF2YaAEBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.customerCost`",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.customerCost`",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Store.java",
+    "hash": "bde160d1bea477e36a4e10574147d0d8",
+    "key": "Store.java|consume|THREAD_SAFETY_VIOLATION_2",
+    "line": 13,
+    "procedure": "store.Store.consume(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Store.consume(...)` reads without synchronization from `this.customerCost`. Potentially races with write in method `Store.consume(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "6b32c093426420065f90b881a3b441b6",
+    "snapshot2": "79956f6c0dd0ea19b853fff9f97c350e"
+  },
+  {
+    "access": "hJWmvgAAABIAAAAEAAAADQAAAAygsE0A/5IqU3RvcmUuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.customerCost`",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Store.java",
+    "hash": "e60cfbcd42f0fda800444ed44d07c96b",
+    "key": "Store.java|consume|THREAD_SAFETY_VIOLATION_2",
+    "line": 13,
+    "procedure": "store.Store.consume(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Store.consume(...)` writes to field `this.customerCost` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "79956f6c0dd0ea19b853fff9f97c350e"
+  },
+  {
+    "access": "hJWmvgAAACMAAAAIAAAAGgAAABigsFEA/5IqU3RvcmUuamF2YaCwTQD/kipTdG9yZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 17
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.customerCost`",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 17
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.customerCost`",
+        "filename": "Store.java",
+        "level": 0,
+        "line_number": 13
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Store.java",
+    "hash": "0bc106db1e8992b73a751e332f7bede0",
+    "key": "Store.java|getCost|THREAD_SAFETY_VIOLATION_2",
+    "line": 17,
+    "procedure": "store.Store.getCost():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Store.getCost()` reads without synchronization from `this.customerCost`. Potentially races with write in method `Store.consume(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "f8b489f6bfbd9612160d61ffb659e7dc",
+    "snapshot2": "79956f6c0dd0ea19b853fff9f97c350e"
+  }
+]

@@ -1,0 +1,45 @@
+ChangeLog:1@TwoStage.java
+FixDescription: Resolve the atomicity violation in methods A and B by ensuring that updates to data1 and data2 are performed atomically. This avoids the issue where the read operation in method B could see an inconsistent state between data1 and data2.
+OriginalCode@5-11:
+[5]     public void A () {
+[6]        synchronized (data1) {
+[7]            data1.value=1;
+[8]        }
+[9]        synchronized (data2) {
+[10]            data2.value=data1.value+1;
+[11]        }
+FixedCode@5-11:
+[5]     public void A () {
+[6]        synchronized (this) {
+[7]            data1.value=1;
+[8]            data2.value=data1.value+1;
+[9]        }
+[10]
+[11]
+
+ChangeLog:2@TwoStage.java
+FixDescription: Modify the B method to prevent potential read inconsistencies by synchronizing both read operations within the same synchronized block.
+OriginalCommand@14-23:
+[14] 	int t1=-1, t2=-1;
+[15]         synchronized (data1) {
+[16] 	    if (data1.value==0) return ;
+[17] 	        t1=data1.value;
+[18] 	}
+[19] 	synchronized (data2) {
+[20] 	    t2=data2.value;
+[21] 	}
+[22]         if (t2 != (t1+1))
+[23] 	    throw new RuntimeException("bug found");
+FixedCode@14-23:
+[14] 	int t1=-1, t2=-1;
+[15]         synchronized (this) {
+[16] 	    if (data1.value==0) return ;
+[17] 	        t1=data1.value;
+[18] 	    t2=data2.value;
+[19] 	}
+[20]         if (t2 != (t1+1))
+[21] 	    throw new RuntimeException("bug found");
+[22]
+[23]
+
+These changes ensure that the operations within methods A and B are performed atomically without interference from concurrent executions, while avoiding deadlocks by not using multiple locks in a nested manner.

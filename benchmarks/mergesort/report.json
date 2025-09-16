@@ -1,0 +1,228 @@
+[
+  {
+    "access": "hJWmvgAAACMAAAAIAAAAGgAAABigsHYA/5IqTVNvcnQuamF2YaCwbwD/kipNU29ydC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 54
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 54
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "call to void MSort.DecreaseThreadCounter()",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 1,
+        "line_number": 47
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MSort.java",
+    "hash": "5ce5e0d2d41ed5c6b1dcd9cf4a5505a5",
+    "key": "MSort.java|AvailableThreadsState|THREAD_SAFETY_VIOLATION_2",
+    "line": 54,
+    "procedure": "mergesort.MSort.AvailableThreadsState():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `MSort.AvailableThreadsState()` reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "6ccca14fb41a788048ae91b93f5c9071",
+    "snapshot2": "da1d377788255583f1bb47be928f5e80"
+  },
+  {
+    "access": "hJWmvgAAACQAAAAIAAAAGgAAABigsABhAP+SKk1Tb3J0LmphdmGgsG8A/5IqTVNvcnQuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Write on unknown thread>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 97
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 97
+      },
+      {
+        "column_number": -1,
+        "description": "<Write on background thread>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 47
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 47
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MSort.java",
+    "hash": "85a7fec2e81eeeb54ef9093a891e9fb9",
+    "key": "MSort.java|ResetThreadCounter|THREAD_SAFETY_VIOLATION_2",
+    "line": 97,
+    "procedure": "mergesort.MSort.ResetThreadCounter():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `MSort.ResetThreadCounter()` writes to field `mergesort.MSort.m_iCurrentThreadsAlive` outside of synchronization.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "01f8940c27d37a09989a69f0bd334d4b",
+    "snapshot2": "da1d377788255583f1bb47be928f5e80"
+  },
+  {
+    "access": "hJWmvgAAACMAAAAIAAAAGgAAABigsHYA/5IqTVNvcnQuamF2YaCwbwD/kipNU29ydC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 219
+      },
+      {
+        "column_number": -1,
+        "description": "call to int MSort.AvailableThreadsState()",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 219
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 1,
+        "line_number": 54
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "call to void MSort.DecreaseThreadCounter()",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 1,
+        "line_number": 47
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MSort.java",
+    "hash": "a29482a62b9fdbc73e426632d0063eee",
+    "key": "MSort.java|Sorting|THREAD_SAFETY_VIOLATION_2",
+    "line": 219,
+    "procedure": "mergesort.MSort.Sorting():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `MSort.Sorting()` indirectly reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "6ccca14fb41a788048ae91b93f5c9071",
+    "snapshot2": "da1d377788255583f1bb47be928f5e80"
+  },
+  {
+    "access": "hJWmvgAAACMAAAAIAAAAGgAAABigsHYA/5IqTVNvcnQuamF2YaCwbwD/kipNU29ydC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 201
+      },
+      {
+        "column_number": -1,
+        "description": "call to void MSort.Sorting()",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 201
+      },
+      {
+        "column_number": -1,
+        "description": "call to int MSort.AvailableThreadsState()",
+        "filename": "MSort.java",
+        "level": 1,
+        "line_number": 219
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 2,
+        "line_number": 54
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "call to void MSort.DecreaseThreadCounter()",
+        "filename": "MSort.java",
+        "level": 0,
+        "line_number": 233
+      },
+      {
+        "column_number": -1,
+        "description": "access to `mergesort.MSort.m_iCurrentThreadsAlive`",
+        "filename": "MSort.java",
+        "level": 1,
+        "line_number": 47
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MSort.java",
+    "hash": "d1e33e31c02bf5ed6e7fddadd7a6144e",
+    "key": "MSort.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 201,
+    "procedure": "mergesort.MSort.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `MSort.run()` indirectly reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "6ccca14fb41a788048ae91b93f5c9071",
+    "snapshot2": "da1d377788255583f1bb47be928f5e80"
+  }
+]

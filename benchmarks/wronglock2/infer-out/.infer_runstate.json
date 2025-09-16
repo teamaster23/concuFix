@@ -1,0 +1,16 @@
+{
+  "results_dir_format": "db_filename: infer-out/results.db\ndb_schema: CREATE TABLE IF NOT EXISTS procedures\n  ( proc_name TEXT PRIMARY KEY\n  , proc_name_hum TEXT\n  , attr_kind INTEGER NOT NULL\n  , source_file TEXT NOT NULL\n  , proc_attributes BLOB NOT NULL\n  , cfg BLOB\n  , callees BLOB NOT NULL\n  );\nCREATE TABLE IF NOT EXISTS source_files\n  ( source_file TEXT PRIMARY KEY\n  , type_environment BLOB NOT NULL\n  , integer_type_widths BLOB\n  , procedure_names BLOB NOT NULL\n  , freshly_captured INT NOT NULL )",
+  "run_sequence": [
+    {
+      "command": "run",
+      "date": "2025-07-27 15:35:50.132113+08:00",
+      "infer_version": {
+        "commit": "fac81e50e",
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      }
+    }
+  ],
+  "should_merge_capture": false
+}

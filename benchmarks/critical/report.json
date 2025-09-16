@@ -1,0 +1,190 @@
+[
+  {
+    "access": "hJWmvgAAABsAAAAGAAAAFQAAABOgsFYA/5IsU2VjdGlvbi5qYXZhoLBjAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 35
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 35
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "8815df04dcc757cbfc6e13795a46684e",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 22,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Section.run()` reads without synchronization from `this.t.turn`. Potentially races with write in method `Section.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "5821a6b8d87dbcadb73fd0bf41129fcb",
+    "snapshot2": "d344680b004d6a2f1cd14f66ad67d15a"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAGAAAAFQAAABOgsGEA/5IsU2VjdGlvbi5qYXZhoLBjAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 35
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 35
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "8815df04dcc757cbfc6e13795a46684e",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 33,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Section.run()` reads without synchronization from `this.t.turn`. Potentially races with write in method `Section.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "19da34c3acd345582be8cce2472a2907",
+    "snapshot2": "d344680b004d6a2f1cd14f66ad67d15a"
+  },
+  {
+    "access": "hJWmvgAAABQAAAAEAAAADgAAAAygsFQA/5IsU2VjdGlvbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 20
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "9eb2d5a5d4ba1758a97f9506ad581479",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 20,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Section.run()` writes to field `this.t.turn` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "9b072918d4a98e032e6ddbaadd2b1b48"
+  },
+  {
+    "access": "hJWmvgAAABQAAAAEAAAADgAAAAygsFkA/5IsU2VjdGlvbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 25
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "9eb2d5a5d4ba1758a97f9506ad581479",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 25,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Section.run()` writes to field `this.t.turn` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "6aa243929eef4a87a00de5a455ebe08c"
+  },
+  {
+    "access": "hJWmvgAAABQAAAAEAAAADgAAAAygsF8A/5IsU2VjdGlvbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 31
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "9eb2d5a5d4ba1758a97f9506ad581479",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 31,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Section.run()` writes to field `this.t.turn` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "bdd18f8312d21b9defe7a7c0d37b08ec"
+  },
+  {
+    "access": "hJWmvgAAABQAAAAEAAAADgAAAAygsGMA/5IsU2VjdGlvbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.t.turn`",
+        "filename": "Section.java",
+        "level": 0,
+        "line_number": 35
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Section.java",
+    "hash": "9eb2d5a5d4ba1758a97f9506ad581479",
+    "key": "Section.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 35,
+    "procedure": "critical.Section.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Section.run()` writes to field `this.t.turn` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "d344680b004d6a2f1cd14f66ad67d15a"
+  }
+]

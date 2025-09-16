@@ -1,0 +1,142 @@
+[
+  {
+    "access": "hJWmvgAAACMAAAAGAAAAFgAAABSgsABTAP+SMkJ1Z2dlZFByb2dyYW0uamF2YaCwAFkA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 83
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 83
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 89
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 89
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "BuggedProgram.java",
+    "hash": "27db07f17940a3429ec4abcb247c4569",
+    "key": "BuggedProgram.java|pingPong|THREAD_SAFETY_VIOLATION_2",
+    "line": 83,
+    "procedure": "pingpong.BuggedProgram.pingPong():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `BuggedProgram.pingPong()` reads without synchronization from `this.pingPongPlayer`. Potentially races with write in method `BuggedProgram.pingPong()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "565132e38789b164a7dcdc139e9bd5a9",
+    "snapshot2": "8bbcb23192d7a1440cfea01a4534fd73"
+  },
+  {
+    "access": "hJWmvgAAACMAAAAGAAAAFgAAABSgsABVAP+SMkJ1Z2dlZFByb2dyYW0uamF2YaCwAFkA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 85
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 85
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 89
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 89
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "BuggedProgram.java",
+    "hash": "27db07f17940a3429ec4abcb247c4569",
+    "key": "BuggedProgram.java|pingPong|THREAD_SAFETY_VIOLATION_2",
+    "line": 85,
+    "procedure": "pingpong.BuggedProgram.pingPong():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `BuggedProgram.pingPong()` reads without synchronization from `this.pingPongPlayer`. Potentially races with write in method `BuggedProgram.pingPong()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "262b55a25de8400bfa334d9ff9628fb5",
+    "snapshot2": "8bbcb23192d7a1440cfea01a4534fd73"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAEAAAADwAAAA2gsABWAP+SMkJ1Z2dlZFByb2dyYW0uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 86
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "BuggedProgram.java",
+    "hash": "bef7eb81dd9db25938b6bc15467093c2",
+    "key": "BuggedProgram.java|pingPong|THREAD_SAFETY_VIOLATION_2",
+    "line": 86,
+    "procedure": "pingpong.BuggedProgram.pingPong():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `BuggedProgram.pingPong()` writes to field `this.pingPongPlayer` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "1d87342fb5e46b262af988e0b46c6377"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAEAAAADwAAAA2gsABZAP+SMkJ1Z2dlZFByb2dyYW0uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.pingPongPlayer`",
+        "filename": "BuggedProgram.java",
+        "level": 0,
+        "line_number": 89
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "BuggedProgram.java",
+    "hash": "bef7eb81dd9db25938b6bc15467093c2",
+    "key": "BuggedProgram.java|pingPong|THREAD_SAFETY_VIOLATION_2",
+    "line": 89,
+    "procedure": "pingpong.BuggedProgram.pingPong():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `BuggedProgram.pingPong()` writes to field `this.pingPongPlayer` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "8bbcb23192d7a1440cfea01a4534fd73"
+  }
+]

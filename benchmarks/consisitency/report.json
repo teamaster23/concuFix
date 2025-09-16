@@ -1,0 +1,234 @@
+[
+  {
+    "access": "hJWmvgAAACEAAAAIAAAAGgAAABigsGEA/5IpTWFpbi5qYXZhoLBTAP+SKU1haW4uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.b`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 19
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.b`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 19
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "8611785a4121795d9e67337ecd219108",
+    "key": "Main.java|main|THREAD_SAFETY_VIOLATION_2",
+    "line": 33,
+    "procedure": "consisitency.Main.main(java.lang.String[]):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `consisitency.Main.b`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "748e2505ecb9280d2a66b930dd75327a",
+    "snapshot2": "849d6357bfc7b080e8d89501945582d5"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAIAAAAGgAAABigsGIA/5IpTWFpbi5qYXZhoLBTAP+SKU1haW4uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 34
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.b`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 34
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 19
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.b`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 19
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "8611785a4121795d9e67337ecd219108",
+    "key": "Main.java|main|THREAD_SAFETY_VIOLATION_2",
+    "line": 34,
+    "procedure": "consisitency.Main.main(java.lang.String[]):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `consisitency.Main.b`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "624381a88f18ec47ee04dd3eec1c0378",
+    "snapshot2": "849d6357bfc7b080e8d89501945582d5"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAIAAAAGgAAABigsGEA/5IpTWFpbi5qYXZhoLBSAP+SKU1haW4uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.a`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 33
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.a`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 18
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "f717080b1377e59a64d24cc59ca2c256",
+    "key": "Main.java|main|THREAD_SAFETY_VIOLATION_2",
+    "line": 33,
+    "procedure": "consisitency.Main.main(java.lang.String[]):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `consisitency.Main.a`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "b5468b3cd1a4877b29ef99391863b619",
+    "snapshot2": "0050a944b2b3c717e5ce640e86f03d48"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAIAAAAGgAAABigsGIA/5IpTWFpbi5qYXZhoLBSAP+SKU1haW4uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 34
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.a`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 34
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.a`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 18
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "f717080b1377e59a64d24cc59ca2c256",
+    "key": "Main.java|main|THREAD_SAFETY_VIOLATION_2",
+    "line": 34,
+    "procedure": "consisitency.Main.main(java.lang.String[]):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `consisitency.Main.a`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "fd23082ad57b1b5b49e325f9ad05f88f",
+    "snapshot2": "0050a944b2b3c717e5ce640e86f03d48"
+  },
+  {
+    "access": "hJWmvgAAABEAAAAEAAAADQAAAAygsFIA/5IpTWFpbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.a`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 18
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "69e7fb41b29034043b11ae526f0330ef",
+    "key": "Main.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 18,
+    "procedure": "consisitency.Main.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Main.run()` writes to field `consisitency.Main.a` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "0050a944b2b3c717e5ce640e86f03d48"
+  },
+  {
+    "access": "hJWmvgAAABEAAAAEAAAADQAAAAygsFMA/5IpTWFpbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `consisitency.Main.b`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 19
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "53acf387e913b70e0e29f5fe21c95c04",
+    "key": "Main.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 19,
+    "procedure": "consisitency.Main.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Main.run()` writes to field `consisitency.Main.b` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "849d6357bfc7b080e8d89501945582d5"
+  }
+]

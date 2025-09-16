@@ -1,0 +1,59 @@
+[2101][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror
+[2101][environment] No .inferconfig file found
+[2101][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror
+[2101][environment] INFER_ARGS =   @/tmp/args.tmp.e14147
+[2101][environment] command line arguments:   infer --racerdfix-only --starvation
+[2101][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[2101][environment]                           javac -cp
+[2101][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[2101][environment]                           BankAccount.java Customer.java Main.java
+[2101][environment] Available memory at startup: 109824 MB
+[2101][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[2101][environment] Scheduler: file
+[2101][environment] Cores used: 32
+[2101][environment] Infer version v1.0.0-fac81e50e
+[2101][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[2101][environment] 
+[2101][   progress] Capturing in javac mode...
+[2101][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror'
+[2101][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror/infer-out/tmp/javac_args.tmp.305efd' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror/infer-out/tmp/javac.tmp.681d0e.out'
+[2101][      debug] *** Success. Logs:
+[2101][      debug] Translating 3 source files (3 classes)
+[2101][      debug] Tenv.store: global tenv has size 14264 bytes.
+[2101][      debug] Tenv.store: canonicalized tenv has size 3504 bytes.
+[2101][      debug] done capturing all files
+[2101][environment] Parallel jobs: 32
+[2101][   progress] Found 3 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/atmoerror/infer-out
+[2173][   progress] BankAccount.java starting
+[2174][   progress] Main.java starting
+[2172][   progress] Customer.java starting
+[2173][   progress] BankAccount.java DONE
+[2174][   progress] Main.java DONE
+[2172][   progress] Customer.java DONE
+[2101][      debug] Analysis phase finished in 242ms
+[2101][      debug] Collected stats:
+[2101][      debug] Backend stats:
+[2101][      debug]   summary_file_try_load= 82
+[2101][      debug]   summary_read_from_disk= 4
+[2101][      debug]   summary_cache_hits= 155 (65%)
+[2101][      debug]   summary_cache_misses= 82
+[2101][      debug]   ondemand_procs_analyzed= 10
+[2101][      debug]   ondemand_local_cache_hits= 52 (65%)
+[2101][      debug]   ondemand_local_cache_misses= 28
+[2101][      debug]   proc_locker_lock_time_user= 0.00000000
+[2101][      debug]   proc_locker_lock_time_sys= 0.00000000
+[2101][      debug]   proc_locker_lock_time_wall= 0.00000000
+[2101][      debug]   proc_locker_unlock_time_user= 0.00000000
+[2101][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[2101][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[2101][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[2101][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[2101][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[2101][      debug]   restart_scheduler_total_time_user= 0.00000000
+[2101][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[2101][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[2101][      debug]   scheduler_process_analysis_time_user= 0.03478600
+[2101][      debug]   scheduler_process_analysis_time_sys= 0.03100700
+[2101][      debug]   scheduler_process_analysis_time_wall= 0.24160723
+[2101][      debug]   
+[2101][      debug] 

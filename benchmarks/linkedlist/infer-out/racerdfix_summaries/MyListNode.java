@@ -1,0 +1,1 @@
+[{"file":"MyListNode.java","procedure":"linkedlist.MyListNode.<init>(java.lang.Object)","accesses":[]},{"file":"MyListNode.java","procedure":"linkedlist.MyListNode.<init>(java.lang.Object,linkedlist.MyListNode)","accesses":[]}]

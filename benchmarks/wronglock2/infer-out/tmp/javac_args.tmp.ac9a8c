@@ -1,0 +1,7 @@
+'-verbose'
+'-g'
+'-d'
+'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/wronglock2'
+'-cp'
+'/usr/local/hippodromeDockerFiles-main/annotation.jar'
+'Main.java'

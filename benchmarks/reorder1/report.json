@@ -1,0 +1,142 @@
+[
+  {
+    "access": "hJWmvgAAACkAAAAIAAAAHAAAABigsFQA/5ItU2V0Q2hlY2suamF2YaCwUAD/ki1TZXRDaGVjay5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.b`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.b`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 16
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "SetCheck.java",
+    "hash": "352c04a1c92e41585c6ee68a557446a1",
+    "key": "SetCheck.java|check|THREAD_SAFETY_VIOLATION_2",
+    "line": 20,
+    "procedure": "reorder1.SetCheck.check():boolean",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `SetCheck.check()` reads without synchronization from `this.b`. Potentially races with write in method `SetCheck.set()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "41cd8bad5543a1b8a725975c882a5f73",
+    "snapshot2": "e9042ff23754d999e57706200188018c"
+  },
+  {
+    "access": "hJWmvgAAACkAAAAIAAAAHAAAABigsFQA/5ItU2V0Q2hlY2suamF2YaCwTwD/ki1TZXRDaGVjay5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.a`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.a`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "SetCheck.java",
+    "hash": "a2107b4484cc3b9c0a3f4321fe3703c9",
+    "key": "SetCheck.java|check|THREAD_SAFETY_VIOLATION_2",
+    "line": 20,
+    "procedure": "reorder1.SetCheck.check():boolean",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `SetCheck.check()` reads without synchronization from `this.a`. Potentially races with write in method `SetCheck.set()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "5fc2d11e086a3f22c2260fcad4246dc2",
+    "snapshot2": "9b71ec0a98629232700fd34a32073992"
+  },
+  {
+    "access": "hJWmvgAAABUAAAAEAAAADgAAAAygsFAA/5ItU2V0Q2hlY2suamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.b`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 16
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "SetCheck.java",
+    "hash": "7c0e5459883eca05a097ddd519524c82",
+    "key": "SetCheck.java|set|THREAD_SAFETY_VIOLATION_2",
+    "line": 16,
+    "procedure": "reorder1.SetCheck.set():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `SetCheck.set()` writes to field `this.b` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "e9042ff23754d999e57706200188018c"
+  },
+  {
+    "access": "hJWmvgAAABUAAAAEAAAADgAAAAygsE8A/5ItU2V0Q2hlY2suamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.a`",
+        "filename": "SetCheck.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "SetCheck.java",
+    "hash": "46730f4743bab742dbde5644467855e9",
+    "key": "SetCheck.java|set|THREAD_SAFETY_VIOLATION_2",
+    "line": 15,
+    "procedure": "reorder1.SetCheck.set():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `SetCheck.set()` writes to field `this.a` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "9b71ec0a98629232700fd34a32073992"
+  }
+]

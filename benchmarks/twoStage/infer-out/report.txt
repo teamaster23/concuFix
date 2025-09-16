@@ -1,0 +1,13 @@
+#0
+TwoStage.java:13: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `TwoStage.A()` reads with synchronization from `this.data1.value`. Potentially races with unsynchronized write in method `TwoStage.A()`.
+ Reporting because this access may occur on a background thread.
+  11.          }
+  12.          synchronized (data2) {   		
+  13. >            data2.value=data1.value+1;
+  14.          }
+  15.       }
+
+Found 1 issue
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 1

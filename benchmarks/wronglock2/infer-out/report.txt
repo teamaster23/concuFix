@@ -1,0 +1,33 @@
+#0
+Main.java:22: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `wronglock2.Main.s`. Potentially races with write in method `Main.run()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  20.   
+  21.   
+  22. >         if (s.getCount() != THREADS) {
+  23.               throw new Exception("bug found.");
+  24.           }
+
+#1
+Main.java:30: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Main.run()` writes to field `wronglock2.Main.s` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  28.       public void run() {
+  29.   
+  30. >         s = new Struct(s.getNumber() * 2, s.getCount() + 1);
+  31.   
+  32.       }
+
+#2
+Main.java:30: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Main.run()` reads without synchronization from `wronglock2.Main.s`. Potentially races with write in method `Main.run()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  28.       public void run() {
+  29.   
+  30. >         s = new Struct(s.getNumber() * 2, s.getCount() + 1);
+  31.   
+  32.       }
+
+Found 3 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 3

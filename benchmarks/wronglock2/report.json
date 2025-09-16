@@ -1,0 +1,118 @@
+[
+  {
+    "access": "hJWmvgAAACEAAAAIAAAAGgAAABigsFYA/5IpTWFpbi5qYXZhoLBeAP+SKU1haW4uamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "access to `wronglock2.Main.s`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `wronglock2.Main.s`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "7b434d37f87a0755ccef061c709c8224",
+    "key": "Main.java|main|THREAD_SAFETY_VIOLATION_2",
+    "line": 22,
+    "procedure": "wronglock2.Main.main(java.lang.String[]):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.main(...)` reads without synchronization from `wronglock2.Main.s`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "0aea462c2d0f62636a3e3d08fafb19b0",
+    "snapshot2": "6bcad479c086d86d8394e92a702a8a74"
+  },
+  {
+    "access": "hJWmvgAAABEAAAAEAAAADQAAAAygsF4A/5IpTWFpbi5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `wronglock2.Main.s`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "122993afed2e859c80deedd5ffe0df88",
+    "key": "Main.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 30,
+    "procedure": "wronglock2.Main.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Main.run()` writes to field `wronglock2.Main.s` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "6bcad479c086d86d8394e92a702a8a74"
+  },
+  {
+    "access": "hJWmvgAAABgAAAAGAAAAFAAAABOgsF4A/5IpTWFpbi5qYXZhoLBeAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `wronglock2.Main.s`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `wronglock2.Main.s`",
+        "filename": "Main.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Main.java",
+    "hash": "e97eb7baabc47bf079aa1c3eff39fb30",
+    "key": "Main.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 30,
+    "procedure": "wronglock2.Main.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Main.run()` reads without synchronization from `wronglock2.Main.s`. Potentially races with write in method `Main.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "d72d3ea868f392b07c3936e1ee56fdc0",
+    "snapshot2": "6bcad479c086d86d8394e92a702a8a74"
+  }
+]

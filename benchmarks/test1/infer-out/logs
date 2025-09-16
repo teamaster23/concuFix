@@ -1,0 +1,55 @@
+[3775157][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1
+[3775157][environment] No .inferconfig file found
+[3775157][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1
+[3775157][environment] INFER_ARGS =   @/tmp/args.tmp.57921b
+[3775157][environment] command line arguments:   infer --racerdfix-only --starvation
+[3775157][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3775157][environment]                           javac -cp
+[3775157][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3775157][environment]                           D.java
+[3775157][environment] Available memory at startup: 163911 MB
+[3775157][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3775157][environment] Scheduler: file
+[3775157][environment] Cores used: 32
+[3775157][environment] Infer version v1.0.0-fac81e50e
+[3775157][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3775157][environment] 
+[3775157][   progress] Capturing in javac mode...
+[3775157][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1'
+[3775157][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1/infer-out/tmp/javac_args.tmp.68c908' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1/infer-out/tmp/javac.tmp.2cb049.out'
+[3775157][      debug] *** Success. Logs:
+[3775157][      debug] Translating 1 source files (3 classes)
+[3775157][      debug] Tenv.store: global tenv has size 14328 bytes.
+[3775157][      debug] Tenv.store: canonicalized tenv has size 3240 bytes.
+[3775157][      debug] done capturing all files
+[3775157][environment] Parallel jobs: 32
+[3775157][   progress] Found 1 source file to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test1/infer-out
+[3775226][   progress] D.java starting
+[3775226][   progress] D.java DONE
+[3775157][      debug] Analysis phase finished in 193ms
+[3775157][      debug] Collected stats:
+[3775157][      debug] Backend stats:
+[3775157][      debug]   summary_file_try_load= 56
+[3775157][      debug]   summary_read_from_disk= 0
+[3775157][      debug]   summary_cache_hits= 130 (69%)
+[3775157][      debug]   summary_cache_misses= 56
+[3775157][      debug]   ondemand_procs_analyzed= 9
+[3775157][      debug]   ondemand_local_cache_hits= 49 (71%)
+[3775157][      debug]   ondemand_local_cache_misses= 20
+[3775157][      debug]   proc_locker_lock_time_user= 0.00000000
+[3775157][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3775157][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3775157][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3775157][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3775157][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3775157][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3775157][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3775157][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3775157][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3775157][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3775157][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3775157][      debug]   scheduler_process_analysis_time_user= 0.02388100
+[3775157][      debug]   scheduler_process_analysis_time_sys= 0.03574700
+[3775157][      debug]   scheduler_process_analysis_time_wall= 0.19277005
+[3775157][      debug]   
+[3775157][      debug] 

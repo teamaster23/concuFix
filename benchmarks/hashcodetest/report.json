@@ -1,0 +1,536 @@
+[
+  {
+    "access": "hJWmvgAAABcAAAAEAAAADgAAAAygsAEA1QD/ki1JbnRSYW5nZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.maxObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 213
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "8b21e3c361ca620b69824a9dd6bdbd8c",
+    "key": "IntRange.java|getMaximumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 213,
+    "procedure": "hashcodetest.IntRange.getMaximumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `IntRange.getMaximumNumber()` writes to field `this.maxObject` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "62df9ffa2126bb47956da9a48ac5d963"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEA1AD/ki1JbnRSYW5nZS5qYXZhoLABANUA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 212
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.maxObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 212
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 213
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.maxObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 213
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "433115e0de6dec7f318385e3bf6fe7ba",
+    "key": "IntRange.java|getMaximumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 212,
+    "procedure": "hashcodetest.IntRange.getMaximumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.getMaximumNumber()` reads without synchronization from `this.maxObject`. Potentially races with write in method `IntRange.getMaximumNumber()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "5ba248ce2b9b09789affdda560ea2518",
+    "snapshot2": "62df9ffa2126bb47956da9a48ac5d963"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEA1wD/ki1JbnRSYW5nZS5qYXZhoLABANUA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 215
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.maxObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 215
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 213
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.maxObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 213
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "433115e0de6dec7f318385e3bf6fe7ba",
+    "key": "IntRange.java|getMaximumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 215,
+    "procedure": "hashcodetest.IntRange.getMaximumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.getMaximumNumber()` reads without synchronization from `this.maxObject`. Potentially races with write in method `IntRange.getMaximumNumber()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "a0b8a97521112adef334e8dba4ea01c9",
+    "snapshot2": "62df9ffa2126bb47956da9a48ac5d963"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEApAD/ki1JbnRSYW5nZS5qYXZhoLABAKUA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 164
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.minObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 164
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 165
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.minObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 165
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "cb74eec1298c9e895aa2c5e4b14c5ee5",
+    "key": "IntRange.java|getMinimumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 164,
+    "procedure": "hashcodetest.IntRange.getMinimumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.getMinimumNumber()` reads without synchronization from `this.minObject`. Potentially races with write in method `IntRange.getMinimumNumber()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "45d6a684d502af273e5476302f22168e",
+    "snapshot2": "f0b692ee7a3d264865ee9cedbba77942"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEApwD/ki1JbnRSYW5nZS5qYXZhoLABAKUA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 167
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.minObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 167
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 165
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.minObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 165
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "cb74eec1298c9e895aa2c5e4b14c5ee5",
+    "key": "IntRange.java|getMinimumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 167,
+    "procedure": "hashcodetest.IntRange.getMinimumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.getMinimumNumber()` reads without synchronization from `this.minObject`. Potentially races with write in method `IntRange.getMinimumNumber()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "8e1f15f74d312f13156d91381dcaef44",
+    "snapshot2": "f0b692ee7a3d264865ee9cedbba77942"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAEAAAADgAAAAygsAEApQD/ki1JbnRSYW5nZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.minObject`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 165
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "121c5da78b732e1fab92b68f00fc872f",
+    "key": "IntRange.java|getMinimumNumber|THREAD_SAFETY_VIOLATION_2",
+    "line": 165,
+    "procedure": "hashcodetest.IntRange.getMinimumNumber():java.lang.Number",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `IntRange.getMinimumNumber()` writes to field `this.minObject` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "f0b692ee7a3d264865ee9cedbba77942"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEBYwD/ki1JbnRSYW5nZS5qYXZhoLABAWQA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 355
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 355
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "1cf85c4a49a6939c0338b612bcbb6c2f",
+    "key": "IntRange.java|hashCode|THREAD_SAFETY_VIOLATION_2",
+    "line": 355,
+    "procedure": "hashcodetest.IntRange.hashCode():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.hashCode()` reads without synchronization from `this.hashCode`. Potentially races with write in method `IntRange.hashCode()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "2a1ff2b6052e582ec60ae90d0236903d",
+    "snapshot2": "4ec864a77b88ba8063aa76d22053f266"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEBZQD/ki1JbnRSYW5nZS5qYXZhoLABAWQA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 357
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 357
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "1cf85c4a49a6939c0338b612bcbb6c2f",
+    "key": "IntRange.java|hashCode|THREAD_SAFETY_VIOLATION_2",
+    "line": 357,
+    "procedure": "hashcodetest.IntRange.hashCode():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.hashCode()` reads without synchronization from `this.hashCode`. Potentially races with write in method `IntRange.hashCode()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "5ae853654f73a1977d12ab6efb679993",
+    "snapshot2": "4ec864a77b88ba8063aa76d22053f266"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEBaQD/ki1JbnRSYW5nZS5qYXZhoLABAWQA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 361
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 361
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "1cf85c4a49a6939c0338b612bcbb6c2f",
+    "key": "IntRange.java|hashCode|THREAD_SAFETY_VIOLATION_2",
+    "line": 361,
+    "procedure": "hashcodetest.IntRange.hashCode():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.hashCode()` reads without synchronization from `this.hashCode`. Potentially races with write in method `IntRange.hashCode()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "cbe45d8836528dc69f3db263a7044c39",
+    "snapshot2": "4ec864a77b88ba8063aa76d22053f266"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAEAAAADgAAAAygsAEBZAD/ki1JbnRSYW5nZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 356
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "961b848eb808f426374a449c4a3a2cd3",
+    "key": "IntRange.java|hashCode|THREAD_SAFETY_VIOLATION_2",
+    "line": 356,
+    "procedure": "hashcodetest.IntRange.hashCode():int",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `IntRange.hashCode()` writes to field `this.hashCode` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "4ec864a77b88ba8063aa76d22053f266"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAEAAAADgAAAAygsAEBZQD/ki1JbnRSYW5nZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.hashCode`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 357
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "961b848eb808f426374a449c4a3a2cd3",
+    "key": "IntRange.java|hashCode|THREAD_SAFETY_VIOLATION_2",
+    "line": 357,
+    "procedure": "hashcodetest.IntRange.hashCode():int",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `IntRange.hashCode()` writes to field `this.hashCode` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "3bd2cad2cd39c0264f10b476b4d76ab9"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEBdAD/ki1JbnRSYW5nZS5qYXZhoLABAXsA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 372
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.toString`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 372
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 379
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.toString`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 379
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "9164fd6c042f45fce032118299ac10d5",
+    "key": "IntRange.java|toString|THREAD_SAFETY_VIOLATION_2",
+    "line": 372,
+    "procedure": "hashcodetest.IntRange.toString():java.lang.String",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.toString()` reads without synchronization from `this.toString`. Potentially races with write in method `IntRange.toString()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "2e08eb152ce02f7a1b22731abd84b23d",
+    "snapshot2": "abb31acaf61085072ea9c018a59cda7c"
+  },
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFQAAABOgsAEBfQD/ki1JbnRSYW5nZS5qYXZhoLABAXsA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 381
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.toString`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 381
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 379
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.toString`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 379
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "9164fd6c042f45fce032118299ac10d5",
+    "key": "IntRange.java|toString|THREAD_SAFETY_VIOLATION_2",
+    "line": 381,
+    "procedure": "hashcodetest.IntRange.toString():java.lang.String",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `IntRange.toString()` reads without synchronization from `this.toString`. Potentially races with write in method `IntRange.toString()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "f35fed4cefd38e005b998b46976ce029",
+    "snapshot2": "abb31acaf61085072ea9c018a59cda7c"
+  },
+  {
+    "access": "hJWmvgAAABcAAAAEAAAADgAAAAygsAEBewD/ki1JbnRSYW5nZS5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.toString`",
+        "filename": "IntRange.java",
+        "level": 0,
+        "line_number": 379
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "IntRange.java",
+    "hash": "6a68b4cde14c5e41af6dfa78912d695d",
+    "key": "IntRange.java|toString|THREAD_SAFETY_VIOLATION_2",
+    "line": 379,
+    "procedure": "hashcodetest.IntRange.toString():java.lang.String",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `IntRange.toString()` writes to field `this.toString` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "abb31acaf61085072ea9c018a59cda7c"
+  }
+]

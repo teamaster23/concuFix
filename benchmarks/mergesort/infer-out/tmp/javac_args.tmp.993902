@@ -1,0 +1,8 @@
+'-verbose'
+'-g'
+'-d'
+'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort'
+'-cp'
+'/usr/local/hippodromeDockerFiles-main/annotation.jar'
+'MergeSort.java'
+'MSort.java'

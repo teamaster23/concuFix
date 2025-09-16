@@ -1,0 +1,62 @@
+[3773916][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1
+[3773916][environment] No .inferconfig file found
+[3773916][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1
+[3773916][environment] INFER_ARGS =   @/tmp/args.tmp.640590
+[3773916][environment] command line arguments:   infer --racerdfix-only --starvation
+[3773916][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3773916][environment]                           javac -cp
+[3773916][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3773916][environment]                           CheckThread.java ReorderTest.java SetCheck.java
+[3773916][environment]                           SetThread.java
+[3773916][environment] Available memory at startup: 163123 MB
+[3773916][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3773916][environment] Scheduler: file
+[3773916][environment] Cores used: 32
+[3773916][environment] Infer version v1.0.0-fac81e50e
+[3773916][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3773916][environment] 
+[3773916][   progress] Capturing in javac mode...
+[3773916][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1'
+[3773916][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1/infer-out/tmp/javac_args.tmp.3c23d2' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1/infer-out/tmp/javac.tmp.5dad61.out'
+[3773916][      debug] *** Success. Logs:
+[3773916][      debug] Translating 4 source files (4 classes)
+[3773916][      debug] Tenv.store: global tenv has size 15480 bytes.
+[3773916][      debug] Tenv.store: canonicalized tenv has size 3928 bytes.
+[3773916][      debug] done capturing all files
+[3773916][environment] Parallel jobs: 32
+[3773916][   progress] Found 4 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/reorder1/infer-out
+[3773987][   progress] SetThread.java starting
+[3773988][   progress] CheckThread.java starting
+[3773986][   progress] SetCheck.java starting
+[3773985][   progress] ReorderTest.java starting
+[3773986][   progress] SetCheck.java DONE
+[3773987][   progress] SetThread.java DONE
+[3773988][   progress] CheckThread.java DONE
+[3773985][   progress] ReorderTest.java DONE
+[3773916][      debug] Analysis phase finished in 187ms
+[3773916][      debug] Collected stats:
+[3773916][      debug] Backend stats:
+[3773916][      debug]   summary_file_try_load= 96
+[3773916][      debug]   summary_read_from_disk= 4
+[3773916][      debug]   summary_cache_hits= 178 (64%)
+[3773916][      debug]   summary_cache_misses= 96
+[3773916][      debug]   ondemand_procs_analyzed= 13
+[3773916][      debug]   ondemand_local_cache_hits= 62 (63%)
+[3773916][      debug]   ondemand_local_cache_misses= 36
+[3773916][      debug]   proc_locker_lock_time_user= 0.00000000
+[3773916][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3773916][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3773916][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3773916][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3773916][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3773916][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3773916][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3773916][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3773916][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3773916][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3773916][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3773916][      debug]   scheduler_process_analysis_time_user= 0.03507600
+[3773916][      debug]   scheduler_process_analysis_time_sys= 0.02767700
+[3773916][      debug]   scheduler_process_analysis_time_wall= 0.18682218
+[3773916][      debug]   
+[3773916][      debug] 

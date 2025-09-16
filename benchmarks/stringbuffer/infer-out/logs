@@ -1,0 +1,57 @@
+[3774650][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer
+[3774650][environment] No .inferconfig file found
+[3774650][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer
+[3774650][environment] INFER_ARGS =   @/tmp/args.tmp.2eaf0c
+[3774650][environment] command line arguments:   infer --racerdfix-only --starvation
+[3774650][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3774650][environment]                           javac -cp
+[3774650][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3774650][environment]                           StringBuffer.java StringBufferTest.java
+[3774650][environment] Available memory at startup: 163414 MB
+[3774650][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3774650][environment] Scheduler: file
+[3774650][environment] Cores used: 32
+[3774650][environment] Infer version v1.0.0-fac81e50e
+[3774650][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3774650][environment] 
+[3774650][   progress] Capturing in javac mode...
+[3774650][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer'
+[3774650][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer/infer-out/tmp/javac_args.tmp.6b7f54' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer/infer-out/tmp/javac.tmp.93f5e3.out'
+[3774650][      debug] *** Success. Logs:
+[3774650][      debug] Translating 2 source files (2 classes)
+[3774650][      debug] Tenv.store: global tenv has size 29104 bytes.
+[3774650][      debug] Tenv.store: canonicalized tenv has size 8440 bytes.
+[3774650][      debug] done capturing all files
+[3774650][environment] Parallel jobs: 32
+[3774650][   progress] Found 2 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer/infer-out
+[3774744][   progress] StringBufferTest.java starting
+[3774745][   progress] StringBuffer.java starting
+[3774744][   progress] StringBufferTest.java DONE
+[3774745][   progress] StringBuffer.java DONE
+[3774650][      debug] Analysis phase finished in 311ms
+[3774650][      debug] Collected stats:
+[3774650][      debug] Backend stats:
+[3774650][      debug]   summary_file_try_load= 387
+[3774650][      debug]   summary_read_from_disk= 7
+[3774650][      debug]   summary_cache_hits= 850 (68%)
+[3774650][      debug]   summary_cache_misses= 387
+[3774650][      debug]   ondemand_procs_analyzed= 48
+[3774650][      debug]   ondemand_local_cache_hits= 1777 (95%)
+[3774650][      debug]   ondemand_local_cache_misses= 91
+[3774650][      debug]   proc_locker_lock_time_user= 0.00000000
+[3774650][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3774650][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3774650][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3774650][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3774650][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3774650][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3774650][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3774650][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3774650][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3774650][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3774650][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3774650][      debug]   scheduler_process_analysis_time_user= 0.02977700
+[3774650][      debug]   scheduler_process_analysis_time_sys= 0.04655700
+[3774650][      debug]   scheduler_process_analysis_time_wall= 0.31137434
+[3774650][      debug]   
+[3774650][      debug] 

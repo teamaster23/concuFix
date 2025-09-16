@@ -1,0 +1,349 @@
+[
+  {
+    "access": "hJWmvgAAABoAAAAEAAAADwAAAA2gsFQA/5IyRXZlbkdlbmVyYXRvci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.cancled`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 20
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "3195b8513cc12cbf2113c28743da1828",
+    "key": "EvenGenerator.java|cancle|THREAD_SAFETY_VIOLATION_2",
+    "line": 20,
+    "procedure": "even.EvenGenerator.cancle():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `EvenGenerator.cancle()` writes to field `this.cancled` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "7950ecb5591246e561fef981175ec1cc"
+  },
+  {
+    "access": "hJWmvgAAADMAAAAIAAAAHgAAABqgsFAA/5IyRXZlbkdlbmVyYXRvci5qYXZhoLBUAP+SMkV2ZW5HZW5lcmF0b3IuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cancled`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cancled`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 20
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "662d5a49d68559717cf9b15826d0f9ac",
+    "key": "EvenGenerator.java|isCancled|THREAD_SAFETY_VIOLATION_2",
+    "line": 16,
+    "procedure": "even.EvenGenerator.isCancled():boolean",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `EvenGenerator.isCancled()` reads without synchronization from `this.cancled`. Potentially races with write in method `EvenGenerator.cancle()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "c286d021d7e9bfa73286c9f5b44aaa4e",
+    "snapshot2": "7950ecb5591246e561fef981175ec1cc"
+  },
+  {
+    "access": "hJWmvgAAAB0AAAAFAAAAEgAAABCgsEoA/5IyRXZlbkdlbmVyYXRvci5qYXZhoAQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "1930cd812652b8d9b9a05f337eca1e91",
+    "key": "EvenGenerator.java|next|THREAD_SAFETY_VIOLATION_2",
+    "line": 10,
+    "procedure": "even.EvenGenerator.next():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `EvenGenerator.next()` reads without synchronization from `this.currentValue`. Potentially races with write in method `EvenGenerator.next()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "68b3073ab3d9da62afbb64cf971c07ae",
+    "snapshot2": "966987a3867d96acffb8d242061478ff"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAGAAAAFgAAABSgsEsA/5IyRXZlbkdlbmVyYXRvci5qYXZhoLBKAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 11
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 11
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "1930cd812652b8d9b9a05f337eca1e91",
+    "key": "EvenGenerator.java|next|THREAD_SAFETY_VIOLATION_2",
+    "line": 11,
+    "procedure": "even.EvenGenerator.next():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `EvenGenerator.next()` reads without synchronization from `this.currentValue`. Potentially races with write in method `EvenGenerator.next()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "e32aa34ac30fe01e0c00b707ab583752",
+    "snapshot2": "966987a3867d96acffb8d242061478ff"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAGAAAAFgAAABSgsEwA/5IyRXZlbkdlbmVyYXRvci5qYXZhoLBKAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 12
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 12
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "1930cd812652b8d9b9a05f337eca1e91",
+    "key": "EvenGenerator.java|next|THREAD_SAFETY_VIOLATION_2",
+    "line": 12,
+    "procedure": "even.EvenGenerator.next():int",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `EvenGenerator.next()` reads without synchronization from `this.currentValue`. Potentially races with write in method `EvenGenerator.next()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "efd1b7e224085178cfea92c97a5af717",
+    "snapshot2": "966987a3867d96acffb8d242061478ff"
+  },
+  {
+    "access": "hJWmvgAAABoAAAAEAAAADwAAAA2gsEoA/5IyRXZlbkdlbmVyYXRvci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "f44d82bd6a008964ce39b74e61122e89",
+    "key": "EvenGenerator.java|next|THREAD_SAFETY_VIOLATION_2",
+    "line": 10,
+    "procedure": "even.EvenGenerator.next():int",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `EvenGenerator.next()` writes to field `this.currentValue` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "966987a3867d96acffb8d242061478ff"
+  },
+  {
+    "access": "hJWmvgAAABoAAAAEAAAADwAAAA2gsEsA/5IyRXZlbkdlbmVyYXRvci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 0,
+        "line_number": 11
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenGenerator.java",
+    "hash": "f44d82bd6a008964ce39b74e61122e89",
+    "key": "EvenGenerator.java|next|THREAD_SAFETY_VIOLATION_2",
+    "line": 11,
+    "procedure": "even.EvenGenerator.next():int",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `EvenGenerator.next()` writes to field `this.currentValue` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "29b3d42c2ea116ea78f14962d07b1371"
+  },
+  {
+    "access": "hJWmvgAAABoAAAAEAAAADwAAAA2gsEoA/5IyRXZlbkdlbmVyYXRvci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "call to int EvenGenerator.next()",
+        "filename": "EvenChecker.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.generator.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 1,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenChecker.java",
+    "hash": "0a18b55f71c0b2a4467605489eba432c",
+    "key": "EvenChecker.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 18,
+    "procedure": "even.EvenChecker.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `EvenChecker.run()` indirectly writes to field `this.generator.currentValue` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "966987a3867d96acffb8d242061478ff"
+  },
+  {
+    "access": "hJWmvgAAACEAAAAGAAAAFgAAABSgsEwA/5IyRXZlbkdlbmVyYXRvci5qYXZhoLBKAP8EBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "EvenChecker.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "call to int EvenGenerator.next()",
+        "filename": "EvenChecker.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.generator.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 1,
+        "line_number": 12
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "EvenChecker.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "call to int EvenGenerator.next()",
+        "filename": "EvenChecker.java",
+        "level": 0,
+        "line_number": 18
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.generator.currentValue`",
+        "filename": "EvenGenerator.java",
+        "level": 1,
+        "line_number": 10
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "EvenChecker.java",
+    "hash": "11c9518ecac398f88017b3b304748a4b",
+    "key": "EvenChecker.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 18,
+    "procedure": "even.EvenChecker.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `EvenChecker.run()` indirectly reads without synchronization from `this.generator.currentValue`. Potentially races with write in method `EvenChecker.run()`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "efd1b7e224085178cfea92c97a5af717",
+    "snapshot2": "966987a3867d96acffb8d242061478ff"
+  }
+]

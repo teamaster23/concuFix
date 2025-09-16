@@ -1,0 +1,43 @@
+#0
+D.java:7: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `D.m1()` writes to field `this.x` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  5.       int x = 0;
+  6.       void m1() {
+  7. >         x++;
+  8.       }
+  9.       void m2() {
+
+#1
+D.java:7: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `D.m1()` reads without synchronization from `this.x`. Potentially races with write in method `D.m2()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  5.       int x = 0;
+  6.       void m1() {
+  7. >         x++;
+  8.       }
+  9.       void m2() {
+
+#2
+D.java:10: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `D.m2()` writes to field `this.x` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+   8.       }
+   9.       void m2() {
+  10. >         x *= 2;
+  11.       }
+  12.       void test() throws Exception{
+
+#3
+D.java:10: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `D.m2()` reads without synchronization from `this.x`. Potentially races with write in method `D.m2()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+   8.       }
+   9.       void m2() {
+  10. >         x *= 2;
+  11.       }
+  12.       void test() throws Exception{
+
+Found 4 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 4

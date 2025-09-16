@@ -1,0 +1,43 @@
+#0
+MSort.java:54: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `MSort.AvailableThreadsState()` reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.
+ Reporting because this access may occur on a background thread.
+  52.       public static synchronized int AvailableThreadsState()//0 - No threads,1 - 1 thread available,2 - 2 threads avilable
+  53.       {
+  54. >         int availableThreads = m_iThreadLimit - m_iCurrentThreadsAlive;
+  55.           if ((availableThreads) == 0) {
+  56.               return 0;
+
+#1
+MSort.java:97: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `MSort.ResetThreadCounter()` writes to field `mergesort.MSort.m_iCurrentThreadsAlive` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  95.       //Reset currently available threads number to 1,should be done in main,before starting of sorting
+  96.       public void ResetThreadCounter() {
+  97. >         m_iCurrentThreadsAlive = 1;
+  98.       }
+  99.   
+
+#2
+MSort.java:219: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `MSort.Sorting()` indirectly reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  217.   
+  218.   
+  219. >         int iMultiThreadedSons = AvailableThreadsState();//Get available threads state
+  220.   
+  221.   
+
+#3
+MSort.java:201: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `MSort.run()` indirectly reads with synchronization from `mergesort.MSort.m_iCurrentThreadsAlive`. Potentially races with unsynchronized write in method `MSort.Sorting()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  199.       public void run()//Implements .start() methode of the class
+  200.       {
+  201. >         Sorting(); //Invoke sorting methode
+  202.   
+  203.       }
+
+Found 4 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 4

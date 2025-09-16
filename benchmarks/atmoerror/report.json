@@ -1,0 +1,458 @@
+[
+  {
+    "access": "hJWmvgAAABUAAAAEAAAADgAAAAygsE8A/5ItQ3VzdG9tZXIuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "7cfba2ef22f279f9f441bfb8c5a4bda0",
+    "key": "Customer.java|cost|THREAD_SAFETY_VIOLATION_2",
+    "line": 15,
+    "procedure": "atmoerror.Customer.cost(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Customer.cost(...)` writes to field `this.cash` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "e6aed906763adcf380a68def212e8b13"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAFAAAAEgAAABCgsEcA/5IwQmFua0FjY291bnQuamF2YaAEBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "aebdf6e7750b97c1bcc32efe292b0e28",
+    "key": "Customer.java|cost|THREAD_SAFETY_VIOLATION_2",
+    "line": 16,
+    "procedure": "atmoerror.Customer.cost(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.cost(...)` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "82d525b71f0dd47acffbc4214cb43ecb",
+    "snapshot2": "f0135d120143cece92588473453524c5"
+  },
+  {
+    "access": "hJWmvgAAABgAAAAFAAAAEQAAAA+gsE8A/5ItQ3VzdG9tZXIuamF2YaAEBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "71eb2fbf5042b6d7594e820679a88574",
+    "key": "Customer.java|cost|THREAD_SAFETY_VIOLATION_2",
+    "line": 15,
+    "procedure": "atmoerror.Customer.cost(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.cost(...)` reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "60f69b807a14838b2fbf584f5d498ff4",
+    "snapshot2": "e6aed906763adcf380a68def212e8b13"
+  },
+  {
+    "access": "hJWmvgAAABgAAAAEAAAADwAAAA2gsEcA/5IwQmFua0FjY291bnQuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "37205e52221708426689f19dcb60fd11",
+    "key": "Customer.java|cost|THREAD_SAFETY_VIOLATION_2",
+    "line": 16,
+    "procedure": "atmoerror.Customer.cost(int):void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Customer.cost(...)` indirectly writes to field `this.account.total` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "f0135d120143cece92588473453524c5"
+  },
+  {
+    "access": "hJWmvgAAABgAAAAFAAAAEQAAAA+gsE8A/5ItQ3VzdG9tZXIuamF2YaAEBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "call to void Customer.cost(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 1,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "08e6e99e6e889baf42fcc4a323c03b0f",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 23,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "60f69b807a14838b2fbf584f5d498ff4",
+    "snapshot2": "e6aed906763adcf380a68def212e8b13"
+  },
+  {
+    "access": "hJWmvgAAABsAAAAFAAAAEgAAABCgsEcA/5IwQmFua0FjY291bnQuamF2YaAEBEA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "call to void Customer.cost(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 1,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 2,
+        "line_number": 7
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "cb2f08b09ea5c06a7244572dd3c45149",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 23,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "82d525b71f0dd47acffbc4214cb43ecb",
+    "snapshot2": "f0135d120143cece92588473453524c5"
+  },
+  {
+    "access": "hJWmvgAAAC8AAAAIAAAAHgAAABqgsEsA/5IwQmFua0FjY291bnQuamF2YaCwRwD/kjBCYW5rQWNjb3VudC5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 26
+      },
+      {
+        "column_number": -1,
+        "description": "call to int BankAccount.getTotal()",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 26
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 11
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 1,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "cb2f08b09ea5c06a7244572dd3c45149",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 26,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "3d05f9a21d44572125ede7dc52e1ecda",
+    "snapshot2": "f0135d120143cece92588473453524c5"
+  },
+  {
+    "access": "hJWmvgAAACkAAAAIAAAAHAAAABigsFYA/5ItQ3VzdG9tZXIuamF2YaCwTwD/ki1DdXN0b21lci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 22
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "d80b2abfa608efb899c03001f853979d",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 22,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `Customer.run()` reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "3ca4a2ae6742511bf57621d5390ed41d",
+    "snapshot2": "e6aed906763adcf380a68def212e8b13"
+  },
+  {
+    "access": "hJWmvgAAABgAAAAEAAAADwAAAA2gsEcA/5IwQmFua0FjY291bnQuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "call to void Customer.cost(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "call to void BankAccount.add(int)",
+        "filename": "Customer.java",
+        "level": 1,
+        "line_number": 16
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.account.total`",
+        "filename": "BankAccount.java",
+        "level": 2,
+        "line_number": 7
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "74a4cb27f155270871d950eb9d96968d",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 23,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Customer.run()` indirectly writes to field `this.account.total` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "f0135d120143cece92588473453524c5"
+  },
+  {
+    "access": "hJWmvgAAABUAAAAEAAAADgAAAAygsE8A/5ItQ3VzdG9tZXIuamF2YUA=",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "call to void Customer.cost(int)",
+        "filename": "Customer.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.cash`",
+        "filename": "Customer.java",
+        "level": 1,
+        "line_number": 15
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "Customer.java",
+    "hash": "d37216d536dda4d7603faccc7c16da2c",
+    "key": "Customer.java|run|THREAD_SAFETY_VIOLATION_2",
+    "line": 23,
+    "procedure": "atmoerror.Customer.run():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `Customer.run()` indirectly writes to field `this.cash` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
+    "severity": "WARNING",
+    "snapshot1": "e6aed906763adcf380a68def212e8b13"
+  }
+]

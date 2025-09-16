@@ -1,0 +1,43 @@
+#0
+BuggedProgram.java:83: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `BuggedProgram.pingPong()` reads without synchronization from `this.pingPongPlayer`. Potentially races with write in method `BuggedProgram.pingPong()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  81.        */
+  82.       public void pingPong() {
+  83. >     	this.pingPongPlayer.getI();
+  84.           PP newPlayer;
+  85.           newPlayer = this.pingPongPlayer;
+
+#1
+BuggedProgram.java:85: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `BuggedProgram.pingPong()` reads without synchronization from `this.pingPongPlayer`. Potentially races with write in method `BuggedProgram.pingPong()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  83.       	this.pingPongPlayer.getI();
+  84.           PP newPlayer;
+  85. >         newPlayer = this.pingPongPlayer;
+  86.           this.pingPongPlayer = null;
+  87.           long time = System.currentTimeMillis();
+
+#2
+BuggedProgram.java:86: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `BuggedProgram.pingPong()` writes to field `this.pingPongPlayer` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  84.           PP newPlayer;
+  85.           newPlayer = this.pingPongPlayer;
+  86. >         this.pingPongPlayer = null;
+  87.           long time = System.currentTimeMillis();
+  88.           while ((System.currentTimeMillis() - time) < 50) ;
+
+#3
+BuggedProgram.java:89: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `BuggedProgram.pingPong()` writes to field `this.pingPongPlayer` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  87.           long time = System.currentTimeMillis();
+  88.           while ((System.currentTimeMillis() - time) < 50) ;
+  89. >         this.pingPongPlayer = newPlayer;
+  90.       }
+  91.   
+
+Found 4 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 4

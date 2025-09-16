@@ -1,0 +1,261 @@
+[2025-09-15 07:32:47,895] [INFO] 开始处理样例: wronglock2
+[2025-09-15 07:33:01,056] [INFO] 已恢复原始配置
+[2025-09-15 07:33:01,057] [INFO] 已生成总结报告: /app/concuFix/batch_summary.md
+2025-09-15 07:34:12,190 - INFO - 项目根目录: /app/concuFix
+2025-09-15 07:34:12,190 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-15 07:34:12,190 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-15 07:34:12,190 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-15 07:34:12,190 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-15 07:34:12,190 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-15 07:34:12,191 - INFO - 开始处理样例: airline
+2025-09-15 07:34:15,122 - INFO - 已恢复原始配置文件
+2025-09-15 07:37:48,075 - INFO - 项目根目录: /app/concuFix
+2025-09-15 07:37:48,075 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-15 07:37:48,075 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-15 07:37:48,076 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-15 07:37:48,076 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-15 07:37:48,076 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-15 07:37:48,076 - INFO - 开始处理样例: airline
+2025-09-15 07:44:50,685 - INFO - 样例 airline 处理成功
+2025-09-15 07:44:50,685 - INFO - 样例 airline 处理耗时 422.61秒
+2025-09-15 07:44:51,686 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-09-15 07:44:51,694 - INFO - 开始处理样例: alarmclock
+2025-09-15 08:00:53,936 - INFO - 样例 alarmclock 处理成功
+2025-09-15 08:00:53,936 - INFO - 样例 alarmclock 处理耗时 962.24秒
+2025-09-15 08:00:54,937 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-09-15 08:00:54,937 - INFO - 开始处理样例: atmoerror
+2025-09-15 08:08:00,984 - INFO - 样例 atmoerror 处理成功
+2025-09-15 08:08:00,984 - INFO - 样例 atmoerror 处理耗时 426.05秒
+2025-09-15 08:08:01,984 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-09-15 08:08:01,985 - INFO - 开始处理样例: buggyprogram
+2025-09-15 08:14:15,406 - INFO - 已恢复原始配置文件
+2025-09-15 08:14:40,987 - INFO - 项目根目录: /app/concuFix
+2025-09-15 08:14:40,987 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-15 08:14:40,987 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-15 08:14:40,988 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-15 08:14:40,988 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-15 08:14:40,988 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-15 08:14:40,988 - INFO - 为样例 airline 创建输出目录: /app/concuFix/results/airline
+2025-09-15 08:14:40,988 - INFO - 开始处理样例: airline
+2025-09-15 08:29:52,068 - INFO - 样例 airline 处理成功
+2025-09-15 08:29:52,068 - INFO - 样例 airline 处理耗时 911.08秒
+2025-09-15 08:29:52,069 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-09-15 08:29:53,069 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-09-15 08:29:53,069 - INFO - 为样例 alarmclock 创建输出目录: /app/concuFix/results/alarmclock
+2025-09-15 08:29:53,070 - INFO - 开始处理样例: alarmclock
+2025-09-15 08:44:31,064 - INFO - 样例 alarmclock 处理成功
+2025-09-15 08:44:31,064 - INFO - 样例 alarmclock 处理耗时 877.99秒
+2025-09-15 08:44:31,065 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-09-15 08:44:32,065 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-09-15 08:44:32,066 - INFO - 为样例 atmoerror 创建输出目录: /app/concuFix/results/atmoerror
+2025-09-15 08:44:32,066 - INFO - 开始处理样例: atmoerror
+2025-09-15 08:51:52,242 - INFO - 样例 atmoerror 处理成功
+2025-09-15 08:51:52,242 - INFO - 样例 atmoerror 处理耗时 440.18秒
+2025-09-15 08:51:52,242 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-09-15 08:51:53,243 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-09-15 08:51:53,243 - INFO - 为样例 buggyprogram 创建输出目录: /app/concuFix/results/buggyprogram
+2025-09-15 08:51:53,244 - INFO - 开始处理样例: buggyprogram
+2025-09-15 09:08:22,517 - INFO - 样例 buggyprogram 处理成功
+2025-09-15 09:08:22,517 - INFO - 样例 buggyprogram 处理耗时 989.27秒
+2025-09-15 09:08:22,518 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-09-15 09:08:23,518 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-09-15 09:08:23,519 - INFO - 为样例 consisitency 创建输出目录: /app/concuFix/results/consisitency
+2025-09-15 09:08:23,519 - INFO - 开始处理样例: consisitency
+2025-09-15 09:21:14,287 - INFO - 样例 consisitency 处理成功
+2025-09-15 09:21:14,287 - INFO - 样例 consisitency 处理耗时 770.77秒
+2025-09-15 09:21:14,287 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-09-15 09:21:15,287 - INFO - 进度: 6/20 - 当前样例: critical
+2025-09-15 09:21:15,288 - INFO - 为样例 critical 创建输出目录: /app/concuFix/results/critical
+2025-09-15 09:21:15,288 - INFO - 开始处理样例: critical
+2025-09-15 09:34:35,690 - INFO - 样例 critical 处理成功
+2025-09-15 09:34:35,691 - INFO - 样例 critical 处理耗时 800.40秒
+2025-09-15 09:34:35,691 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-09-15 09:34:36,691 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-09-15 09:34:36,692 - INFO - 为样例 datarace 创建输出目录: /app/concuFix/results/datarace
+2025-09-15 09:34:36,692 - INFO - 开始处理样例: datarace
+2025-09-15 09:48:10,197 - INFO - 样例 datarace 处理成功
+2025-09-15 09:48:10,197 - INFO - 样例 datarace 处理耗时 813.51秒
+2025-09-15 09:48:10,197 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-09-15 09:48:11,198 - INFO - 进度: 8/20 - 当前样例: even
+2025-09-15 09:48:11,198 - INFO - 为样例 even 创建输出目录: /app/concuFix/results/even
+2025-09-15 09:48:11,198 - INFO - 开始处理样例: even
+2025-09-15 09:56:59,916 - INFO - 样例 even 处理成功
+2025-09-15 09:56:59,937 - INFO - 样例 even 处理耗时 528.74秒
+2025-09-15 09:57:00,069 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-09-15 09:57:01,070 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-09-15 09:57:01,178 - INFO - 为样例 hashcodetest 创建输出目录: /app/concuFix/results/hashcodetest
+2025-09-15 09:57:01,182 - INFO - 开始处理样例: hashcodetest
+2025-09-15 10:05:34,987 - INFO - 样例 hashcodetest 处理成功
+2025-09-15 10:05:34,987 - INFO - 样例 hashcodetest 处理耗时 513.81秒
+2025-09-15 10:05:34,988 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-09-15 10:05:35,988 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-09-15 10:05:35,989 - INFO - 为样例 linkedlist 创建输出目录: /app/concuFix/results/linkedlist
+2025-09-15 10:05:35,989 - INFO - 开始处理样例: linkedlist
+2025-09-15 10:16:21,987 - INFO - 样例 linkedlist 处理成功
+2025-09-15 10:16:21,987 - INFO - 样例 linkedlist 处理耗时 646.00秒
+2025-09-15 10:16:21,987 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-09-15 10:16:22,988 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-09-15 10:16:22,988 - INFO - 为样例 mergesort 创建输出目录: /app/concuFix/results/mergesort
+2025-09-15 10:16:22,988 - INFO - 开始处理样例: mergesort
+2025-09-15 10:22:18,460 - INFO - 样例 mergesort 处理成功
+2025-09-15 10:22:18,461 - INFO - 样例 mergesort 处理耗时 355.47秒
+2025-09-15 10:22:18,461 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-09-15 10:22:19,462 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-09-15 10:22:19,462 - INFO - 为样例 pingpong 创建输出目录: /app/concuFix/results/pingpong
+2025-09-15 10:22:19,462 - INFO - 开始处理样例: pingpong
+2025-09-15 10:28:49,200 - INFO - 样例 pingpong 处理成功
+2025-09-15 10:28:49,201 - INFO - 样例 pingpong 处理耗时 389.74秒
+2025-09-15 10:28:49,201 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-09-15 10:28:50,202 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-09-15 10:28:50,202 - INFO - 为样例 reorder1 创建输出目录: /app/concuFix/results/reorder1
+2025-09-15 10:28:50,203 - INFO - 开始处理样例: reorder1
+2025-09-15 10:36:34,043 - INFO - 样例 reorder1 处理成功
+2025-09-15 10:36:34,043 - INFO - 样例 reorder1 处理耗时 463.84秒
+2025-09-15 10:36:34,044 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-09-15 10:36:35,044 - INFO - 进度: 14/20 - 当前样例: store
+2025-09-15 10:36:35,045 - INFO - 为样例 store 创建输出目录: /app/concuFix/results/store
+2025-09-15 10:36:35,046 - INFO - 开始处理样例: store
+2025-09-15 10:45:05,213 - INFO - 样例 store 处理成功
+2025-09-15 10:45:05,213 - INFO - 样例 store 处理耗时 510.17秒
+2025-09-15 10:45:05,213 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-09-15 10:45:06,213 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-09-15 10:45:06,214 - INFO - 为样例 stringbuffer 创建输出目录: /app/concuFix/results/stringbuffer
+2025-09-15 10:45:06,215 - INFO - 开始处理样例: stringbuffer
+2025-09-15 10:56:52,481 - INFO - 样例 stringbuffer 处理成功
+2025-09-15 10:56:52,481 - INFO - 样例 stringbuffer 处理耗时 706.27秒
+2025-09-15 10:56:52,481 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-09-15 10:56:53,481 - INFO - 进度: 16/20 - 当前样例: test1
+2025-09-15 10:56:53,482 - INFO - 为样例 test1 创建输出目录: /app/concuFix/results/test1
+2025-09-15 10:56:53,482 - INFO - 开始处理样例: test1
+2025-09-15 11:14:43,473 - INFO - 样例 test1 处理成功
+2025-09-15 11:14:43,473 - INFO - 样例 test1 处理耗时 1069.99秒
+2025-09-15 11:14:43,474 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-09-15 11:14:44,474 - INFO - 进度: 17/20 - 当前样例: test2
+2025-09-15 11:14:44,475 - INFO - 为样例 test2 创建输出目录: /app/concuFix/results/test2
+2025-09-15 11:14:44,475 - INFO - 开始处理样例: test2
+2025-09-15 11:27:30,253 - INFO - 样例 test2 处理成功
+2025-09-15 11:27:30,253 - INFO - 样例 test2 处理耗时 765.78秒
+2025-09-15 11:27:30,254 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-09-15 11:27:31,254 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-09-15 11:27:31,255 - INFO - 为样例 twoStage 创建输出目录: /app/concuFix/results/twoStage
+2025-09-15 11:27:31,255 - INFO - 开始处理样例: twoStage
+2025-09-15 11:35:55,000 - INFO - 样例 twoStage 处理成功
+2025-09-15 11:35:55,071 - INFO - 样例 twoStage 处理耗时 503.82秒
+2025-09-15 11:35:55,071 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-09-15 11:35:56,071 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-09-15 11:35:56,235 - INFO - 为样例 wrongLock 创建输出目录: /app/concuFix/results/wrongLock
+2025-09-15 11:35:56,239 - INFO - 开始处理样例: wrongLock
+2025-09-15 11:43:08,391 - INFO - 样例 wrongLock 处理成功
+2025-09-15 11:43:08,391 - INFO - 样例 wrongLock 处理耗时 432.15秒
+2025-09-15 11:43:08,392 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-09-15 11:43:09,392 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-09-15 11:43:09,586 - INFO - 为样例 wronglock2 创建输出目录: /app/concuFix/results/wronglock2
+2025-09-15 11:43:09,646 - INFO - 开始处理样例: wronglock2
+2025-09-15 11:54:43,731 - INFO - 样例 wronglock2 处理成功
+2025-09-15 11:54:43,731 - INFO - 样例 wronglock2 处理耗时 694.09秒
+2025-09-15 11:54:43,731 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-09-15 11:54:43,782 - INFO - 已恢复原始配置文件
+2025-09-15 11:54:43,783 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-09-15 11:54:43,783 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-09-16 02:21:40,287 - INFO - 项目根目录: /app/concuFix
+2025-09-16 02:21:40,416 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-16 02:21:40,416 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-16 02:21:40,504 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-16 02:21:40,648 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-16 02:21:40,649 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-16 02:21:40,649 - INFO - 为样例 airline 创建输出目录: /app/concuFix/results/airline
+2025-09-16 02:21:40,649 - INFO - 开始处理样例: airline
+2025-09-16 02:22:23,425 - ERROR - 样例 airline 处理失败，返回码: 1
+2025-09-16 02:22:23,425 - ERROR - 错误信息: Traceback (most recent call last):
+  File "/app/concuFix/entity.py", line 111, in __init__
+    with open(path, 'r', encoding='utf-8') as f:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/concuFix/benchmarks/report.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/concuFix/main.py", line 123, in <module>
+    main()
+    ~~~~^^
+  File "/app/concuFix/main.py", line 99, in main
+    result = initializer.process(state)
+  File "/app/concuFix/initializer.py", line 34, in process
+    bug_report=self._load_bug_report()
+  File "/app/concuFix/initializer.py", line 450, in _load_bug_report
+    bug_report=BugReports(bug_report_path)
+  File "/app/concuFix/entity.py", line 114, in __init__
+    raise FileNotFoundError(f"找不到文件: {path}")
+FileNotFoundError: 找不到文件: /app/concuFix/benchmarks/report.json
+2025-09-16 02:22:23,425 - INFO - 样例 airline 处理耗时 42.78秒
+2025-09-16 02:22:23,471 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-09-16 02:22:23,471 - INFO - 遇到错误，停止批量处理
+2025-09-16 02:22:23,472 - INFO - 已恢复原始配置文件
+2025-09-16 02:22:23,472 - INFO - 批量处理完成！成功: 0, 失败: 1, 总计: 20
+2025-09-16 02:22:23,472 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-09-16 02:28:18,059 - INFO - 项目根目录: /app/concuFix
+2025-09-16 02:28:18,060 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-16 02:28:18,060 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-16 02:28:18,060 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-16 02:28:18,125 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-16 02:28:18,126 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-16 02:28:18,126 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-09-16 02:28:18,126 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-09-16 02:28:18,126 - INFO - 开始处理样例: airline
+2025-09-16 02:28:18,126 - INFO - 当前配置中的关键字段:
+2025-09-16 02:28:18,126 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-09-16 02:28:18,127 - INFO -   output_dir: /app/concuFix/results/airline
+2025-09-16 02:28:18,127 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-09-16 02:28:18,127 - INFO - 工作目录: /app/concuFix
+2025-09-16 02:46:39,982 - INFO - 样例 airline 处理成功
+2025-09-16 02:46:39,982 - INFO - 样例 airline 处理耗时 1101.86秒
+2025-09-16 02:46:39,983 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-09-16 02:46:40,983 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-09-16 02:46:40,984 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-09-16 02:46:40,984 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-09-16 02:46:40,984 - INFO - 开始处理样例: alarmclock
+2025-09-16 02:46:40,985 - INFO - 当前配置中的关键字段:
+2025-09-16 02:46:40,985 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-09-16 02:46:40,985 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-09-16 02:46:40,985 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-09-16 02:46:40,985 - INFO - 工作目录: /app/concuFix
+2025-09-16 02:46:41,493 - ERROR - 样例 alarmclock 处理失败，返回码: 1
+2025-09-16 02:46:41,493 - ERROR - 错误信息: Traceback (most recent call last):
+  File "/app/concuFix/main.py", line 123, in <module>
+    main()
+    ~~~~^^
+  File "/app/concuFix/main.py", line 99, in main
+    result = initializer.process(state)
+  File "/app/concuFix/initializer.py", line 34, in process
+    bug_report=self._load_bug_report()
+  File "/app/concuFix/initializer.py", line 454, in _load_bug_report
+    bug_report.load_race_pairs()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/app/concuFix/entity.py", line 265, in load_race_pairs
+    self._parse_race_from_traces(traces)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/app/concuFix/entity.py", line 232, in _parse_race_from_traces
+    (t["filename"], self.source_analyzer.find_call_chains(t["filename"], t["line_number"])) for t in
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'JavaSourceAnalyzer' object has no attribute 'find_call_chains'
+2025-09-16 02:46:41,493 - INFO - 样例 alarmclock 处理耗时 0.51秒
+2025-09-16 02:46:41,559 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-09-16 02:46:41,559 - INFO - 遇到错误，停止批量处理
+2025-09-16 02:46:41,560 - INFO - 已恢复原始配置文件
+2025-09-16 02:46:41,560 - INFO - 批量处理完成！成功: 1, 失败: 1, 总计: 20
+2025-09-16 02:46:41,560 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-09-16 02:55:25,461 - INFO - 项目根目录: /app/concuFix
+2025-09-16 02:55:25,461 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-09-16 02:55:25,461 - INFO - 配置文件: /app/concuFix/config.json
+2025-09-16 02:55:25,461 - INFO - 找到 20 个样例文件夹需要处理
+2025-09-16 02:55:25,598 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-09-16 02:55:25,599 - INFO - 进度: 1/20 - 当前样例: airline
+2025-09-16 02:55:25,599 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-09-16 02:55:25,599 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-09-16 02:55:25,599 - INFO - 开始处理样例: airline
+2025-09-16 02:55:25,600 - INFO - 当前配置中的关键字段:
+2025-09-16 02:55:25,600 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-09-16 02:55:25,600 - INFO -   output_dir: /app/concuFix/results/airline
+2025-09-16 02:55:25,600 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-09-16 02:55:25,600 - INFO - 工作目录: /app/concuFix
+2025-09-16 02:55:41,019 - INFO - 已恢复原始配置文件

@@ -1,0 +1,8 @@
+'-verbose'
+'-g'
+'-d'
+'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/store'
+'-cp'
+'/usr/local/hippodromeDockerFiles-main/annotation.jar'
+'Store.java'
+'StoreTest.java'

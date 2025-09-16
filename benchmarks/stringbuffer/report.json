@@ -1,0 +1,161 @@
+[
+  {
+    "access": "hJWmvgAAADUAAAAIAAAAHgAAABqgsAEE9gD/kjFTdHJpbmdCdWZmZXIuamF2YaCwAQCmAP+SMVN0cmluZ0J1ZmZlci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1270
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.value`",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1270
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "call to void StringBuffer.copy()",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.value`",
+        "filename": "StringBuffer.java",
+        "level": 1,
+        "line_number": 166
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "StringBuffer.java",
+    "hash": "68fa86bbff4e7ebf681a6edc83cbc7b0",
+    "key": "StringBuffer.java|getValue|THREAD_SAFETY_VIOLATION_2",
+    "line": 1270,
+    "procedure": "stringbuffer.StringBuffer.getValue():char[]",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `StringBuffer.getValue()` reads without synchronization from `this.value`. Potentially races with write in method `StringBuffer.deleteCharAt(...)`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "d6d2b73fa9a152fb47886f38cceaaa4c",
+    "snapshot2": "43814bba96d5458366632bef93b57a63"
+  },
+  {
+    "access": "hJWmvgAAADUAAAAIAAAAHgAAABqgsAEE8gD/kjFTdHJpbmdCdWZmZXIuamF2YaCwAQCnAP+SMVN0cmluZ0J1ZmZlci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Write on unknown thread>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1266
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.shared`",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1266
+      },
+      {
+        "column_number": -1,
+        "description": "<Write on background thread>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "call to void StringBuffer.copy()",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.shared`",
+        "filename": "StringBuffer.java",
+        "level": 1,
+        "line_number": 167
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "StringBuffer.java",
+    "hash": "ff8101fe15366fe9f5039e49ae5d5d3d",
+    "key": "StringBuffer.java|setShared|THREAD_SAFETY_VIOLATION_2",
+    "line": 1266,
+    "procedure": "stringbuffer.StringBuffer.setShared():void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `StringBuffer.setShared()` writes to field `this.shared` outside of synchronization.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "4dc2e32f62b9971a12e5d16729475384",
+    "snapshot2": "9b41f4efe858a6d5165a8e62438a8ce5"
+  },
+  {
+    "access": "hJWmvgAAADUAAAAIAAAAHgAAABqgsAEE6gD/kjFTdHJpbmdCdWZmZXIuamF2YaCwAQCmAP+SMVN0cmluZ0J1ZmZlci5qYXZhQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1258
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.value`",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 1258
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "call to void StringBuffer.copy()",
+        "filename": "StringBuffer.java",
+        "level": 0,
+        "line_number": 689
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.value`",
+        "filename": "StringBuffer.java",
+        "level": 1,
+        "line_number": 166
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "StringBuffer.java",
+    "hash": "5fdb890df7cc32f9b90953146cc1c525",
+    "key": "StringBuffer.java|toString|THREAD_SAFETY_VIOLATION_2",
+    "line": 1258,
+    "procedure": "stringbuffer.StringBuffer.toString():java.lang.String",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `StringBuffer.toString()` reads without synchronization from `this.value`. Potentially races with write in method `StringBuffer.deleteCharAt(...)`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity": "WARNING",
+    "snapshot1": "16e06024a7859ac70f1fc4d3cd9fbaa3",
+    "snapshot2": "43814bba96d5458366632bef93b57a63"
+  }
+]

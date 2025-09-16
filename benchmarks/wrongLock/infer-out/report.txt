@@ -1,0 +1,43 @@
+#0
+WrongLock.java:20: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.
+ Reporting because this access may occur on a background thread.
+  18.       public void A() {
+  19.           synchronized (data) {
+  20. >             int x = data.value;
+  21.               data.value++;
+  22.               //assert (data.value==x+1);
+
+#1
+WrongLock.java:21: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.
+ Reporting because this access may occur on a background thread.
+  19.           synchronized (data) {
+  20.               int x = data.value;
+  21. >             data.value++;
+  22.               //assert (data.value==x+1);
+  23.               if (data.value != (x + 1))
+
+#2
+WrongLock.java:23: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.
+ Reporting because this access may occur on a background thread.
+  21.               data.value++;
+  22.               //assert (data.value==x+1);
+  23. >             if (data.value != (x + 1))
+  24.                   throw new RuntimeException("bug found");
+  25.           }
+
+#3
+WrongLock.java:30: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `WrongLock.B()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.A()`.
+ Reporting because this access may occur on a background thread.
+  28.       public void B() {
+  29.           synchronized (this) {
+  30. >             data.value++;
+  31.           }
+  32.       }
+
+Found 4 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 4

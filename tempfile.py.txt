@@ -1,0 +1,86 @@
+import json
+import os
+import sys
+from pathlib import Path
+
+def format_json_file(file_path, indent=2, sort_keys=True):
+    """
+    格式化单个JSON文件
+    
+    Args:
+        file_path (str): JSON文件路径
+        indent (int): 缩进空格数
+        sort_keys (bool): 是否按键排序
+    
+    Returns:
+        bool: 格式化是否成功
+    """
+    try:
+        # 读取原始文件内容
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # 以规范化的格式写入文件
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=indent, sort_keys=sort_keys, ensure_ascii=False)
+            f.write('\n')  # 文件末尾添加换行符
+            
+        print(f"已格式化: {file_path}")
+        return True
+    except json.JSONDecodeError as e:
+        print(f"JSON解析错误 ({file_path}): {e}")
+        return False
+    except Exception as e:
+        print(f"处理文件时出错 ({file_path}): {e}")
+        return False
+
+def format_json_files(root_dir, pattern="*.json"):
+    """
+    格式化目录中的所有JSON文件
+    
+    Args:
+        root_dir (str): 根目录路径
+        pattern (str): 文件匹配模式
+    
+    Returns:
+        tuple: (成功数量, 失败数量)
+    """
+    success_count = 0
+    error_count = 0
+    
+    # 查找所有JSON文件
+    json_files = Path(root_dir).rglob(pattern)
+    
+    for json_file in json_files:
+        if format_json_file(str(json_file)):
+            success_count += 1
+        else:
+            error_count += 1
+    
+    return success_count, error_count
+
+def main():
+    """
+    主函数
+    """
+    # 获取命令行参数或使用默认路径
+    if len(sys.argv) > 1:
+        root_dir = sys.argv[1]
+    else:
+        # 默认使用脚本所在目录
+        root_dir = "benchmarks"
+    
+    print(f"开始格式化JSON文件，目录: {root_dir}")
+    
+    # 格式化JSON文件
+    success_count, error_count = format_json_files(root_dir)
+    
+    print(f"\n格式化完成:")
+    print(f"  成功: {success_count}")
+    print(f"  失败: {error_count}")
+    
+    if error_count > 0:
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,65 @@
+[3768640][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist
+[3768640][environment] No .inferconfig file found
+[3768640][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist
+[3768640][environment] INFER_ARGS =   @/tmp/args.tmp.14b378
+[3768640][environment] command line arguments:   infer --racerdfix-only --starvation
+[3768640][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3768640][environment]                           javac -cp
+[3768640][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3768640][environment]                           BugTester.java MyLinkedListItr.java
+[3768640][environment]                           MyLinkedList.java MyListBuilder.java
+[3768640][environment]                           MyListNode.java
+[3768640][environment] Available memory at startup: 165072 MB
+[3768640][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3768640][environment] Scheduler: file
+[3768640][environment] Cores used: 32
+[3768640][environment] Infer version v1.0.0-fac81e50e
+[3768640][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3768640][environment] 
+[3768640][   progress] Capturing in javac mode...
+[3768640][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist'
+[3768640][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist/infer-out/tmp/javac_args.tmp.d11865' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist/infer-out/tmp/javac.tmp.7de6b4.out'
+[3768640][      debug] *** Success. Logs:
+[3768640][      debug] Translating 5 source files (5 classes)
+[3768640][      debug] Tenv.store: global tenv has size 21720 bytes.
+[3768640][      debug] Tenv.store: canonicalized tenv has size 6176 bytes.
+[3768640][      debug] done capturing all files
+[3768640][environment] Parallel jobs: 32
+[3768640][   progress] Found 5 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/linkedlist/infer-out
+[3768711][   progress] MyLinkedListItr.java starting
+[3768707][   progress] MyLinkedList.java starting
+[3768708][   progress] BugTester.java starting
+[3768709][   progress] MyListBuilder.java starting
+[3768710][   progress] MyListNode.java starting
+[3768710][   progress] MyListNode.java DONE
+[3768711][   progress] MyLinkedListItr.java DONE
+[3768708][   progress] BugTester.java DONE
+[3768707][   progress] MyLinkedList.java DONE
+[3768709][   progress] MyListBuilder.java DONE
+[3768640][      debug] Analysis phase finished in 221ms
+[3768640][      debug] Collected stats:
+[3768640][      debug] Backend stats:
+[3768640][      debug]   summary_file_try_load= 181
+[3768640][      debug]   summary_read_from_disk= 15
+[3768640][      debug]   summary_cache_hits= 500 (73%)
+[3768640][      debug]   summary_cache_misses= 181
+[3768640][      debug]   ondemand_procs_analyzed= 31
+[3768640][      debug]   ondemand_local_cache_hits= 179 (71%)
+[3768640][      debug]   ondemand_local_cache_misses= 73
+[3768640][      debug]   proc_locker_lock_time_user= 0.00000000
+[3768640][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3768640][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3768640][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3768640][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3768640][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3768640][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3768640][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3768640][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3768640][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3768640][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3768640][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3768640][      debug]   scheduler_process_analysis_time_user= 0.03324300
+[3768640][      debug]   scheduler_process_analysis_time_sys= 0.03691600
+[3768640][      debug]   scheduler_process_analysis_time_wall= 0.22102554
+[3768640][      debug]   
+[3768640][      debug] 

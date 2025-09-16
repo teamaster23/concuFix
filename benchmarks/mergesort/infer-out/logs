@@ -1,0 +1,57 @@
+[3768948][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort
+[3768948][environment] No .inferconfig file found
+[3768948][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort
+[3768948][environment] INFER_ARGS =   @/tmp/args.tmp.abefa1
+[3768948][environment] command line arguments:   infer --racerdfix-only --starvation
+[3768948][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3768948][environment]                           javac -cp
+[3768948][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3768948][environment]                           MergeSort.java MSort.java
+[3768948][environment] Available memory at startup: 166807 MB
+[3768948][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3768948][environment] Scheduler: file
+[3768948][environment] Cores used: 32
+[3768948][environment] Infer version v1.0.0-fac81e50e
+[3768948][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3768948][environment] 
+[3768948][   progress] Capturing in javac mode...
+[3768948][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort'
+[3768948][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort/infer-out/tmp/javac_args.tmp.993902' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort/infer-out/tmp/javac.tmp.f73fa0.out'
+[3768948][      debug] *** Success. Logs:
+[3768948][      debug] Translating 2 source files (2 classes)
+[3768948][      debug] Tenv.store: global tenv has size 18544 bytes.
+[3768948][      debug] Tenv.store: canonicalized tenv has size 5336 bytes.
+[3768948][      debug] done capturing all files
+[3768948][environment] Parallel jobs: 32
+[3768948][   progress] Found 2 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/mergesort/infer-out
+[3769040][   progress] MergeSort.java starting
+[3769041][   progress] MSort.java starting
+[3769040][   progress] MergeSort.java DONE
+[3769041][   progress] MSort.java DONE
+[3768948][      debug] Analysis phase finished in 304ms
+[3768948][      debug] Collected stats:
+[3768948][      debug] Backend stats:
+[3768948][      debug]   summary_file_try_load= 359
+[3768948][      debug]   summary_read_from_disk= 7
+[3768948][      debug]   summary_cache_hits= 395 (52%)
+[3768948][      debug]   summary_cache_misses= 359
+[3768948][      debug]   ondemand_procs_analyzed= 21
+[3768948][      debug]   ondemand_local_cache_hits= 429 (86%)
+[3768948][      debug]   ondemand_local_cache_misses= 69
+[3768948][      debug]   proc_locker_lock_time_user= 0.00000000
+[3768948][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3768948][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3768948][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3768948][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3768948][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3768948][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3768948][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3768948][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3768948][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3768948][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3768948][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3768948][      debug]   scheduler_process_analysis_time_user= 0.02637700
+[3768948][      debug]   scheduler_process_analysis_time_sys= 0.04948900
+[3768948][      debug]   scheduler_process_analysis_time_wall= 0.30375514
+[3768948][      debug]   
+[3768948][      debug] 

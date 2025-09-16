@@ -1,0 +1,30 @@
+Fix the concurrency bugs in this program.Please note that some methods have been omitted.These methods are unrelated to concurrency bugs, so please do not perform any operations on them, as any modifications to them would be considered violations.Please ensure that fixing doesn't introduce new bugs, such as deadlocks.Try to minimize the impact on concurrency due to the fixes. Do not attempt to change the functionality of any function, and do not modify any code that is unrelated to concurrency bugs.Note that you don't need to reply with the entire source code after it's been fixed. Just provide the parts that were modified.For your answer, return one or more ChangeLog groups, each containing one or more fixes to the above code snippets. Each group must be formatted with the below instructions.Format instructions: Each ChangeLog group must start with a description of its included fixes. The group must then list one or more pairs of (OriginalCode, FixedCode) code snippets. Each pair of (OriginalCode, FixedCode) must not overlap with the fixes of other pairs. Each OriginalCode snippet must list all consecutive original lines of code that must be replaced (including a few lines before and after the fixes), followed by the FixedCode snippet with all consecutive fixed lines of code that must replace the original lines of code (including the same few lines before and after the changes). In each pair, the OriginalCode and FixedCode snippets must start at the same source code line number N. Each listed code line, in both the OriginalCode and FixedCode snippets must be prefixed with [N] that matches the line index N in the above snippets , and then be prefixed with exactly the same whitespace indentation as the original snippets above.For example:
+ChangeLog:1@<file>
+FixDescription: <summary>.
+OriginalCode@4-6:
+[4] <white space> <original code line>
+[5] <white space> <original code line>
+[6] <white space> <original code line>
+FixedCode@4-6:
+[4] <white space> <fixed code line>
+[5] <white space> <fixed code line>
+[6] <white space> <fixed code line>
+OriginalCode@9-10:
+[9] <white space> <original code line>
+[10] <white space> <original code line>
+FixedCode@9-9: 
+[9] <white space> <fixed code line>
+ChangeLog:2@<file>
+FixDescription: <summary>.
+OriginalCode@15-16:
+[15] <white space> <original code line>
+[16]<white space> <original code line>
+FixedCode@15-17:
+[15] <white space> <fixed code line>
+[16] <white space> <fixed code line>
+[17] <white space> <fixed code line>
+OriginalCode@23-23:
+[23] <white space> <original code line>
+FixedCode@23-23:
+[23] <white space> <fixed code line>
+    

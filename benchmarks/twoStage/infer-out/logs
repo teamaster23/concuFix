@@ -1,0 +1,64 @@
+[3775653][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage
+[3775653][environment] No .inferconfig file found
+[3775653][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage
+[3775653][environment] INFER_ARGS =   @/tmp/args.tmp.a78678
+[3775653][environment] command line arguments:   infer --racerdfix-only --starvation
+[3775653][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3775653][environment]                           javac -cp
+[3775653][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3775653][environment]                           Data.java Main.java ReadThread.java TwoStage.java
+[3775653][environment]                           TwoStageThread.java
+[3775653][environment] Available memory at startup: 163213 MB
+[3775653][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3775653][environment] Scheduler: file
+[3775653][environment] Cores used: 32
+[3775653][environment] Infer version v1.0.0-fac81e50e
+[3775653][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3775653][environment] 
+[3775653][   progress] Capturing in javac mode...
+[3775653][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage'
+[3775653][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage/infer-out/tmp/javac_args.tmp.b1ab19' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage/infer-out/tmp/javac.tmp.59c62e.out'
+[3775653][      debug] *** Success. Logs:
+[3775653][      debug] Translating 5 source files (5 classes)
+[3775653][      debug] Tenv.store: global tenv has size 17232 bytes.
+[3775653][      debug] Tenv.store: canonicalized tenv has size 4312 bytes.
+[3775653][      debug] done capturing all files
+[3775653][environment] Parallel jobs: 32
+[3775653][   progress] Found 5 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/twoStage/infer-out
+[3775741][   progress] TwoStage.java starting
+[3775738][   progress] Main.java starting
+[3775739][   progress] Data.java starting
+[3775742][   progress] TwoStageThread.java starting
+[3775743][   progress] ReadThread.java starting
+[3775739][   progress] Data.java DONE
+[3775741][   progress] TwoStage.java DONE
+[3775743][   progress] ReadThread.java DONE
+[3775738][   progress] Main.java DONE
+[3775742][   progress] TwoStageThread.java DONE
+[3775653][      debug] Analysis phase finished in 205ms
+[3775653][      debug] Collected stats:
+[3775653][      debug] Backend stats:
+[3775653][      debug]   summary_file_try_load= 122
+[3775653][      debug]   summary_read_from_disk= 4
+[3775653][      debug]   summary_cache_hits= 227 (65%)
+[3775653][      debug]   summary_cache_misses= 122
+[3775653][      debug]   ondemand_procs_analyzed= 16
+[3775653][      debug]   ondemand_local_cache_hits= 87 (69%)
+[3775653][      debug]   ondemand_local_cache_misses= 39
+[3775653][      debug]   proc_locker_lock_time_user= 0.00000000
+[3775653][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3775653][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3775653][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3775653][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3775653][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3775653][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3775653][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3775653][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3775653][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3775653][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3775653][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3775653][      debug]   scheduler_process_analysis_time_user= 0.03209700
+[3775653][      debug]   scheduler_process_analysis_time_sys= 0.03627400
+[3775653][      debug]   scheduler_process_analysis_time_wall= 0.20532089
+[3775653][      debug]   
+[3775653][      debug] 

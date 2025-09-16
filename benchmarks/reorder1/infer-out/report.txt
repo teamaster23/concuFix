@@ -1,0 +1,43 @@
+#0
+SetCheck.java:20: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `SetCheck.check()` reads without synchronization from `this.b`. Potentially races with write in method `SetCheck.set()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  18.   	
+  19.       boolean check() {
+  20. > 	return ((a==0 && b==0)  || (a==1 && b==-1));
+  21.       }
+  22.   }
+
+#1
+SetCheck.java:20: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `SetCheck.check()` reads without synchronization from `this.a`. Potentially races with write in method `SetCheck.set()`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  18.   	
+  19.       boolean check() {
+  20. > 	return ((a==0 && b==0)  || (a==1 && b==-1));
+  21.       }
+  22.   }
+
+#2
+SetCheck.java:16: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `SetCheck.set()` writes to field `this.b` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  14.       void set() {
+  15.           a = 1;
+  16. > 	b = -1;
+  17.       }
+  18.   	
+
+#3
+SetCheck.java:15: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `SetCheck.set()` writes to field `this.a` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  13.       private int b=0;
+  14.       void set() {
+  15. >         a = 1;
+  16.   	b = -1;
+  17.       }
+
+Found 4 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 4

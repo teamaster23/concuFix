@@ -1,0 +1,33 @@
+#0
+StringBuffer.java:1270: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `StringBuffer.getValue()` reads without synchronization from `this.value`. Potentially races with write in method `StringBuffer.deleteCharAt(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  1268.   
+  1269.       final char[] getValue() {
+  1270. >         return value;
+  1271.       }
+  1272.   
+
+#1
+StringBuffer.java:1266: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `StringBuffer.setShared()` writes to field `this.shared` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  1264.       // They shouldn't be called by anyone but String.
+  1265.       final void setShared() {
+  1266. >         shared = true;
+  1267.       }
+  1268.   
+
+#2
+StringBuffer.java:1258: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `StringBuffer.toString()` reads without synchronization from `this.value`. Potentially races with write in method `StringBuffer.deleteCharAt(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  1256.        */
+  1257.       public String toString() {
+  1258. >         return new String(value);
+  1259.       }
+  1260.   
+
+Found 3 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 3

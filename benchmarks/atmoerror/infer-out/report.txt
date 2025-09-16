@@ -1,0 +1,103 @@
+#0
+Customer.java:15: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Customer.cost(...)` writes to field `this.cash` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  13.   
+  14.       public void cost(int n) {
+  15. >         cash -= n;
+  16.           account.add(n);
+  17.       }
+
+#1
+Customer.java:16: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.cost(...)` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  14.       public void cost(int n) {
+  15.           cash -= n;
+  16. >         account.add(n);
+  17.       }
+  18.   
+
+#2
+Customer.java:15: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.cost(...)` reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  13.   
+  14.       public void cost(int n) {
+  15. >         cash -= n;
+  16.           account.add(n);
+  17.       }
+
+#3
+Customer.java:16: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Customer.cost(...)` indirectly writes to field `this.account.total` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  14.       public void cost(int n) {
+  15.           cash -= n;
+  16. >         account.add(n);
+  17.       }
+  18.   
+
+#4
+Customer.java:23: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  21.   
+  22.           while (cash > 0) {
+  23. >             cost(1);
+  24.           }
+  25.   
+
+#5
+Customer.java:23: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  21.   
+  22.           while (cash > 0) {
+  23. >             cost(1);
+  24.           }
+  25.   
+
+#6
+Customer.java:26: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.run()` indirectly reads without synchronization from `this.account.total`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  24.           }
+  25.   
+  26. >         System.out.println("total: " + account.getTotal());
+  27.           /*if (account.getTotal() != 10)
+  28.               throw new RuntimeException();*/
+
+#7
+Customer.java:22: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `Customer.run()` reads without synchronization from `this.cash`. Potentially races with write in method `Customer.cost(...)`.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  20.       public void run() {
+  21.   
+  22. >         while (cash > 0) {
+  23.               cost(1);
+  24.           }
+
+#8
+Customer.java:23: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Customer.run()` indirectly writes to field `this.account.total` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  21.   
+  22.           while (cash > 0) {
+  23. >             cost(1);
+  24.           }
+  25.   
+
+#9
+Customer.java:23: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `Customer.run()` indirectly writes to field `this.cash` outside of synchronization.
+ Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).
+  21.   
+  22.           while (cash > 0) {
+  23. >             cost(1);
+  24.           }
+  25.   
+
+Found 10 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 10

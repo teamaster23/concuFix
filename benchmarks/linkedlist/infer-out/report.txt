@@ -1,0 +1,23 @@
+#0
+MyLinkedList.java:42: warning: Thread Safety Violation 2
+  Read/Write race. Non-private method `MyLinkedList.insert(...)` reads with synchronization from `p._current._next`. Potentially races with unsynchronized write in method `MyLinkedList.insert(...)`.
+ Reporting because this access may occur on a background thread.
+  40.               // Delete the synch block for the unsynch case
+  41.               synchronized (this) {
+  42. >                 tmp = new MyListNode(x, p._current._next);
+  43.               } // Extend the synch block one stmt to eliminate the bug
+  44.               p._current._next = tmp;
+
+#1
+MyLinkedList.java:44: warning: Thread Safety Violation 2
+  Unprotected write. Non-private method `MyLinkedList.insert(...)` writes to field `p._current._next` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  42.                   tmp = new MyListNode(x, p._current._next);
+  43.               } // Extend the synch block one stmt to eliminate the bug
+  44. >             p._current._next = tmp;
+  45.           }
+  46.       }
+
+Found 2 issues
+                            Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation 2(THREAD_SAFETY_VIOLATION_2): 2

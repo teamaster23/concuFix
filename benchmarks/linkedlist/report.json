@@ -1,0 +1,72 @@
+[
+  {
+    "access": "hJWmvgAAACAAAAAGAAAAFgAAABSgsGoA/5IxTXlMaW5rZWRMaXN0LmphdmGgsGwA/wQEQA==",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "MyLinkedList.java",
+        "level": 0,
+        "line_number": 42
+      },
+      {
+        "column_number": -1,
+        "description": "access to `p._current._next`",
+        "filename": "MyLinkedList.java",
+        "level": 0,
+        "line_number": 42
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "MyLinkedList.java",
+        "level": 0,
+        "line_number": 44
+      },
+      {
+        "column_number": -1,
+        "description": "access to `p._current._next`",
+        "filename": "MyLinkedList.java",
+        "level": 0,
+        "line_number": 44
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MyLinkedList.java",
+    "hash": "d7392eae2e6c045714ff854fa171b1e1",
+    "key": "MyLinkedList.java|insert|THREAD_SAFETY_VIOLATION_2",
+    "line": 42,
+    "procedure": "linkedlist.MyLinkedList.insert(java.lang.Object,linkedlist.MyLinkedListItr):void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `MyLinkedList.insert(...)` reads with synchronization from `p._current._next`. Potentially races with unsynchronized write in method `MyLinkedList.insert(...)`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "8d6da2fc0e3e9f5d0d848ccf379049ab",
+    "snapshot2": "e63ed6794ead710c490f4f363ab60beb"
+  },
+  {
+    "access": "hJWmvgAAABkAAAAEAAAADwAAAA2gsGwA/5IxTXlMaW5rZWRMaXN0LmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "access to `p._current._next`",
+        "filename": "MyLinkedList.java",
+        "level": 0,
+        "line_number": 44
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "MyLinkedList.java",
+    "hash": "ef2fe6c07d14332d6809ca1cea6e153c",
+    "key": "MyLinkedList.java|insert|THREAD_SAFETY_VIOLATION_2",
+    "line": 44,
+    "procedure": "linkedlist.MyLinkedList.insert(java.lang.Object,linkedlist.MyLinkedListItr):void",
+    "procedure_start_line": 0,
+    "qualifier": "Unprotected write. Non-private method `MyLinkedList.insert(...)` writes to field `p._current._next` outside of synchronization.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "e63ed6794ead710c490f4f363ab60beb"
+  }
+]

@@ -1,0 +1,8 @@
+'-verbose'
+'-g'
+'-d'
+'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/stringbuffer'
+'-cp'
+'/usr/local/hippodromeDockerFiles-main/annotation.jar'
+'StringBuffer.java'
+'StringBufferTest.java'

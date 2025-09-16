@@ -1,0 +1,186 @@
+[
+  {
+    "access": "hJWmvgAAACsAAAAIAAAAHAAAABigsFQA/5IuV3JvbmdMb2NrLmphdmGgsF4A/5IuV3JvbmdMb2NrLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 20
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "WrongLock.java",
+    "hash": "e2fd8120b5a5a635f200d72fb75dd85b",
+    "key": "WrongLock.java|A|THREAD_SAFETY_VIOLATION_2",
+    "line": 20,
+    "procedure": "wrongLock.WrongLock.A():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "c12f3edcb538240b65c7668e44de49f9",
+    "snapshot2": "ee2a4e2acdb45bae489d116aa79683af"
+  },
+  {
+    "access": "hJWmvgAAACsAAAAIAAAAHAAAABigsFUA/5IuV3JvbmdMb2NrLmphdmGgsF4A/5IuV3JvbmdMb2NrLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 21
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 21
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "WrongLock.java",
+    "hash": "e2fd8120b5a5a635f200d72fb75dd85b",
+    "key": "WrongLock.java|A|THREAD_SAFETY_VIOLATION_2",
+    "line": 21,
+    "procedure": "wrongLock.WrongLock.A():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "78c60bfad5f0083f7562013731b71c59",
+    "snapshot2": "ee2a4e2acdb45bae489d116aa79683af"
+  },
+  {
+    "access": "hJWmvgAAACsAAAAIAAAAHAAAABigsFcA/5IuV3JvbmdMb2NrLmphdmGgsF4A/5IuV3JvbmdMb2NrLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 23
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "WrongLock.java",
+    "hash": "e2fd8120b5a5a635f200d72fb75dd85b",
+    "key": "WrongLock.java|A|THREAD_SAFETY_VIOLATION_2",
+    "line": 23,
+    "procedure": "wrongLock.WrongLock.A():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `WrongLock.A()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.B()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "74df240d3cf124927192be3037cefe52",
+    "snapshot2": "ee2a4e2acdb45bae489d116aa79683af"
+  },
+  {
+    "access": "hJWmvgAAACsAAAAIAAAAHAAAABigsF4A/5IuV3JvbmdMb2NrLmphdmGgsFUA/5IuV3JvbmdMb2NrLmphdmFA",
+    "bug_trace": [
+      {
+        "column_number": -1,
+        "description": "<Read trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 30
+      },
+      {
+        "column_number": -1,
+        "description": "<Write trace>",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 21
+      },
+      {
+        "column_number": -1,
+        "description": "access to `this.data.value`",
+        "filename": "WrongLock.java",
+        "level": 0,
+        "line_number": 21
+      }
+    ],
+    "bug_type": "THREAD_SAFETY_VIOLATION_2",
+    "bug_type_hum": "Thread Safety Violation 2",
+    "column": -1,
+    "file": "WrongLock.java",
+    "hash": "b45535a26d602a97afea371c3aca2684",
+    "key": "WrongLock.java|B|THREAD_SAFETY_VIOLATION_2",
+    "line": 30,
+    "procedure": "wrongLock.WrongLock.B():void",
+    "procedure_start_line": 0,
+    "qualifier": "Read/Write race. Non-private method `WrongLock.B()` reads with synchronization from `this.data.value`. Potentially races with unsynchronized write in method `WrongLock.A()`.\n Reporting because this access may occur on a background thread.",
+    "severity": "WARNING",
+    "snapshot1": "35228b1cecfb147d8839a8d0c5f0897b",
+    "snapshot2": "828acacd889fb4610ca372dcc5822435"
+  }
+]

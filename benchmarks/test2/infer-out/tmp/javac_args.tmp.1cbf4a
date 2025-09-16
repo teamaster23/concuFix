@@ -1,0 +1,7 @@
+'-verbose'
+'-g'
+'-d'
+'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/test2'
+'-cp'
+'/usr/local/hippodromeDockerFiles-main/annotation.jar'
+'D.java'

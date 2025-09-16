@@ -1,0 +1,62 @@
+[3770793][environment] CWD = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong
+[3770793][environment] No .inferconfig file found
+[3770793][environment] Project root = /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong
+[3770793][environment] INFER_ARGS =   @/tmp/args.tmp.8948cb
+[3770793][environment] command line arguments:   infer --racerdfix-only --starvation
+[3770793][environment]                           --no-deduplicate --results-dir ./infer-out/ --
+[3770793][environment]                           javac -cp
+[3770793][environment]                           /usr/local/hippodromeDockerFiles-main/annotation.jar
+[3770793][environment]                           BuggedProgram.java BugThread.java PingPong.java
+[3770793][environment]                           PP.java
+[3770793][environment] Available memory at startup: 165744 MB
+[3770793][environment] Active checkers: starvation (C/C++/ObjC, Java), racerdfix (C/C++/ObjC, Java)
+[3770793][environment] Scheduler: file
+[3770793][environment] Cores used: 32
+[3770793][environment] Infer version v1.0.0-fac81e50e
+[3770793][environment] Copyright 2009 - present Facebook. All Rights Reserved.
+[3770793][environment] 
+[3770793][   progress] Capturing in javac mode...
+[3770793][      debug] Current working directory: '/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong'
+[3770793][      debug] Trying to execute: javac '-J-Duser.language=en' '@/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong/infer-out/tmp/javac_args.tmp.60d3bd' 2>'/root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong/infer-out/tmp/javac.tmp.3f4603.out'
+[3770793][      debug] *** Success. Logs:
+[3770793][      debug] Translating 4 source files (4 classes)
+[3770793][      debug] Tenv.store: global tenv has size 18640 bytes.
+[3770793][      debug] Tenv.store: canonicalized tenv has size 5520 bytes.
+[3770793][      debug] done capturing all files
+[3770793][environment] Parallel jobs: 32
+[3770793][   progress] Found 4 source files to analyze in /root/IdeaProjects/hippodromeIntelliJTests/src/test/java/pingpong/infer-out
+[3770880][   progress] BugThread.java starting
+[3770879][   progress] PingPong.java starting
+[3770877][   progress] BuggedProgram.java starting
+[3770878][   progress] PP.java starting
+[3770878][   progress] PP.java DONE
+[3770880][   progress] BugThread.java DONE
+[3770877][   progress] BuggedProgram.java DONE
+[3770879][   progress] PingPong.java DONE
+[3770793][      debug] Analysis phase finished in 208ms
+[3770793][      debug] Collected stats:
+[3770793][      debug] Backend stats:
+[3770793][      debug]   summary_file_try_load= 208
+[3770793][      debug]   summary_read_from_disk= 6
+[3770793][      debug]   summary_cache_hits= 212 (50%)
+[3770793][      debug]   summary_cache_misses= 208
+[3770793][      debug]   ondemand_procs_analyzed= 14
+[3770793][      debug]   ondemand_local_cache_hits= 127 (66%)
+[3770793][      debug]   ondemand_local_cache_misses= 63
+[3770793][      debug]   proc_locker_lock_time_user= 0.00000000
+[3770793][      debug]   proc_locker_lock_time_sys= 0.00000000
+[3770793][      debug]   proc_locker_lock_time_wall= 0.00000000
+[3770793][      debug]   proc_locker_unlock_time_user= 0.00000000
+[3770793][      debug]   proc_locker_unlock_time_sys= 0.00000000
+[3770793][      debug]   proc_locker_unlock_time_wall= 0.00000000
+[3770793][      debug]   restart_scheduler_useful_time_user= 0.00000000
+[3770793][      debug]   restart_scheduler_useful_time_sys= 0.00000000
+[3770793][      debug]   restart_scheduler_useful_time_wall= 0.00000000
+[3770793][      debug]   restart_scheduler_total_time_user= 0.00000000
+[3770793][      debug]   restart_scheduler_total_time_sys= 0.00000000
+[3770793][      debug]   restart_scheduler_total_time_wall= 0.00000000
+[3770793][      debug]   scheduler_process_analysis_time_user= 0.03018000
+[3770793][      debug]   scheduler_process_analysis_time_sys= 0.04043500
+[3770793][      debug]   scheduler_process_analysis_time_wall= 0.20760590
+[3770793][      debug]   
+[3770793][      debug] 
