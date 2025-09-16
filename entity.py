@@ -203,7 +203,7 @@ class BugReports:
             if len(groups[0])<3:
                 call_chain=[]
             else:
-                call_chain=[(t["filename"],self.source_analyzer.find_call_chains(t["filename"], t["line_number"])) for t in groups[0][1:-1]]
+                call_chain=[(t["filename"],self.source_analyzer.find_method_sig_from_line(t["filename"], t["line_number"])) for t in groups[0][1:-1]]
 
             event = AccessEvent(
                 variable=variable,
@@ -229,7 +229,7 @@ class BugReports:
                     call_chain = []
                 else:
                     call_chain = [
-                        (t["filename"], self.source_analyzer.find_call_chains(t["filename"], t["line_number"])) for t in
+                        (t["filename"], self.source_analyzer.find_method_sig_from_line(t["filename"], t["line_number"])) for t in
                         group[1:-1]]
 
                 event = AccessEvent(
