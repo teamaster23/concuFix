@@ -120,6 +120,8 @@ class BugReports:
 
         for index, bug in enumerate(self.data, 1):
             self.files.add(bug["file"])
+            for trace in bug["bug_trace"]:
+                self.files.add(trace["filename"])
 
 
         self.races = []
