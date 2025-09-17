@@ -208,7 +208,7 @@ Your final output must be a single JSON object in the specified format. In the `
                 ollama_api_url, 
                 json=payload,  # 这会自动设置 Content-Type 和序列化
                 headers=headers,
-                timeout=600
+                timeout=3000
             )
             
             # 检查HTTP响应状态码，如果不是200 OK，则抛出异常
