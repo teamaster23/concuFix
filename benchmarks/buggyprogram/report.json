@@ -1,168 +1,93 @@
 [
   {
-    "access": "hJWmvgAAADEAAAAIAAAAHAAAABigsAEAzgD/ki9BbGFybUNsb2NrLmphdmGgsAEAiwD/ki9BbGFybUNsb2NrLmphdmFA",
-    "bug_trace": [
+    "bug_type":"THREAD_SAFETY_VIOLATION_2",
+    "qualifier":"Read/Write race. Non-private method `BuggyProgram$User.run()` reads without synchronization from `this.this$0.randomNumber`. Potentially races with write in method `BuggyProgram$User.generate()`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity":"WARNING",
+    "line":313,
+    "column":-1,
+    "procedure":"buggyprogram.BuggyProgram$User.run():void",
+    "procedure_start_line":0,
+    "file":"BuggyProgram.java",
+    "bug_trace":[
       {
-        "column_number": -1,
-        "description": "<Read trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 206
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":313,
+        "column_number":-1,
+        "description":"<Read trace>"
       },
       {
-        "column_number": -1,
-        "description": "access to `this.now`",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 206
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":313,
+        "column_number":-1,
+        "description":"access to `this.this$0.randomNumber`"
       },
       {
-        "column_number": -1,
-        "description": "<Write trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 139
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":338,
+        "column_number":-1,
+        "description":"<Write trace>"
       },
-      {
-        "column_number": -1,
-        "description": "access to `this.now`",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 139
+      {"level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":338,
+        "column_number":-1,
+        "description":"access to `this.this$0.randomNumber`"
       }
     ],
-    "bug_type": "THREAD_SAFETY_VIOLATION_2",
-    "bug_type_hum": "Thread Safety Violation 2",
-    "column": -1,
-    "file": "AlarmClock.java",
-    "hash": "66a54de61c0cc20d588c2af0becbbac9",
-    "key": "AlarmClock.java|getTime|THREAD_SAFETY_VIOLATION_2",
-    "line": 206,
-    "procedure": "alarmclock.Monitor.getTime():int",
-    "procedure_start_line": 0,
-    "qualifier": "Read/Write race. Non-private method `Monitor.getTime()` reads without synchronization from `this.now`. Potentially races with write in method `Monitor.tick()`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
-    "severity": "WARNING",
-    "snapshot1": "30629561ce30ca44183a514a96aee774",
-    "snapshot2": "f76bc39a259b8094ae53e579b62952cd"
+    "key":"BuggyProgram.java|run|THREAD_SAFETY_VIOLATION_2",
+    "hash":"db590e3268c3b2185385f61569b294c8",
+    "bug_type_hum":"Thread Safety Violation 2",
+    "access":"hJWmvgAAADUAAAAIAAAAHgAAABqgsAEBOQD/kjFCdWdneVByb2dyYW0uamF2YaCwAQFSAP+SMUJ1Z2d5UHJvZ3JhbS5qYXZhQA==",
+    "snapshot1":"afdfd5dd782168ab019eba2d9ed189ac",
+    "snapshot2":"378168a27ed0ac13cc3b2b9b86d2de45"
   },
   {
-    "access": "hJWmvgAAADEAAAAIAAAAHAAAABigsAEBVAD/ki9BbGFybUNsb2NrLmphdmGgsAEBKAD/ki9BbGFybUNsb2NrLmphdmFA",
-    "bug_trace": [
+    "bug_type":"THREAD_SAFETY_VIOLATION_2",
+    "qualifier":"Read/Write race. Non-private method `BuggyProgram$User.run()` reads without synchronization from `buggyprogram.BuggyProgram.history.[_]`. Potentially races with write in method `BuggyProgram$User.record()`.\n Reporting because another access to the same memory occurs on a background thread, although this access may not.",
+    "severity":"WARNING",
+    "line":313,
+    "column":-1,
+    "procedure":"buggyprogram.BuggyProgram$User.run():void",
+    "procedure_start_line":0,
+    "file":"BuggyProgram.java",
+    "bug_trace":
+    [
       {
-        "column_number": -1,
-        "description": "<Read trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 192
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":313,
+        "column_number":-1,
+        "description":"<Read trace>"
       },
       {
-        "column_number": -1,
-        "description": "call to MyObject MyLinkedList.getLock(int)",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 192
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":313,
+        "column_number":-1,
+        "description":"access to `buggyprogram.BuggyProgram.history.[_]`"
       },
       {
-        "column_number": -1,
-        "description": "access to `this.waitList.size`",
-        "filename": "AlarmClock.java",
-        "level": 1,
-        "line_number": 340
+        "level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":370,
+        "column_number":-1,
+        "description":"<Write trace>"
       },
-      {
-        "column_number": -1,
-        "description": "<Write trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 146
-      },
-      {
-        "column_number": -1,
-        "description": "call to void MyLinkedList.removeElementAt(int)",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 146
-      },
-      {
-        "column_number": -1,
-        "description": "access to `this.waitList.size`",
-        "filename": "AlarmClock.java",
-        "level": 1,
-        "line_number": 296
+      {"level":0,
+        "filename":"BuggyProgram.java",
+        "line_number":370,
+        "column_number":-1,
+        "description":"access to `buggyprogram.BuggyProgram.history.[_]`"
       }
     ],
-    "bug_type": "THREAD_SAFETY_VIOLATION_2",
-    "bug_type_hum": "Thread Safety Violation 2",
-    "column": -1,
-    "file": "AlarmClock.java",
-    "hash": "8eaf757c51415e0829028ad97ff97aef",
-    "key": "AlarmClock.java|wakeme|THREAD_SAFETY_VIOLATION_2",
-    "line": 192,
-    "procedure": "alarmclock.Monitor.wakeme(int,int):void",
-    "procedure_start_line": 0,
-    "qualifier": "Read/Write race. Non-private method `Monitor.wakeme(...)` indirectly reads without synchronization from `this.waitList.size`. Potentially races with write in method `Monitor.tick()`.\n Reporting because this access may occur on a background thread.",
-    "severity": "WARNING",
-    "snapshot1": "732fbae77d5a999ea9118b3456eb26be",
-    "snapshot2": "95956d9e87bc0beef9c0270828ff826d"
-  },
-  {
-    "access": "hJWmvgAAADEAAAAIAAAAHAAAABigsAEBWAD/ki9BbGFybUNsb2NrLmphdmGgsAEBJAD/ki9BbGFybUNsb2NrLmphdmFA",
-    "bug_trace": [
-      {
-        "column_number": -1,
-        "description": "<Read trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 192
-      },
-      {
-        "column_number": -1,
-        "description": "call to MyObject MyLinkedList.getLock(int)",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 192
-      },
-      {
-        "column_number": -1,
-        "description": "access to `this.waitList.list.[_]`",
-        "filename": "AlarmClock.java",
-        "level": 1,
-        "line_number": 344
-      },
-      {
-        "column_number": -1,
-        "description": "<Write trace>",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 146
-      },
-      {
-        "column_number": -1,
-        "description": "call to void MyLinkedList.removeElementAt(int)",
-        "filename": "AlarmClock.java",
-        "level": 0,
-        "line_number": 146
-      },
-      {
-        "column_number": -1,
-        "description": "access to `this.waitList.list.[_]`",
-        "filename": "AlarmClock.java",
-        "level": 1,
-        "line_number": 292
-      }
-    ],
-    "bug_type": "THREAD_SAFETY_VIOLATION_2",
-    "bug_type_hum": "Thread Safety Violation 2",
-    "column": -1,
-    "file": "AlarmClock.java",
-    "hash": "f2205a7f3d239b89b6617ba2cb6defb7",
-    "key": "AlarmClock.java|wakeme|THREAD_SAFETY_VIOLATION_2",
-    "line": 192,
-    "procedure": "alarmclock.Monitor.wakeme(int,int):void",
-    "procedure_start_line": 0,
-    "qualifier": "Read/Write race. Non-private method `Monitor.wakeme(...)` indirectly reads without synchronization from `this.waitList.list.[_]`. Potentially races with write in method `Monitor.tick()`.\n Reporting because this access may occur on a background thread.",
-    "severity": "WARNING",
-    "snapshot1": "4edee072a563a55f319a76d02ebc6006",
-    "snapshot2": "92a57d3a3346f32a0f91a7670798071a"
+    "key":"BuggyProgram.java|run|THREAD_SAFETY_VIOLATION_2",
+    "hash":"a641c5d7a92e1e8d0f69a152d66a86b5",
+    "bug_type_hum":"Thread Safety Violation 2",
+    "access":"hJWmvgAAADUAAAAIAAAAHgAAABqgsAEBOQD/kjFCdWdneVByb2dyYW0uamF2YaCwAQFyAP+SMUJ1Z2d5UHJvZ3JhbS5qYXZhQA==",
+    "snapshot1":"f9f43ce6cd76be21948d315c910bbd20",
+    "snapshot2":"a353af5989c34ed0b5b42ad39763e931"
   }
 ]
