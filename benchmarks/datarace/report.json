@@ -7,28 +7,28 @@
         "description": "<Read trace>",
         "filename": "Account.java",
         "level": 0,
-        "line_number": 11
+        "line_number": 8
       },
       {
         "column_number": -1,
         "description": "access to `this.balance`",
         "filename": "Account.java",
         "level": 0,
-        "line_number": 11
+        "line_number": 8
       },
       {
         "column_number": -1,
         "description": "<Write trace>",
         "filename": "Account.java",
         "level": 0,
-        "line_number": 15
+        "line_number": 12
       },
       {
         "column_number": -1,
         "description": "access to `this.balance`",
         "filename": "Account.java",
         "level": 0,
-        "line_number": 15
+        "line_number": 12
       }
     ],
     "bug_type": "THREAD_SAFETY_VIOLATION_2",
@@ -37,9 +37,9 @@
     "file": "Account.java",
     "hash": "350b1650ccea94184556f34e53eaae3d",
     "key": "Account.java|getBalance|THREAD_SAFETY_VIOLATION_2",
-    "line": 11,
+    "line": 8,
     "procedure": "datarace.Account.getBalance():int",
-    "procedure_start_line": 0,
+    "procedure_start_line": 7,
     "qualifier": "Read/Write race. Non-private method `Account.getBalance()` reads without synchronization from `this.balance`. Potentially races with write in method `Account.setBalance(...)`.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
     "severity": "WARNING",
     "snapshot1": "3d0bc6f539ad31c1672fce299a13ca6b",
@@ -53,7 +53,7 @@
         "description": "access to `this.balance`",
         "filename": "Account.java",
         "level": 0,
-        "line_number": 15
+        "line_number": 12
       }
     ],
     "bug_type": "THREAD_SAFETY_VIOLATION_2",
@@ -62,9 +62,9 @@
     "file": "Account.java",
     "hash": "b789e23c9b84a3840361b29846afd5bf",
     "key": "Account.java|setBalance|THREAD_SAFETY_VIOLATION_2",
-    "line": 15,
+    "line": 12,
     "procedure": "datarace.Account.setBalance(int):void",
-    "procedure_start_line": 0,
+    "procedure_start_line": 11,
     "qualifier": "Unprotected write. Non-private method `Account.setBalance(...)` writes to field `this.balance` outside of synchronization.\n Reporting because the current class is annotated `@ThreadSafe`, so we assume that this method can run in parallel with other non-private methods in the class (including itself).",
     "severity": "WARNING",
     "snapshot1": "621a471ef9963594638fb4e34c153c88"

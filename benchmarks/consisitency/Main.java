@@ -1,5 +1,4 @@
 package consisitency;
-
 public class Main implements Runnable{
 	public static int THREAD_NUMBER = 3;
 	
