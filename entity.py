@@ -28,7 +28,7 @@ class AccessEvent:
     file: str
     line: str
     method: str
-    call_chain:[]
+    call_chain:list
     event_type: str
 
 
@@ -64,14 +64,14 @@ class classInit:
     file_path: str  # 未知时默认为空字符串
     class_name: str
     source_code: List[str] = field(default_factory=list)
-    patches: str = field(default="")
+    patch: str = field(default="")
 
 
 @dataclass
 class fileInit:
     file_path: str  # 未知时默认为空字符串
     source_code: List[str] = field(default_factory=list)
-    patches: str = field(default="")
+    patch: str = field(default="")
 
 
 class RacePair:
@@ -130,6 +130,7 @@ class BugReports:
         self.method_pair_to_races = dict()
         self.method_to_method_info = dict()
         self.source_analyzer=None
+
 
         # self._load_race_pairs()
 

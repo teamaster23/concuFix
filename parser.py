@@ -14,6 +14,7 @@ from typing import Tuple  # Python 3.9+ 可以直接用内置 tuple 替代
 JAVA_LANGUAGE = Language(tree_sitter_java.language())
 parser = Parser(JAVA_LANGUAGE)
 
+
 @dataclass
 class SourceLine:
     line_num: int
@@ -22,16 +23,16 @@ class SourceLine:
     def __str__(self):
         return f"{self.line_num}:{self.content}"
 
+
 class CodeAnalyzer:
     def __init__(self, base_dir: str):
         # 输出数据结构
         self.var_to_methods: Dict[str, Set[str]] = defaultdict(set)
         self.method_to_code: Dict[str, List[SourceLine]] = {}
         self.file_to_snippets: Dict[str, Dict[str, List[SourceLine]]] = defaultdict(dict)
-        
+
         self.base_dir = Path(base_dir).absolute()
 
-        
     def analyze(self, global_vars: List[str], target_files: List[str], target_methods: List[str]):
         """
         主分析入口
@@ -41,7 +42,7 @@ class CodeAnalyzer:
         """
         # 1. 在base_dir下递归查找目标文件
         found_files = self._find_target_files(target_files)
-        
+
         # 2. 分析找到的文件
         for file_path in found_files:
             self._analyze_file(file_path, global_vars, target_methods)
@@ -50,19 +51,18 @@ class CodeAnalyzer:
         """在base_dir下递归查找目标文件（包括所有子目录）"""
         found = []
         target_set = set(target_files)
-    
+
         for root, _, files in os.walk(self.base_dir):
             for file in files:
                 if file in target_set:
                     full_path = os.path.join(root, file)
                     found.append(str(Path(full_path)))
-    
+
         # 检查是否所有文件都找到
         found_files = {Path(f).name for f in found}
         if missing := target_set - found_files:
             print(f"警告：未找到文件 {missing}")
         return found
-
 
     def _analyze_file(self, file_path: str, global_vars: List[str], target_methods: List[str]):
         """分析单个文件"""
@@ -73,7 +73,7 @@ class CodeAnalyzer:
             'imports': [],
             'classes': defaultdict(list),
             'methods': defaultdict(list),
-            'constructors': defaultdict(list)     # 每个类的构造方法体
+            'constructors': defaultdict(list)  # 每个类的构造方法体
         }
 
         # 1. 提取import部分
@@ -107,7 +107,7 @@ class CodeAnalyzer:
                 # 方法检测
                 method_match = self._detect_method(stripped, current_class, brace_level)
                 if method_match and not in_method:
-                    method_name, is_target, is_constructor  = method_match
+                    method_name, is_target, is_constructor = method_match
                     in_method = True
                     current_method = method_name
                     method_start = i
@@ -131,8 +131,8 @@ class CodeAnalyzer:
                         # 记录变量访问关系
                         if method_name in target_methods:
                             self._track_var_access(
-                                file_snippets['methods'][method_name], 
-                                method_name, 
+                                file_snippets['methods'][method_name],
+                                method_name,
                                 global_vars
                             )
 
@@ -149,8 +149,8 @@ class CodeAnalyzer:
             stripped = line.strip()
             if stripped.startswith('import '):
                 imports.append(SourceLine(i, line))
-            elif stripped and (stripped.startswith('class ') or 
-                             stripped.startswith('public ')):
+            elif stripped and (stripped.startswith('class ') or
+                               stripped.startswith('public ')):
                 break
         return imports
 
@@ -165,13 +165,13 @@ class CodeAnalyzer:
             method_sig = match.group(2).strip()
             method_name = method_sig.split('(')[0].split()[-1]
             full_name = f"{current_class}.{method_name}"
-            return (full_name, True,False)  # 简化示例：假设所有方法都是目标方法,第三个参数是表示是否是构造方法
-        
-         # 构造方法匹配（没有返回类型）
+            return (full_name, True, False)  # 简化示例：假设所有方法都是目标方法,第三个参数是表示是否是构造方法
+
+        # 构造方法匹配（没有返回类型）
         m_ctor = re.match(rf'^\s*(public|private|protected)?\s*{current_class}\s*\(.*\)\s*{{?', line)
         if m_ctor:
             method_name = current_class
-            return method_name, True,True
+            return method_name, True, True
 
         return None
 
@@ -197,20 +197,19 @@ class CodeAnalyzer:
         return self.file_to_snippets
 
 
-
 class JavaSourceAnalyzer:
-    def __init__(self, java_files: List[str],base_dir):
+    def __init__(self, java_files: List[str], base_dir):
         JAVA_LANGUAGE = Language(tree_sitter_java.language())
 
         # 2. 初始化解析器
         self.parser = Parser(JAVA_LANGUAGE)
 
         self.java_files = java_files
-        self.base_dir=base_dir
-          # 1. 在base_dir下递归查找目标文件
+        self.base_dir = base_dir
+        # 1. 在base_dir下递归查找目标文件
         self.found_files = self._find_target_files(self.java_files)
 
-    def find_method_by_line(self,node, target_line):
+    def find_method_by_line(self, node, target_line):
         """
         在 AST 中递归查找包含目标行号的方法节点
         :param node: 当前遍历的节点
@@ -223,7 +222,7 @@ class JavaSourceAnalyzer:
 
         if start_line <= target_line <= end_line:
             # 找到方法节点
-            if node.type == 'method_declaration'or node.type == 'constructor_declaration':
+            if node.type == 'method_declaration' or node.type == 'constructor_declaration':
                 return node
 
             # 递归查找子节点
@@ -234,7 +233,7 @@ class JavaSourceAnalyzer:
 
         return None
 
-    def extract_method_signature(self,node, source_bytes):
+    def extract_method_signature(self, node, source_bytes):
         """
         从方法节点提取完整签名
         :param node: 方法节点
@@ -278,7 +277,7 @@ class JavaSourceAnalyzer:
 
         return ' '.join(signature_parts)
 
-    def find_method_sig_from_line(self, file_path,target_line):
+    def find_method_sig_from_line(self, file_path, target_line):
 
         """
           主函数：获取指定行号的方法签名
@@ -304,7 +303,7 @@ class JavaSourceAnalyzer:
             return self.extract_method_signature(method_node, source_bytes)
         return None
 
-    def _find_target_file_by_name(self, target_file:str) ->str:
+    def _find_target_file_by_name(self, target_file: str) -> str:
         """在base_dir下递归查找目标文件（包括所有子目录）"""
         # target_set = set(target_files)
 
@@ -322,22 +321,22 @@ class JavaSourceAnalyzer:
         """在base_dir下递归查找目标文件（包括所有子目录）"""
         found = []
         target_set = set(target_files)
-    
+
         for root, _, files in os.walk(self.base_dir):
             for file in files:
                 if file in target_set:
                     full_path = os.path.join(root, file)
                     found.append(str(Path(full_path)))
-    
+
         # 检查是否所有文件都找到
         found_files = {Path(f).name for f in found}
         if missing := target_set - found_files:
             print(f"警告：未找到文件 {missing}")
         return found
-        
+
     def _get_code_lines(self, code: str, start: int, end: int) -> List[str]:
         lines = code.splitlines()
-        return [f"{i+1}: {lines[i]}" for i in range(start, end + 1)]
+        return [f"{i + 1}: {lines[i]}" for i in range(start, end + 1)]
 
     def _extract_imports(self, tree, code_lines: List[str]) -> List[str]:
         imports = []
@@ -390,7 +389,6 @@ class JavaSourceAnalyzer:
     #         else:
     #             to_visit.extend(node.children)
     #     return classes
-
 
     # def _extract_classes(self, tree, code_lines: List[str]) -> List[Dict]:
     #     classes = []
@@ -492,8 +490,8 @@ class JavaSourceAnalyzer:
     #             queue.extend(node.named_children)
 
     #     return classes
-    
-    def _extract_classes(self, tree, code_lines: List[str],file_path:str) -> List[Dict]:
+
+    def _extract_classes(self, tree, code_lines: List[str], file_path: str) -> List[Dict]:
         classes = []
         queue = [tree.root_node]
 
@@ -514,8 +512,7 @@ class JavaSourceAnalyzer:
                     'constructors': [],
                     'methods': []
                 }
-                init_code_list=[]
-                
+                init_code_list = []
 
                 # 获取 class_body 节点
                 body = next((c for c in node.named_children if c.type == 'class_body'), None)
@@ -556,31 +553,29 @@ class JavaSourceAnalyzer:
                                 init_code_list.append(
                                     self._get_code_lines("\n".join(code_lines), s, e))
 
-                init_code=classInit(file_path=file_path,class_name=cls_name,source_code=init_code_list)
-                class_info['init_code']=init_code
+                init_code = classInit(file_path=file_path, class_name=cls_name, source_code=init_code_list)
+                class_info['init_code'] = init_code
                 classes.append(class_info)
 
             else:
                 # 继续遍历子节点，寻找其他类声明
                 queue.extend(node.named_children)
 
-        
         return classes
-    
-    
+
     def analyze(self) -> Dict[str, Dict]:
         result = {}
         for file_path in self.found_files:
             code = Path(file_path).read_text(encoding='utf-8')
-            
+
             code_lines = code.splitlines()
             tree = self.parser.parse(code.encode('utf-8'))  # More explicit encoding
             # tree = self.parser.parse(bytes(code, 'utf-8'))
 
             imports = self._extract_imports(tree, code_lines)
-            
-            file_init=fileInit(file_path=file_path,source_code=imports)
-            classes = self._extract_classes(tree, code_lines,file_path)
+
+            file_init = fileInit(file_path=file_path, source_code=imports)
+            classes = self._extract_classes(tree, code_lines, file_path)
 
             result[file_path] = {
                 'imports': file_init,
@@ -590,13 +585,11 @@ class JavaSourceAnalyzer:
         return result
 
 
-
-
 class SourceCodeMatcher:
     def __init__(self, result_data):
         self.result = result_data
-    
-    def find_method(self, decompiled_signature: str,file_name,line_no:int) -> Tuple[str, str, list]:
+
+    def find_method(self, decompiled_signature: str, file_name, line_no: int) -> Tuple[str, str, list]:
         """根据反编译签名查找源代码中的方法"""
         try:
             # 1. 查找对应的Java文件
@@ -612,18 +605,18 @@ class SourceCodeMatcher:
                     for method_lines in combined_list:
                         begin_line_no = int(method_lines[0].split(':')[0])
                         end_line_no = int(method_lines[-1].split(':')[0])
-                        if begin_line_no<=line_no<=end_line_no:
+                        if begin_line_no <= line_no <= end_line_no:
                             translator = str.maketrans('', '', ' \n\t\r\f\v')
                             cleaned_decompiled_signature = decompiled_signature.translate(translator)
                             process_lines = lambda lines: ''.join(
                                 re.sub(r'\s+', '', re.sub(r'^\d+:', '', line)) for line in lines)
                             if cleaned_decompiled_signature in process_lines(method_lines):
-                                return (file_path,class_info['name'],method_lines)
+                                return (file_path, class_info['name'], method_lines)
                         else:
                             continue
         except Exception as e:
-             print(f"匹配失败: {e}")
-             return None
+            print(f"匹配失败: {e}")
+            return None
         return None
 
         #                 translator = str.maketrans('', '', ' \n\t\r\f\v')
@@ -661,12 +654,12 @@ class SourceCodeMatcher:
         # except Exception as e:
         #     print(f"匹配失败: {e}")
         #     return None
-    
+
     def _match_class_name(self, source_name: str, decompiled_name: str) -> bool:
         """匹配类名（处理嵌套类$符号）"""
         # 简单实现：检查类名是否以decompiled_name结尾
         return source_name == decompiled_name or source_name.endswith('.' + decompiled_name)
-    
+
     def _match_method(self, method_lines: List[str], method_name: str, line_no: int) -> bool:
         """
         检查方法定义是否匹配方法名且包含指定行号
@@ -677,25 +670,23 @@ class SourceCodeMatcher:
         """
         if not method_lines:
             return False
-    
+
         # 检查方法名是否匹配
         first_line = method_lines[0]
         if not (f" {method_name}(" in first_line or f" {method_name} (" in first_line):
             return False
-    
+
         # 提取方法起始行号和结束行号
         start_line = int(method_lines[0].split(':', 1)[0])
         end_line = int(method_lines[-1].split(':', 1)[0])
-    
+
         # 检查目标行号是否在方法范围内
         return start_line <= line_no <= end_line
-    
-    
+
     def _extract_method_name(self, signature_line: str) -> str:
         """从源代码行提取方法名"""
         # 简单实现：取括号前的最后一个单词
         return signature_line.split('(')[0].split()[-1]
-
 
     def _match_constructor(self, ctor_lines: List[str], class_name: str, line_no: int) -> bool:
         """
@@ -707,32 +698,32 @@ class SourceCodeMatcher:
         """
         if not ctor_lines:
             return False
-    
+
         # 提取构造方法起始结束行号
         start_line = int(ctor_lines[0].split(':', 1)[0])
         end_line = int(ctor_lines[-1].split(':', 1)[0])
-    
+
         # 检查行号是否在构造方法范围内
         if not (start_line <= line_no <= end_line):
             return False
-    
+
         # 获取简单类名（处理嵌套类）
         simple_class_name = class_name.split('$')[-1]
         first_line = ctor_lines[0]
-    
+
         # 更健壮的构造方法签名匹配
         return any([
-            f" {simple_class_name}(" in first_line,     # 标准格式: MyClass(
-            f" {simple_class_name} (" in first_line,    # 带空格: MyClass (
-            f"{simple_class_name}(" in first_line,      # 可能出现在行首
-            f"<init>(" in first_line                   # 反编译可能显示的构造方法名
+            f" {simple_class_name}(" in first_line,  # 标准格式: MyClass(
+            f" {simple_class_name} (" in first_line,  # 带空格: MyClass (
+            f"{simple_class_name}(" in first_line,  # 可能出现在行首
+            f"<init>(" in first_line  # 反编译可能显示的构造方法名
         ])
 
     # def _parse(self,full_signature: str) -> dict:
-        
+
     #     """
     #     解析反编译方法签名，例如：
-    #     "buggyprogram.BuggyProgram$User.run():void" -> 
+    #     "buggyprogram.BuggyProgram$User.run():void" ->
     #     {
     #         'class': 'BuggyProgram$User',
     #         'package': 'buggyprogram',
@@ -757,7 +748,7 @@ class SourceCodeMatcher:
     #     match = re.match(pattern, full_signature)
     #     if not match:
     #         raise ValueError(f"无法解析方法签名: {full_signature}")
-    
+
     #     return {
     #         'package': match.group('package') or '',  # 无包名时返回空字符串
     #         'class': match.group('class'),
@@ -765,14 +756,14 @@ class SourceCodeMatcher:
     #         'params': [p.strip() for p in match.group('params').split(',') if p.strip()],
     #         'return_type': match.group('return_type')
     #     }
-    def _parse(self,full_signature: str) -> dict:
+    def _parse(self, full_signature: str) -> dict:
         """
     增强版方法签名解析器，支持：
     1. 可选包名
     2. 可选返回类型
     3. 更灵活的命名规则
     4. 处理泛型类型
-    
+
     支持格式示例：
     "com.example.pkg.MyClass$Inner.method(String, int): void"
     "MyClass.method()"
@@ -792,11 +783,11 @@ class SourceCodeMatcher:
             (?: : \s* (?P<return_type> \S+ ) )?  # 可选返回类型
             $
         """
-        
+
         match = re.search(pattern, full_signature, re.VERBOSE)
         if not match:
             raise ValueError(f"无法解析方法签名: {full_signature}")
-    
+
         # 解析参数
         params_str = match.group('params').strip()
         params = []
@@ -814,7 +805,7 @@ class SourceCodeMatcher:
                     current = []
                     continue
                 current.append(char)
-        
+
             if current:
                 params.append(''.join(current).strip())
 
@@ -835,7 +826,6 @@ class SourceCodeMatcher:
         }
 
 
-
 def extract_method_decls_with_treesitter(numbered_lines: list[str]) -> list[tuple[int, str]]:
     """
     使用 Tree-sitter 提取方法声明行
@@ -846,20 +836,20 @@ def extract_method_decls_with_treesitter(numbered_lines: list[str]) -> list[tupl
     line_offsets = [0]
     for line in code_lines:
         line_offsets.append(line_offsets[-1] + len(line) + 1)  # +1 for newline
-    
+
     full_code = "\n".join(code_lines)
     tree = parser.parse(bytes(full_code, "utf8"))
-    
+
     # 遍历语法树找方法声明节点
     method_nodes = []
     cursor = tree.walk()
     stack = []
-    
+
     while True:
         node = cursor.node
         if node.type == 'method_declaration':
             method_nodes.append(node)
-        
+
         # 深度优先遍历
         if cursor.goto_first_child():
             stack.append(cursor.copy())
@@ -869,24 +859,28 @@ def extract_method_decls_with_treesitter(numbered_lines: list[str]) -> list[tupl
         if not stack:
             break
         cursor = stack.pop()
-    
+
     # 映射回原始行号
     declarations = []
     for node in method_nodes:
         start_line = find_line_number(node.start_byte, line_offsets)
         decl_code = code_lines[start_line].strip()
         declarations.append((int(numbered_lines[start_line].split(':', 1)[0]), decl_code))
-    
+
     return declarations
+
 
 def find_line_number(byte_offset: int, line_offsets: list[int]) -> int:
     """根据字节偏移量计算行号"""
     for i, offset in enumerate(line_offsets):
         if byte_offset < offset:
             return i - 1
-    return len(line_offsets) - 1   
+    return len(line_offsets) - 1
+
+
 from tree_sitter import Parser, Language, Node
 import os
+
 # 使用示例
 if __name__ == "__main__":
     # numbered_lines = [
@@ -896,12 +890,13 @@ if __name__ == "__main__":
     #     "45:     return mapper.readValue(input, clazz);",
     #     "46: }"
     # ]
-    
+
     # declaration = extract_method_declaration(numbered_lines)
     # print("提取的方法声明:")
     # print(declaration)
-    
+
     import javalang
+
 
     def find_field_declaration(java_code, target_field):
         tree = javalang.parse.parse(java_code)
@@ -913,6 +908,7 @@ if __name__ == "__main__":
                         "code": f"{' '.join(node.modifiers)} {node.type} {declarator.name} = {declarator.initializer};"
                     }
         return None
+
 
     # 示例用法
     code = """
