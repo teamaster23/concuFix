@@ -33,21 +33,26 @@ class RepairAgent():
 
     def process(self, state: Dict[str, Any]) -> Dict[str, Any]:
         confictMethods = self._get_sorted_method_pairs(state['bug_report'].method_pair_to_races)
+        # key:(m1,m2), value: [(e1,e2),(e3,e4)]
         """
             不动点迭代直到集合为空
             :param initial_set: 初始集合
             :param process_func: 处理函数 (接收元素，返回要添加/删除的元素)
             :return: 最终收敛的集合
         """
+
+        ##这块迭代写错了，应该是按照confictMethods顺序迭代运行
         confictMethods = set(confictMethods)
         while confictMethods:
             next_set = set()
+            #每次迭代选取一个方法对
             for cms in confictMethods:
                 related_events = [event for race in state['bug_report'].method_pair_to_races[cms] for event in
                                   (race.event1, race.event2)]  # 处理当前元素，返回需要添加/删除的元素
                 related_vars = {event.variable for event in related_events}  # 如果属性名为 var
-                suggest_polices = state['suggest_polices']
-                policy_input = state['policies']
+                suggest_polices = state['suggest_polices'] #这块可以笼统点，从cas或者voliatile、或者加锁
+                policy_input = state['policies']#这块需要无歧义，详细。用结构化的格式输出。
+                #根据这些信息，生成prompt，调用llm生成补丁和策略
                 policies = self._generate_patch(
                     cms,
                     related_events,
@@ -60,6 +65,7 @@ class RepairAgent():
 
                 # 处理受到影响的变量
                 for v, p in policies.items():
+                    #如果是CAS,需要修改所有的涉及到的方法
                     if "redefining property" in str(p).lower():
                         affected_methods = self._find_method_pairs_affected_by(v)
                         for affected_method in affected_methods:
@@ -152,15 +158,16 @@ class RepairAgent():
         other_call_chain = dict()
 
         for event in related_events:
+            # cal是方法
             for cal in event.call_chain:
                 other_call_chain[cal] = state['bug_report'].method_to_method_info[cal]
 
         init_info = {}
         """初始化对应的源码"""
-        for class_info in state['source_code'][m1.file_path]["classes"]:
+        for class_info in state['source_code'][m1.file_path]["classes"]:#state['source_code']是个dict，key是文件路径，value是文件内容
             for e in related_events:
                 if class_info['init_code'].class_name == e.class_name:
-                    init_info[e.class_name] = class_info.source_code
+                    init_info[e.class_name] = class_info
 
         # """初始化对应的源码"""
         # for class_info in state['source_code'][m2.file_path]["classes"]:
@@ -181,7 +188,7 @@ class RepairAgent():
         # 产生回应
         response = self.llm(messages)
 
-        # 补丁解析
+        # 补丁解析，补丁如果冲突
         patches, policies = self._parse_patch_generation_response(response.content)
 
         method_to_info = {}
@@ -190,8 +197,9 @@ class RepairAgent():
         method_to_info[m1.method_name] = m1
         method_to_info[m2.method_name] = m2
 
+        #对import部分的处理
         for var, p in policies.items():
-            # 判断是否p是使用CAS修复策略，如果是的话
+            # 判断是否p是使用CAS修复策略，如果是的话，需要提取文件初始化部分，然后对初始化部分进行修复
             if p == "CAS":
                 files_init = {}
                 for method, method_info in method_to_info.items():
