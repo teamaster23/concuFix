@@ -2,6 +2,6 @@
   "llm_model": "gpt-4",
   "temperature": 0.2,
   "other_config_key": "other_config_value",
-  "project_dir": "/app/concuFix/benchmarks/buggyprogram",
-  "output_dir": "/app/concuFix/results/buggyprogram"
+  "project_dir": "/app/concuFix/benchmarks/alarmclock",
+  "output_dir": "/app/concuFix/results/alarmclock"
 }

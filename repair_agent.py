@@ -42,44 +42,44 @@ class RepairAgent():
         """
 
         ##这块迭代写错了，应该是按照confictMethods顺序迭代运行
-        confictMethods = set(confictMethods)
-        while confictMethods:
-            next_set = set()
-            #每次迭代选取一个方法对
-            for cms in confictMethods:
-                related_events = [event for race in state['bug_report'].method_pair_to_races[cms] for event in
-                                  (race.event1, race.event2)]  # 处理当前元素，返回需要添加/删除的元素
-                related_vars = {event.variable for event in related_events}  # 如果属性名为 var
-                suggest_polices = state['suggest_polices'] #这块可以笼统点，从cas或者voliatile、或者加锁
-                policy_input = state['policies']#这块需要无歧义，详细。用结构化的格式输出。
-                #根据这些信息，生成prompt，调用llm生成补丁和策略
-                policies = self._generate_patch(
-                    cms,
-                    related_events,
-                    related_vars,
-                    suggest_polices=suggest_polices,
-                    policy_input=policy_input
-                )
-                # 更新以前不存在的修复策略
-                policy_input.update(policies)
+        ##confictMethods = set(confictMethods)
 
-                # 处理受到影响的变量
-                for v, p in policies.items():
-                    #如果是CAS,需要修改所有的涉及到的方法
-                    if "redefining property" in str(p).lower():
-                        affected_methods = self._find_method_pairs_affected_by(v)
-                        for affected_method in affected_methods:
-                            # 对affected_method进行修复处理，让其按照现有的修复策略修复代码。
+        ##尝试下这种行不行
+        confictMethods = list(dict.fromkeys(confictMethods))
+        #每次迭代选取一个方法对
+        for cms in confictMethods:
+            related_events = [event for race in state['bug_report'].method_pair_to_races[cms] for event in
+                                (race.event1, race.event2)]  # 处理当前元素，返回需要添加/删除的元素
+            related_vars = {event.variable for event in related_events}  # 如果属性名为 var
+            suggest_polices = state['suggest_polices'] #这块可以笼统点，从cas或者voliatile、或者加锁
+            policy_input = state['policies']#这块需要无歧义，详细。用结构化的格式输出。
+            #根据这些信息，生成prompt，调用llm生成补丁和策略
+            policies = self._generate_patch(
+                cms,
+                related_events,
+                related_vars,
+                suggest_polices=suggest_polices,
+                policy_input=policy_input
+            )
+            # 更新以前不存在的修复策略
+            policy_input.update(policies)
 
-                            # 如果产生的补丁有冲突，调用大模型进行补丁合并
-                            pass
-                        # method_pairs.extend(affected_methods)
+            # 处理受到影响的变量
+            for v, p in policies.items():
+                #如果是CAS,需要修改所有的涉及到的方法
+                if "redefining property" in str(p).lower():
+                    affected_methods = self._find_method_pairs_affected_by(v)
+                    for affected_method in affected_methods:
+                        # 对affected_method进行修复处理，让其按照现有的修复策略修复代码。
 
-                        # 更新变量策略
+                        # 如果产生的补丁有冲突，调用大模型进行补丁合并
+                        pass
+                    # method_pairs.extend(affected_methods)
 
-            # 更新当前集合（避免直接修改迭代中的集合）
-            confictMethods = next_set
-        #
+                    # 更新变量策略
+
+        
+        
         # """执行迭代修复流程"""
         # method_pairs = state.get("method_pairs", [])
         # related_events = state.get("related_events", {})
@@ -144,37 +144,30 @@ class RepairAgent():
         #     "source_code": source_code
         # }
 
-    def _generate_patch(self, state, cms: ConfictMethod, related_events: list, related_vars: set,
-                        suggest_polices: Dict[str, Any],
-                        policy_input: Dict[str, Any],
-                        source_code: Dict[str, str]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    def generate_patch(self, state, cms: ConfictMethod, related_events: list, related_vars: set,
+                    suggest_polices: Dict[str, Any],
+                    policy_input: Dict[str, Any],
+                    source_code: Dict[str, str]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """方法体对应的源码"""
         m1 = cms.method1()
         m2 = cms.method2()
-
         method1_code = m1.source_code
         method2_code = m2.source_code
+        
         """调用链对应的源码"""
         other_call_chain = dict()
-
         for event in related_events:
             # cal是方法
             for cal in event.call_chain:
                 other_call_chain[cal] = state['bug_report'].method_to_method_info[cal]
-
+        
         init_info = {}
         """初始化对应的源码"""
-        for class_info in state['source_code'][m1.file_path]["classes"]:#state['source_code']是个dict，key是文件路径，value是文件内容
+        for class_info in state['source_code'][m1.file_path]["classes"]:  # state['source_code']是个dict，key是文件路径，value是文件内容
             for e in related_events:
                 if class_info['init_code'].class_name == e.class_name:
                     init_info[e.class_name] = class_info
-
-        # """初始化对应的源码"""
-        # for class_info in state['source_code'][m2.file_path]["classes"]:
-        #     for e in related_events:
-        #         if class_info['init_code'].class_name == e.class_name:
-        #             init_info[e.class_name] = class_info.source_code
-
+        
         # 提示词
         messages = self.patch_generation_prompt.format_messages(
             method1_code=method1_code,
@@ -185,29 +178,85 @@ class RepairAgent():
             init_info=init_info,
             related_vars=related_vars,
         )
-        # 产生回应
-        response = self.llm(messages)
+        
+        # 产生回应 - 调用本地ollama的qwen3:30b模型
+        import requests
+        import json
+        
+        # 添加自定义提示词
+        custom_prompt = """
+    请你作为一个专业的代码修复专家，根据提供的冲突方法和相关信息，生成高质量的补丁代码。
+    请注意：
+    1. 确保生成的补丁能够解决并发冲突问题
+    2. 保持代码的可读性和性能
+    3. 遵循最佳编程实践
+    4. 提供清晰的修复策略说明
 
+    现在请分析以下代码并生成相应的补丁：
+    """
+        
+        # 如果messages是列表格式，添加系统消息
+        if isinstance(messages, list):
+            enhanced_messages = [{"role": "system", "content": custom_prompt}] + messages
+        else:
+            # 如果messages是字符串格式，直接拼接
+            enhanced_messages = custom_prompt + "\n\n" + str(messages)
+        
+        try:
+            # 构建请求数据
+            payload = {
+                "model": "qwen3:30b",
+                "messages": enhanced_messages,
+                "stream": False
+            }
+            
+            # 发送请求到ollama API
+            ollama_response = requests.post(
+                "http://localhost:11434/api/chat",
+                headers={"Content-Type": "application/json"},
+                json=payload,
+                timeout=300  # 5分钟超时
+            )
+            
+            # 检查响应状态
+            ollama_response.raise_for_status()
+            
+            # 解析响应，创建类似原来response的对象
+            response_data = ollama_response.json()
+            
+            # 创建一个简单的response对象来模拟原来的response
+            class Response:
+                def __init__(self, content):
+                    self.content = content
+            
+            response = Response(response_data.get('message', {}).get('content', ''))
+            
+        except requests.exceptions.RequestException as e:
+            print(f"调用ollama模型时出现错误: {e}")
+            raise
+        except json.JSONDecodeError as e:
+            print(f"解析ollama响应时出现错误: {e}")
+            raise
+        
         # 补丁解析，补丁如果冲突
         patches, policies = self._parse_patch_generation_response(response.content)
-
+        
         method_to_info = {}
         method_to_info.update(other_call_chain)
         method_to_info.update(init_info)
         method_to_info[m1.method_name] = m1
         method_to_info[m2.method_name] = m2
-
-        #对import部分的处理
+        
+        # 对import部分的处理
         for var, p in policies.items():
             # 判断是否p是使用CAS修复策略，如果是的话，需要提取文件初始化部分，然后对初始化部分进行修复
             if p == "CAS":
                 files_init = {}
                 for method, method_info in method_to_info.items():
-                    files_init[method_info.file_path] = state['source_info'][method_to_info.file_path]["imports"]
+                    files_init[method_info.file_path] = state['source_info'][method_info.file_path]["imports"]
                 # 增加代码：对file_init对应的部分增加补丁
-
                 # 增加代码：如果file_init对应的部分已经存在了补丁，进行补丁合并
-
+        
         # 处理补丁
         for method, p in policies.items():
             if method_to_info[method].patch != None and method_to_info[method].patch != "":
@@ -215,7 +264,7 @@ class RepairAgent():
                 pass
             else:
                 method_to_info[method].patch = p
-
+        
         return patches, policies
 
     def _merge_patches(self, existing_patch: Dict[str, Any],

@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Any, Set
+from typing import Dict, List, Tuple, Any, Set, Optional
 import os
 import ast
 from parser import JavaSourceAnalyzer, SourceCodeMatcher
@@ -100,60 +100,78 @@ class Initializer():
         #print(variable_to_strategy)
 
         return variable_to_strategy
-    
-    def _determine_repair_strategies(self,variable,methods,state)->None:
-        variable_to_init=state['variable_to_init']
-        processed_methods_body=[]
-        strategy=None
-        for method in methods:
-            # print(state['bug_report'].method_to_method_info[method].source_code)
-            # print(variable)
-            # exit()
-            processed_methods_body.append(self._process_code_body(state['bug_report'].method_to_method_info[method].source_code,variable))
-        #TO-DO将方法替换成有冲突的，而不是所有的
-        #TO-DO得到策略
 
-        print("++++++++++++++++")
-        print("提示词所求：")
-        print(variable_to_init)
-        print(processed_methods_body)
-
-
-        ollama_api_url = "http://localhost:11434/api/generate"
-        model_name = "qwen3:14b"
-        headers = {
-
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-
-        prompt = f"""
-        
+    def _determine_repair_strategies(self, variable, methods, state) -> Optional[Dict]:
+            """
+            确定代码修复策略
+            
+            Args:
+                variable: 需要分析的变量
+                methods: 方法列表
+                state: 包含bug报告等信息的状态字典
+            
+            Returns:
+                Dict: 修复策略的字典格式，失败时返回None
+            """
+            variable_to_init = state['variable_to_init']
+            processed_methods_body = []
+            strategy = None
+            
+            # 处理方法体
+            for method in methods:
+                processed_methods_body.append(
+                    self._process_code_body(
+                        state['bug_report'].method_to_method_info[method].source_code, 
+                        variable
+                    )
+                )
+            
+            # TODO: 将方法替换成有冲突的，而不是所有的
+            # TODO: 得到策略
+            
+            print("++++++++++++++++")
+            print("提示词所求：")
+            print(variable_to_init)
+            print(processed_methods_body)
+            
+            # Ollama API配置
+            ollama_api_url = "http://localhost:11434/api/generate"
+            model_name = "qwen3:14b"
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            
+            # 主prompt
+            prompt = f"""
 You are an expert static analysis assistant specializing in Java concurrency. Your task is to analyze a given code snippet and a list of thread-safety defects to determine the optimal protection strategy.
 
-You must adhere strictly to the following decision framework, prioritizing correctness and minimizing overhead.
+You must adhere strictly to the following decision framework, prioritizing lock-free and lightweight solutions over heavyweight synchronization.
 
 ## Decision Framework
 
-1.  **Assess Operation Type (Correctness First)**
-    - First, analyze the operation's atomicity. Is it a compound `check-then-act` or `read-modify-write` operation (e.g., `if (x > 10) {{ x++; }}`)?
-    - If so, correctness is paramount. The **only** safe choice is `synchronized` to guarantee the atomicity of the entire compound operation.
+1.  **Evaluate Lock-Free (`CAS`) - FIRST PRIORITY**
+    - First, analyze if the operation can be made lock-free using `AtomicXXX` classes (e.g., `AtomicInteger`, `AtomicReference`).
+    - CAS is preferred for most atomic operations including simple increments, decrements, direct assignments, and even some compound operations that can be restructured atomically.
+    - **Key Consideration**: Even for compound operations, consider if they can be refactored to use atomic classes with methods like `compareAndSet()`, `getAndUpdate()`, or `updateAndGet()`.
+    - **Constraint**: This strategy is only applicable if the target variable is `private`. For non-private fields, modifying the type to `AtomicXXX` would be a breaking API change.
 
-2.  **Evaluate Lock-Free (`CAS`)**
-    - If the operation is intrinsically atomic (e.g., a simple increment, decrement, or direct assignment), the preferred strategy is lock-free (`CAS`) using an `AtomicXXX` class (e.g., `AtomicInteger`).
-    - **Crucial Precondition**: This strategy is only safe if the target variable is `private`. Modifying a non-private field's type to `AtomicXXX` is a breaking API change and must be avoided. If the variable is not `private`, you must fall back to `synchronized`.
+2.  **Evaluate Lightweight Sync (`volatile`) - SECOND PRIORITY**
+    - The `volatile` keyword is suitable for variables where visibility is the primary concern and write operations are infrequent.
+    - Ideal for status flags, configuration values, or reference updates where atomicity of the write operation itself is sufficient.
+    - **Important**: `volatile` guarantees visibility and atomicity of individual reads/writes but not compound operations.
 
-3.  **Evaluate Lightweight Sync (`volatile`)**
-    - The `volatile` keyword is a lightweight option suitable **only** for simple status flags where visibility is the sole concern and the variable is not part of a compound operation. It **does not** guarantee atomicity.
+3.  **Assess Heavyweight Synchronization (`synchronized`) - LAST RESORT**
+    - Only resort to `synchronized` when lock-free and lightweight solutions are genuinely insufficient.
+    - Primarily needed for complex compound operations that cannot be restructured atomically or when protecting multiple variables together.
+    - When `synchronized` is necessary, select the appropriate lock object:
+        - **Scenario A**: Protecting a field of another object → lock on the shared field instance
+        - **Scenario B**: Protecting a direct field of current object → use `this` or dedicated private lock
+        - **Scenario C**: Protecting static fields → use class-level lock
 
-4.  **Precisely Select the `synchronized` Lock Object (Monitor)**
-    - When `synchronized` is chosen, selecting the correct lock object is critical. **The core principle is: All threads must synchronize on the exact same object instance that is shared and causing the contention.**
-    - **Scenario A: Protecting a Field of Another Object**
-        - If the variable being protected belongs to **another object that is held as a field** within the current class (e.g., in class A, you modify `this.b.field`, where `b` is an instance of class B), then the lock **must** be on that shared field instance (i.e., `this.b`).
-    - **Scenario B: Protecting a Direct Field of the Current Object**
-        - If the variable being protected is a direct instance field of the current class (`this`), then the lock should be `this`, or preferably, a dedicated private lock object (`private final Object lock = new Object();`).
-    - **Scenario C: Protecting a Static Field**
-        - If the variable being protected is `static`, you **must** use a class-level lock. The preferred choice is a `private static final Object lock = new Object();` to avoid exposing the lock. Using `ClassName.class` as the lock is also a valid alternative.
+4.  **Operation Type Assessment (Final Validation)**
+    - After selecting the preferred strategy, validate that it provides the required correctness guarantees.
+    - Ensure the chosen approach handles all aspects of the thread-safety issue effectively.
 
 ## Code Analysis Context
 
@@ -167,82 +185,193 @@ Based on the above information, please analyze the thread-safety issues and dete
 
 Focus on identifying:
 1. The primary variable causing thread-safety issues
-2. The type of operations performed on this variable (atomic vs compound)
-3. The variable's visibility (private/public/static)
-4. The appropriate synchronization strategy
+2. Whether the operations can be made lock-free with atomic classes
+3. If volatile provides sufficient protection for the use case
+4. Only consider synchronized as a fallback option
 
 ## Structured Output Requirement
 
-Your final output must be a single JSON object in the specified format. In the `reason` field, you must justify your choice by explaining why it is optimal and why higher-priority strategies were deemed unsafe or inappropriate.
+Your final output must be a single JSON object in the specified format. In the `reason` field, you must justify your choice by explaining why it is optimal and why you selected this strategy over the alternatives.
 
 ```json
 {{
   "target_variable": "variable_name",
-  "optimal_strategy": {{
-    "type": "CAS/volatile/synchronized",
-    "implementation": {{
-      "cas_class": "e.g., AtomicInteger (CAS only)",
-      "lock_object": "e.g., this, this.sharedField, ClassName.class (synchronized only)",
-      "variable_visibility": "private/protected/public/package-private",
-      "need_refactor": true/false
-    }},
-    "reason": "Justify the chosen strategy and explicitly state why higher-priority options like CAS or volatile were rejected (e.g., 'Synchronized was chosen because the check-then-act operation is not atomic. CAS is unsuitable as it cannot cover the compound action, and volatile only guarantees visibility, not atomicity.')"
-  }}
+  "optimal_strategy": "CAS/volatile/synchronized",
+  "reason": "Justify the chosen strategy and explain the decision process (e.g., 'CAS was chosen because the operations can be made atomic using AtomicInteger, providing better performance than synchronized while ensuring thread safety. Volatile was insufficient as it cannot guarantee atomicity of increment operations.')"
 }}
-
-"""
-
-        payload = {
-            "model": model_name,
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": 0.7,
-                "max_tokens": 2000
-            }
-        }
-        try:
-            print(f"正在向Ollama (模型: {model_name}) 发送请求...")
-            # 发送POST请求，设置超时时间以避免无限等待
-            response = requests.post(
-                ollama_api_url, 
-                json=payload,  # 这会自动设置 Content-Type 和序列化
-                headers=headers,
-                timeout=3000
-            )
+```
+            """  # 这里将来会添加实际的prompt内容
             
-            # 检查HTTP响应状态码，如果不是200 OK，则抛出异常
-            response.raise_for_status()
+            # 辅助函数：提取JSON部分（排除<think></think>标签内容）
+            def extract_json_from_response(text: str) -> Optional[str]:
+                """
+                从响应中提取JSON内容，排除<think></think>标签内的内容
+                """
+                # 移除<think></think>标签及其内容
+                cleaned_text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
+                cleaned_text = cleaned_text.strip()
+                
+                # 尝试找到JSON对象或数组的边界
+                # 查找第一个 { 或 [ 和最后一个 } 或 ]
+                json_start = -1
+                json_end = -1
+                
+                for i, char in enumerate(cleaned_text):
+                    if char in '{[' and json_start == -1:
+                        json_start = i
+                    if char in '}]':
+                        json_end = i
+                
+                if json_start != -1 and json_end != -1 and json_start < json_end:
+                    return cleaned_text[json_start:json_end + 1]
+                
+                return cleaned_text
+            
+            # 辅助函数：验证并解析JSON
+            def validate_and_parse_json(text: str) -> Optional[Dict]:
+                """
+                验证文本是否为有效JSON并解析
+                """
+                try:
+                    json_str = extract_json_from_response(text)
+                    if json_str:
+                        return json.loads(json_str)
+                    return None
+                except json.JSONDecodeError:
+                    return None
+            
+            # 辅助函数：调用Ollama API
+            def call_ollama(prompt_text: str, timeout_seconds: int = 3000, extra_body: dict = None) -> Optional[str]:
+                """
+                调用Ollama API获取响应
+                
+                Args:
+                    prompt_text: 发送给模型的提示词
+                    timeout_seconds: 超时时间（秒）
+                    extra_body: 额外的请求参数，如 {"enable_thinking": False}
+                """
+                payload = {
+                    "model": model_name,
+                    "prompt": prompt_text,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.7,
+                        "max_tokens": 2000
+                    }
+                }
+                
+                # 如果有额外参数，添加到payload中
+                if extra_body:
+                    payload.update(extra_body)
+                
+                try:
+                    response = requests.post(
+                        ollama_api_url,
+                        json=payload,
+                        headers=headers,
+                        timeout=timeout_seconds
+                    )
+                    response.raise_for_status()
+                    response_data = response.json()
+                    return response_data.get('response', '').strip()
+                except requests.exceptions.Timeout:
+                    print(f"请求超时（{timeout_seconds}秒）")
+                    return None
+                except requests.exceptions.RequestException as e:
+                    print(f"请求失败: {e}")
+                    return None
+                except Exception as e:
+                    print(f"未知错误: {e}")
+                    return None
+            
+            # 主逻辑：带重试的API调用
+            MAX_RETRIES = 5
+            TIMEOUT_SECONDS = 3000
+            
+            # 第一步：尝试获取初始响应（允许思维链）
+            raw_response = None
+            for attempt in range(1, MAX_RETRIES + 1):
+                print(f"正在向Ollama (模型: {model_name}) 发送请求... (尝试 {attempt}/{MAX_RETRIES})")
+                
+                raw_response = call_ollama(prompt, TIMEOUT_SECONDS, extra_body={"enable_thinking": True})
+                
+                if raw_response is not None:
+                    print(f"第 {attempt} 次尝试成功获取响应")
+                    break
+                
+                if attempt < MAX_RETRIES:
+                    wait_time = min(2 ** attempt, 10)  # 指数退避，最多等待10秒
+                    print(f"等待 {wait_time} 秒后重试...")
+                    time.sleep(wait_time)
+            
+            if raw_response is None:
+                print(f"错误：在 {MAX_RETRIES} 次尝试后仍无法连接到Ollama API")
+                print("请确认Ollama服务是否正在本地运行，并且API地址是否正确")
+                return None
+            
+            print("原始响应获取成功")
+            
+            # 第二步：尝试解析JSON
+            parsed_strategy = validate_and_parse_json(raw_response)
+            
+            # 如果不是有效JSON，尝试让模型转换为JSON格式（禁用思维链）
+            if parsed_strategy is None:
+                print("响应不是有效的JSON格式，尝试转换（禁用思维链）...")
+                
+                # 构建转换prompt - 更加明确和严格
+                conversion_prompt = f"""Convert the following content to strict JSON format.
 
-            # 解析返回的JSON数据
-            response_data = response.json()
-        
-            # 提取模型生成的策略内容，并去除首尾的空白字符
-            strategy = response_data.get('response', '').strip()
-        
-            print("已成功从Ollama获取策略。")
+Original content:
+{extract_json_from_response(raw_response)}
 
-        except requests.exceptions.RequestException as e:
-            # 处理网络连接错误、超时等问题
-            error_message = f"错误：无法连接到Ollama API。请确认Ollama服务是否正在本地运行，并且API地址 '{ollama_api_url}' 是否正确。\n详细错误: {e}"
-            print(error_message)
-            strategy = f"ERROR_OLLAMA_CONNECTION: {e}" # 将错误信息赋给strategy，方便上层调用者判断
-        except Exception as e:
-            # 处理其他可能的异常，如JSON解析失败等
-            error_message = f"在与Ollama交互时发生未知错误: {e}"
-            print(error_message)
-            strategy = f"ERROR_UNKNOWN: {e}"
+Requirements:
+- Only output valid JSON format
+- Do not add any explanatory text
+- Do not use Markdown code blocks
+- Ensure correct JSON syntax
+- If the original content cannot be converted to meaningful JSON, output empty object {{}}
 
+Example output format:
+{{"target variable": "The variable which has problems","optimal strategy":"Lock/CAS/Violation","reason": "The reason about how to do the optimal strategy."}}"""
+                
+                for attempt in range(1, MAX_RETRIES + 1):
+                    print(f"尝试转换为JSON格式（无思维链）... (尝试 {attempt}/{MAX_RETRIES})")
+                    
+                    # 这里禁用思维链
+                    json_response = call_ollama(conversion_prompt, TIMEOUT_SECONDS, extra_body={"enable_thinking": False})
+                    
+                    if json_response is not None:
+                        # 再次尝试解析
+                        parsed_strategy = validate_and_parse_json(json_response)
+                        
+                        if parsed_strategy is not None:
+                            print(f"第 {attempt} 次尝试成功转换为JSON")
+                            print(f"模型输出内容: {json_response[:200]}...")
+                            break
+                        else:
+                            print(f"第 {attempt} 次尝试：模型输出仍不是有效JSON")
+                            print(f"模型输出内容: {json_response[:200]}...")
+                    
+                    if attempt < MAX_RETRIES:
+                        wait_time = min(2 ** attempt, 10)
+                        print(f"转换失败，等待 {wait_time} 秒后重试...")
+                        time.sleep(wait_time)
+                
+                if parsed_strategy is None:
+                    print(f"警告：在 {MAX_RETRIES} 次尝试后仍无法转换为有效的JSON格式")
+                    print("将策略设置为空字典")
+                    parsed_strategy = {}
+            
+            # 设置最终策略
+            strategy = parsed_strategy
+            
+            print("++++++++++++++++")
+            print("最终得到的策略:")
+            print(json.dumps(strategy, ensure_ascii=False, indent=2) if strategy else "空策略")
+            print("++++++++++++++++")
+            
+            return strategy
 
-        print("++++++++++++++++")
-        print("最终得到的策略:")
-        print(strategy)
-        print("++++++++++++++++")
-
-        return strategy
-        
-        
-        
     def _process_code_body(self,code_lines, target_variable):
         """
         处理代码体：去除行号，并简化不访问目标变量的连续行
