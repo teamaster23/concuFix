@@ -306,33 +306,56 @@ class RepairAgent():
         """创建用于生成补丁的提示模板"""
         return ChatPromptTemplate.from_messages([
             SystemMessage(content="""
-你是一个专业的软件开发工程师，擅长修复并发编程中的bug。
-请分析以下两个方法，找出可能的并发问题，并生成修复补丁。
-同时，请为相关变量推荐更新的保护策略。
+prompt_template = f"""You are a professional software development engineer who specializes in fixing bugs in concurrent programming.
+Please analyze the following two methods, identify potential concurrency issues, and generate fix patches.
+Additionally, please recommend updated protection policies for related variables.
 
-返回格式:
-{
-    "patches": {
-        "method1_name": "修复后的方法1代码",
-        "method2_name": "修复后的方法2代码"
-    },
-    "updated_policies": {
-        "variable1": "新的保护策略",
-        "variable2": "新的保护策略"
-    },
-    "explanation": "对修复的解释"
-}
+Format instructions: Each ChangeLog group must start with a description of its included fixes. The group must then list one or more pairs of (OriginalCode, FixedCode) code snippets. Each OriginalCode snippet must list all consecutive original lines of code that must be replaced (including a few lines before and after the fixes), followed by the FixedCode snippet with all consecutive fixed lines of code that must replace the original lines of code (including the same few lines before and after the changes). In each pair, the OriginalCode and FixedCode snippets must start at the same source code line number N. Each listed code line, in both the OriginalCode and FixedCode snippets, must be prefixed with [N] that matches the line index N in the above snippets, and then be prefixed with exactly the same whitespace indentation as the original snippets above.
+
+------------
+ChangeLog:1@<file>
+Fix:Description: <summary>.
+OriginalCode{{method1_line_start}}-{{method1_line_end}}:
+[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <white space> <original code line>
+FixedCode{{method1_line_start}}-{{method1_line_end}}:
+[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <white space> <fixed code line>
+OriginalCode{{method2_line_start}}-{{method2_line_end}}:
+[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <white space> <original code line>
+FixedCode{{method2_line_start}}-{{method2_line_end}}:
+[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <white space> <fixed code line>
+..............
+ChangeLog:K@<file>
+Fix:Description: <summary>.
+OriginalCode{{start_line}}-{{end_line}}:
+[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <white space> <original code line>
+FixedCode{{start_line}}-{{end_line}}:
+[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <white space> <fixed code line>
+OriginalCode{{start_line}}-{{end_line}}:
+[{{line_num}}] <white space> <original code line>
+FixedCode{{start_line}}-{{end_line}}:
+[{{line_num}}] <white space> <fixed code line>
+------------
+Answer:
+
 """),
             HumanMessage(content="""
-方法1名称: {method1_name}
-方法1代码:
-{method1_code}
-
-方法2名称: {method2_name}
-方法2代码:
-{method2_code}
-
-当前保护策略: {policy_input}
+Method 1 Name: {{method1_name}}
+Method 1 Code:
+{{method1_code}}
+Method 2 Name: {{method2_name}}
+Method 2 Code:
+{{method2_code}}
+Current Protection Policy: {{policy_input}}
 """)
         ])
 
