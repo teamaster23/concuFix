@@ -1,6 +1,7 @@
 from typing import Dict, List, Tuple, Any, Set, Optional
 import os
 import ast
+import time
 from parser import JavaSourceAnalyzer, SourceCodeMatcher
 from entity import BugReports, Method
 from tree_sitter import Language, Parser,Node
@@ -65,6 +66,8 @@ class Initializer():
         
         state['source_info']=source_info
         state['bug_report']=bug_report
+        state['source_code']=source_info
+        state['source_code']=source_info
         
         state['policies']={}
         variable_to_init=self._extract_variable_init(state)

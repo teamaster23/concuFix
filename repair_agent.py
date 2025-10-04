@@ -1,6 +1,6 @@
 from typing import Dict, Any, List, Tuple, Set
 from entity import ConfictMethod
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import HumanMessage, SystemMessage
 from initializer import Event
@@ -21,6 +21,7 @@ class RepairAgent():
         self.patch_generation_prompt = self._create_patch_generation_prompt()
         self.patch_merge_prompt = self._create_patch_merge_prompt()
 
+    @staticmethod
     def _get_sorted_method_pairs(
             method_pair_to_races: Dict[ConfictMethod, List[Any]]
     ) -> List[ConfictMethod]:
@@ -54,12 +55,14 @@ class RepairAgent():
             suggest_polices = state['suggest_polices'] #这块可以笼统点，从cas或者voliatile、或者加锁
             policy_input = state['policies']#这块需要无歧义，详细。用结构化的格式输出。
             #根据这些信息，生成prompt，调用llm生成补丁和策略
-            policies = self._generate_patch(
+            patches, policies = self.generate_patch(
+                state,
                 cms,
                 related_events,
                 related_vars,
                 suggest_polices=suggest_polices,
-                policy_input=policy_input
+                policy_input=policy_input,
+                source_code=state['source_code']
             )
             # 更新以前不存在的修复策略
             policy_input.update(policies)
@@ -149,28 +152,70 @@ class RepairAgent():
                     policy_input: Dict[str, Any],
                     source_code: Dict[str, str]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """方法体对应的源码"""
-        m1 = cms.method1()
-        m2 = cms.method2()
+        m1 = cms.method1
+        m2 = cms.method2
         method1_code = m1.source_code
         method2_code = m2.source_code
-        
+
+        method_info_map = state['bug_report'].method_to_method_info
+
+        def resolve_method_info(identifier, file_hint=None):
+            method_sig = None
+            local_file_hint = file_hint
+            if isinstance(identifier, tuple):
+                local_file_hint, method_sig = identifier
+                info = method_info_map.get(identifier)
+                if info:
+                    return info
+            else:
+                method_sig = identifier
+
+            if local_file_hint:
+                info = method_info_map.get((local_file_hint, method_sig))
+                if info:
+                    return info
+
+            info = method_info_map.get(method_sig)
+            if info:
+                return info
+
+            for key, value in method_info_map.items():
+                if isinstance(key, tuple) and key[1] == method_sig:
+                    if not local_file_hint or key[0] == local_file_hint:
+                        return value
+            return None
+
         """调用链对应的源码"""
-        other_call_chain = dict()
+        other_call_chain = {}
         for event in related_events:
-            # cal是方法
-            for cal in event.call_chain:
-                other_call_chain[cal] = state['bug_report'].method_to_method_info[cal]
-        
+            for cal in getattr(event, "call_chain", []):
+                method_info = resolve_method_info(cal)
+                if method_info:
+                    other_call_chain[method_info.name] = method_info
+
+        event_method_infos = []
+        for event in related_events:
+            method_info = resolve_method_info((event.file, event.method))
+            if method_info:
+                event_method_infos.append(method_info)
+
         init_info = {}
         """初始化对应的源码"""
-        for class_info in state['source_code'][m1.file_path]["classes"]:  # state['source_code']是个dict，key是文件路径，value是文件内容
-            for e in related_events:
-                if class_info['init_code'].class_name == e.class_name:
-                    init_info[e.class_name] = class_info
+        file_source = state['source_code'].get(m1.file_path, {}) if isinstance(state['source_code'], dict) else {}
+        classes = file_source.get("classes", []) if isinstance(file_source, dict) else []
+        for class_info in classes:
+            class_init = class_info.get('init_code') if isinstance(class_info, dict) else None
+            if not class_init:
+                continue
+            for method_info in event_method_infos:
+                if class_init.class_name == method_info.class_name:
+                    init_info[method_info.class_name] = class_info
         
         # 提示词
         messages = self.patch_generation_prompt.format_messages(
+            method1_name=m1.name,
             method1_code=method1_code,
+            method2_name=m2.name,
             method2_code=method2_code,
             policy_input=policy_input,
             suggest_polices=suggest_polices,
@@ -179,33 +224,53 @@ class RepairAgent():
             related_vars=related_vars,
         )
         
-        # 产生回应 - 调用本地ollama的qwen3:30b模型
+        # 产生回应 - 调用本地ollama的qwen3:14b模型
         import requests
         import json
+        from langchain.schema import AIMessage
+
+        # 将 LangChain 的消息对象转换为 Ollama 的简单消息字典结构
+        def _lc_messages_to_ollama(msgs: List[Any]) -> List[Dict[str, str]]:
+            simple_msgs: List[Dict[str, str]] = []
+            for msg in msgs:
+                role = "user"
+                if isinstance(msg, SystemMessage):
+                    role = "system"
+                elif isinstance(msg, HumanMessage):
+                    role = "user"
+                elif isinstance(msg, AIMessage):
+                    role = "assistant"
+                # content 统一转换为字符串
+                content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                simple_msgs.append({"role": role, "content": content})
+            return simple_msgs
         
         # 添加自定义提示词
         custom_prompt = """
-    请你作为一个专业的代码修复专家，根据提供的冲突方法和相关信息，生成高质量的补丁代码。
-    请注意：
-    1. 确保生成的补丁能够解决并发冲突问题
-    2. 保持代码的可读性和性能
-    3. 遵循最佳编程实践
-    4. 提供清晰的修复策略说明
+    As a professional code repair expert, please generate a high-quality patch based on the provided conflicting methods and related information.
+    Please note:
+    1. Ensure the generated patch resolves the concurrency issues.
+    2. Maintain code readability and performance.
+    3. Follow best programming practices.
+    4. Provide a clear explanation of the repair strategy.
 
-    现在请分析以下代码并生成相应的补丁：
+    Now, please analyze the following code and generate the corresponding patch:
     """
         
-        # 如果messages是列表格式，添加系统消息
+        # 如果 messages 是 LangChain 的消息列表，则转换为 Ollama 需要的字典格式
         if isinstance(messages, list):
-            enhanced_messages = [{"role": "system", "content": custom_prompt}] + messages
+            enhanced_messages = [{"role": "system", "content": custom_prompt}] + _lc_messages_to_ollama(messages)
         else:
-            # 如果messages是字符串格式，直接拼接
-            enhanced_messages = custom_prompt + "\n\n" + str(messages)
+            # 极少数情况下 format_messages 非列表，退化为单轮 user 消息
+            enhanced_messages = [
+                {"role": "system", "content": custom_prompt},
+                {"role": "user", "content": str(messages)}
+            ]
         
         try:
             # 构建请求数据
             payload = {
-                "model": "qwen3:30b",
+                "model": "qwen3:14b",
                 "messages": enhanced_messages,
                 "stream": False
             }
@@ -215,7 +280,7 @@ class RepairAgent():
                 "http://localhost:11434/api/chat",
                 headers={"Content-Type": "application/json"},
                 json=payload,
-                timeout=300  # 5分钟超时
+                timeout=3000  # 5分钟超时
             )
             
             # 检查响应状态
@@ -240,12 +305,15 @@ class RepairAgent():
         
         # 补丁解析，补丁如果冲突
         patches, policies = self._parse_patch_generation_response(response.content)
+
+        print("----------- Generated Patches -----------")
+        import json
+        print(json.dumps(patches, indent=2, ensure_ascii=False))
+        print("-----------------------------------------")
         
-        method_to_info = {}
+        method_to_info = {info.name: info for info in event_method_infos}
         method_to_info.update(other_call_chain)
-        method_to_info.update(init_info)
-        method_to_info[m1.method_name] = m1
-        method_to_info[m2.method_name] = m2
+        method_to_info.update({m1.name: m1, m2.name: m2})
         
         # 对import部分的处理
         for var, p in policies.items():
@@ -259,11 +327,14 @@ class RepairAgent():
         
         # 处理补丁
         for method, p in policies.items():
-            if method_to_info[method].patch != None and method_to_info[method].patch != "":
+            method_info = method_to_info.get(method)
+            if not method_info:
+                continue
+            if method_info.patch:
                 # 合并p和已有的补丁并存储
                 pass
             else:
-                method_to_info[method].patch = p
+                method_info.patch = p
         
         return patches, policies
 
@@ -306,7 +377,7 @@ class RepairAgent():
         """创建用于生成补丁的提示模板"""
         return ChatPromptTemplate.from_messages([
             SystemMessage(content="""
-prompt_template = f"""You are a professional software development engineer who specializes in fixing bugs in concurrent programming.
+You are a professional software development engineer who specializes in fixing bugs in concurrent programming.
 Please analyze the following two methods, identify potential concurrency issues, and generate fix patches.
 Additionally, please recommend updated protection policies for related variables.
 
@@ -363,27 +434,27 @@ Current Protection Policy: {{policy_input}}
         """创建用于合并补丁的提示模板"""
         return ChatPromptTemplate.from_messages([
             SystemMessage(content="""
-你是一个专业的软件开发工程师，擅长合并代码变更。
-请合并以下两个补丁，并确保合并后的代码正确且没有冲突。
+You are a professional software development engineer who excels at merging code changes.
+Please merge the following two patches and ensure the resulting code is correct and free of conflicts.
 
-返回格式:
+Return format:
 {
-    "merged_patch": "合并后的代码",
-    "explanation": "对合并的解释",
+    "merged_patch": "The merged code",
+    "explanation": "Explanation of the merge",
     "has_conflict": false,
     "conflict_details": ""
 }
 """),
             HumanMessage(content="""
-方法名称: {method_name}
-原始代码:
-{method_code}
+Method Name: {{method_name}}
+Original Code:
+{{method_code}}
 
-现有补丁:
-{existing_patch}
+Existing Patch:
+{{existing_patch}}
 
-新补丁:
-{new_patch}
+New Patch:
+{{new_patch}}
 """)
         ])
 
@@ -393,6 +464,7 @@ Current Protection Policy: {{policy_input}}
         try:
             import json
             data = json.loads(response)
+            print(data)
             return data["patches"], data["updated_policies"]
         except:
             # 简化回退逻辑
@@ -419,4 +491,4 @@ Current Protection Policy: {{policy_input}}
 
 class PatchConflictError(Exception):
     """补丁冲突异常"""
-    pass    
+    pass

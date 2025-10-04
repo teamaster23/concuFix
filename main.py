@@ -1,9 +1,9 @@
-# from langgraph import Graph
-# import langgraph
-# from langgraph.graph import StateGraph
+#from langgraph import Graph
+import langgraph
+#from langgraph.graph import StateGraph
 
 from initializer import Initializer
-# from repair_agent import RepairAgent
+from repair_agent import RepairAgent
 # from verification_agent import VerificationAgent
 # from patch_applier import PatchApplier
 import json
@@ -48,7 +48,8 @@ def main():
         "verification_passed": True,
         "method_pairs": [...],
         "related_events": {...},
-        "source_code": {...}
+        "source_code": {...},
+        "bug_report": None
     }
     # state = State({
     #     "iteration": 0,
@@ -59,17 +60,17 @@ def main():
 
     # 添加节点
     initializer = Initializer(config)
-    # Deleted: repair_agent = RepairAgent(config)
+    repair_agent = RepairAgent(config)
     # Deleted: verification_agent = VerificationAgent(config)
     # Deleted: patch_applier = PatchApplier(config)
 
     builder.add_node("initializer", lambda state: initializer.process(state))
-    # Deleted: builder.add_node("repair_agent", lambda state: repair_agent.process(state) )
+    builder.add_node("repair_agent", lambda state: repair_agent.process(state) )
     # Deleted: builder.add_node("verification_agent", lambda state: verification_agent.process(state))
     # Deleted: builder.add_node("patch_applier", lambda state: patch_applier.process(state))
 
     # 普通边
-    # Deleted: builder.add_edge("initializer", "repair_agent")
+    builder.add_edge("initializer", "repair_agent")
     # Deleted: builder.add_edge("repair_agent", "verification_agent")
 
 
@@ -92,12 +93,18 @@ def main():
 
 
     graph = builder.compile()
-    # Deleted: final_state = graph.invoke(state)
-    # Deleted: print("Final state:", final_state)
 
-    # 运行initializer
-    result = initializer.process(state)
-    #print("Initializer result:", result)
+    print("--- Invoking Graph ---")
+    # The graph's entry point is 'initializer', so it will run first,
+    # and its output will be passed to 'repair_agent'.
+    final_state = graph.invoke(state)
+
+    print("\n--- Final State ---")
+    # The final state will contain the output from the last node that ran, which is 'repair_agent'.
+    # Since repair_agent returns None, this will likely be None.
+    # The patches are printed from within repair_agent.py itself.
+    print(final_state)
+    print("-------------------")
 
     # # 运行图
     # try:
