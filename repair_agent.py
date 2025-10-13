@@ -55,7 +55,12 @@ class RepairAgent():
         for cms in confictMethods:
             # 创建唯一标识符，避免重复处理
             method_pair_id = (cms.method1.name, cms.method2.name)
-            if method_pair_id in processed_method_pairs:
+            method_pair_id_2 = (cms.method2.name, cms.method1.name)
+            if(cms.method1.name == cms.method2.name):
+                print(f"⏭️  跳过相同方法对：{method_pair_id}")
+                continue
+            
+            if method_pair_id in processed_method_pairs or method_pair_id_2 in processed_method_pairs:
                 print(f"⏭️  跳过已处理的方法对：{method_pair_id}")
                 continue
             
@@ -91,9 +96,9 @@ class RepairAgent():
             # ✅ 存储生成的补丁
             for method_name, patch in patches.items():
                 if method_name in self.patches:
-                    print(f"⚠️  方法 {method_name} 已有补丁，进行合并")
+                    print(f"⚠️  方法 {method_name} 已有补丁，需要合并（待完成）")
                     # 简单合并策略：保留第一个补丁（因为通常第一个更完整）
-                    # 可以根据需要实现更复杂的合并逻辑
+                    # 需之后继续完善：调用大模型进行补丁合并
                 else:
                     self.patches[method_name] = patch
                     print(f"✅ 存储补丁：{method_name}")
