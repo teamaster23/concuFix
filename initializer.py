@@ -139,7 +139,7 @@ class Initializer():
             
             # Ollama API配置
             ollama_api_url = "http://localhost:11434/api/generate"
-            model_name = "qwen3:14b"
+            model_name = "qwen3:30b"
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -244,7 +244,7 @@ Your final output must be a single JSON object in the specified format. In the `
                     return None
             
             # 辅助函数：调用Ollama API
-            def call_ollama(prompt_text: str, timeout_seconds: int = 3000, extra_body: dict = None) -> Optional[str]:
+            def call_ollama(prompt_text: str, timeout_seconds: int = 600, extra_body: dict = None) -> Optional[str]:
                 """
                 调用Ollama API获取响应
                 
@@ -289,7 +289,7 @@ Your final output must be a single JSON object in the specified format. In the `
             
             # 主逻辑：带重试的API调用
             MAX_RETRIES = 5
-            TIMEOUT_SECONDS = 3000
+            TIMEOUT_SECONDS = 600
             
             # 第一步：尝试获取初始响应（允许思维链）
             raw_response = None
