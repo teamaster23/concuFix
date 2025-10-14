@@ -365,41 +365,107 @@ Now generate the repair patches using the EXACT code provided below:
         method_to_info = {info.name: info for info in event_method_infos}
         method_to_info.update(other_call_chain)
         method_to_info.update({m1.name: m1, m2.name: m2})
-        
+
         # 对import部分的处理
         for var, p in policies.items():
             # 判断是否p是使用CAS修复策略，如果是的话，需要提取文件初始化部分，然后对初始化部分进行修复
             if p == "CAS":
                 files_init = {}
+                affected_files = set()  # 存储需要修改的文件
+                
+                # 1️⃣ 收集所有需要修改的文件及其import信息
                 for method, method_info in method_to_info.items():
-                    if hasattr(method_info, 'file_path'):
-                        files_init[method_info.file_path] = state['source_info'][method_info.file_path]["imports"]
-                # 增加代码：对file_init对应的部分增加补丁
-                # 增加代码：如果file_init对应的部分已经存在了补丁，进行补丁合并
+                    if hasattr(method_info, 'file_path') and method_info.file_path:
+                        file_path = method_info.file_path
+                        affected_files.add(file_path)
+                        
+                        # 🔧 修复：正确访问 fileInit 对象的 source_code 属性
+                        if file_path in state.get('source_info', {}):
+                            import_info = state['source_info'][file_path].get("imports")
+                            # 检查 import_info 是否是 fileInit 对象
+                            if hasattr(import_info, 'source_code'):
+                                # fileInit 对象，访问其 source_code 属性
+                                files_init[file_path] = import_info.source_code if import_info.source_code else []
+                            elif isinstance(import_info, list):
+                                # 如果是列表，直接使用
+                                files_init[file_path] = import_info
+                            else:
+                                files_init[file_path] = []
+                        else:
+                            files_init[file_path] = []  # 如果没有找到，初始化为空列表
+                
+                # 2️⃣ 为每个受影响的文件生成import补丁
+                for file_path in affected_files:
+                    current_imports = files_init.get(file_path, [])
+                    
+                    # 🔧 修复：确保 current_imports 是可迭代的列表
+                    if not isinstance(current_imports, list):
+                        print(f"⚠️  警告：文件 {file_path} 的imports格式异常，跳过")
+                        continue
+                    
+                    # 检查是否已经有AtomicInteger的import
+                    has_atomic_import = any(
+                        'java.util.concurrent.atomic.AtomicInteger' in str(imp) 
+                        for imp in current_imports
+                    )
+                    
+                    if not has_atomic_import:
+                        # 3️⃣ 生成import补丁
+                        import_patch = self._generate_import_patch(
+                            file_path=file_path,
+                            current_imports=current_imports,
+                            required_import="java.util.concurrent.atomic.AtomicInteger",
+                            variable=var
+                        )
+                        
+                        # 4️⃣ 存储import补丁到self.patches中
+                        import_patch_key = f"IMPORT@{file_path}"
+                        
+                        if import_patch_key in self.patches:
+                            # 如果已经存在import补丁，需要合并
+                            print(f"⚠️  文件 {file_path} 已有import补丁，进行合并")
+                            existing_patch = self.patches[import_patch_key]
+                            merged_patch = self._merge_import_patches(
+                                existing_patch, 
+                                import_patch,
+                                file_path
+                            )
+                            self.patches[import_patch_key] = merged_patch
+                        else:
+                            self.patches[import_patch_key] = import_patch
+                            print(f"✅ 为文件 {file_path} 生成import补丁")
+
+
+                # ===== 修复：改进补丁分配逻辑 =====
+                for method_name, patch_content in patches.items():
+                    method_info = method_to_info.get(method_name)
+                    if not method_info:
+                        # 尝试通过模糊匹配找到方法
+                        for key, info in method_to_info.items():
+                            if method_name.lower() in key.lower() or key.lower() in method_name.lower():
+                                method_info = info
+                                break
+                    
+                    if method_info:
+                        if hasattr(method_info, 'patch') and method_info.patch:
+                            # 如果已有补丁，需要合并
+                            print(f"警告：方法 {method_name} 已有补丁，保留最完整的版本")
+                            # 保留更长的补丁（通常更完整）
+                            if len(patch_content) > len(method_info.patch):
+                                method_info.patch = patch_content
+                        else:
+                            if hasattr(method_info, 'patch'):
+                                method_info.patch = patch_content
+                            print(f"✅ 为方法 {method_name} 分配了补丁")
+                    else:
+                        print(f"⚠️ 无法找到方法信息：{method_name}")
         
-        # ===== 修复：改进补丁分配逻辑 =====
-        for method_name, patch_content in patches.items():
-            method_info = method_to_info.get(method_name)
-            if not method_info:
-                # 尝试通过模糊匹配找到方法
-                for key, info in method_to_info.items():
-                    if method_name.lower() in key.lower() or key.lower() in method_name.lower():
-                        method_info = info
-                        break
-            
-            if method_info:
-                if hasattr(method_info, 'patch') and method_info.patch:
-                    # 如果已有补丁，需要合并
-                    print(f"警告：方法 {method_name} 已有补丁，保留最完整的版本")
-                    # 保留更长的补丁（通常更完整）
-                    if len(patch_content) > len(method_info.patch):
-                        method_info.patch = patch_content
-                else:
-                    if hasattr(method_info, 'patch'):
-                        method_info.patch = patch_content
-                    print(f"✅ 为方法 {method_name} 分配了补丁")
-            else:
-                print(f"⚠️ 无法找到方法信息：{method_name}")
+        print("\n========== Import Patches Generated ==========")
+        for key, patch in self.patches.items():
+            if key.startswith("IMPORT@"):
+                print(f"\n文件: {key.replace('IMPORT@', '')}")
+                print(patch)
+        print("==============================================\n")
         
         return patches, policies
 
@@ -657,6 +723,103 @@ Please manually extract the ChangeLog from the response above.
                 "has_conflict": False,
                 "conflict_details": ""
             }
+
+    def _generate_import_patch(self, file_path: str, current_imports: List[str], 
+                            required_import: str, variable: str) -> str:
+        """
+        生成import语句的补丁
+        
+        Args:
+            file_path: 文件路径
+            current_imports: 当前已有的import语句列表
+            required_import: 需要添加的import（如 "java.util.concurrent.atomic.AtomicInteger"）
+            variable: 触发该import的变量名
+        
+        Returns:
+            格式化的import补丁字符串
+        """
+        # 找到最后一个import语句的行号
+        last_import_line = 0
+        import_section = []
+        
+        for imp in current_imports:
+            # 假设格式为 "[行号] import 语句"
+            try:
+                line_num = int(imp.split(']')[0].strip('['))
+                if line_num > last_import_line:
+                    last_import_line = line_num
+                import_section.append(imp)
+            except (ValueError, IndexError):
+                # 如果解析失败，尝试直接使用
+                import_section.append(imp)
+        
+        # 生成新的import行号（在最后一个import之后）
+        new_import_line = last_import_line + 1
+        
+        # 构建ChangeLog格式的补丁
+        patch = f"""ChangeLog:1@{file_path}
+    Fix:Description: Add import for {required_import} to support CAS operation on variable '{variable}'
+    OriginalCode{new_import_line}-{new_import_line}:
+
+    FixedCode{new_import_line}-{new_import_line}:
+    [{new_import_line}] import {required_import};
+
+    Import Addition Note: Required for AtomicInteger usage in variable '{variable}'
+    """
+        
+        return patch
+
+
+    def _merge_import_patches(self, existing_patch: str, new_patch: str, 
+                            file_path: str) -> str:
+        """
+        合并两个import补丁
+        
+        Args:
+            existing_patch: 已存在的import补丁
+            new_patch: 新的import补丁
+            file_path: 文件路径
+        
+        Returns:
+            合并后的补丁
+        """
+        import re
+        
+        # 提取已有的import语句
+        existing_imports = re.findall(r'\[(\d+)\]\s*import\s+([^;]+);', existing_patch)
+        new_imports = re.findall(r'\[(\d+)\]\s*import\s+([^;]+);', new_patch)
+        
+        # 合并去重（基于import的包名）
+        all_imports = {}
+        for line_num, import_name in existing_imports:
+            all_imports[import_name.strip()] = int(line_num)
+        
+        for line_num, import_name in new_imports:
+            if import_name.strip() not in all_imports:
+                # 使用最大行号+1
+                max_line = max(all_imports.values()) if all_imports else 0
+                all_imports[import_name.strip()] = max_line + 1
+        
+        # 重新构建合并后的补丁
+        sorted_imports = sorted(all_imports.items(), key=lambda x: x[1])
+        
+        fixed_code_section = ""
+        for import_name, line_num in sorted_imports:
+            fixed_code_section += f"[{line_num}] import {import_name};\n"
+        
+        start_line = sorted_imports[0][1] if sorted_imports else 1
+        end_line = sorted_imports[-1][1] if sorted_imports else 1
+        
+        merged_patch = f"""ChangeLog:1@{file_path}
+    Fix:Description: Add required imports for CAS operations (merged)
+    OriginalCode{start_line}-{end_line}:
+
+    FixedCode{start_line}-{end_line}:
+    {fixed_code_section}
+    Import Merge Note: Combined multiple import requirements
+    """
+        
+        return merged_patch
 
 
 class PatchConflictError(Exception):
