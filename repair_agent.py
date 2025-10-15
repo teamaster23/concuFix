@@ -4,6 +4,7 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import HumanMessage, SystemMessage
 from initializer import Event
+import json
 
 
 class RepairAgent():
@@ -56,9 +57,9 @@ class RepairAgent():
             # 创建唯一标识符，避免重复处理
             method_pair_id = (cms.method1.name, cms.method2.name)
             method_pair_id_2 = (cms.method2.name, cms.method1.name)
-            if(cms.method1.name == cms.method2.name):
-                print(f"⏭️  跳过相同方法对：{method_pair_id}")
-                continue
+            # if(cms.method1.name == cms.method2.name):
+            #     print(f"⏭️  跳过相同方法对：{method_pair_id}")
+            #     continue
             
             if method_pair_id in processed_method_pairs or method_pair_id_2 in processed_method_pairs:
                 print(f"⏭️  跳过已处理的方法对：{method_pair_id}")
@@ -275,6 +276,26 @@ RELATED EVENTS:
 
 IMPORTANT: Generate ONE complete ChangeLog that includes fixes for BOTH methods and the variable declaration.
 
+OUTPUT REQUIREMENTS (MANDATORY):
+- Produce EXACTLY ONE ChangeLog block and NOTHING ELSE.
+- The first non-whitespace characters of your entire response MUST be: "ChangeLog:1@" (no leading markdown, no code fences, no commentary).
+- The last line of your response MUST be exactly: "------------".
+- DO NOT include any extra text before or after the ChangeLog block.
+- DO NOT wrap the output in ``` code fences or markdown.
+- If you cannot produce the required ChangeLog format, respond with EXACTLY this token and nothing else: CHANGELOG_FORMAT_ERROR
+
+STRUCTURE EXAMPLE (FOR FORMAT ONLY; USE REAL CONTENT FROM CONTEXT):
+------------
+ChangeLog:1@{m1.file_path}
+Fix:Description: <one-line summary of all applied fixes>
+OriginalCode10-10:
+[10] int x = 0;
+FixedCode10-10:
+[10] AtomicInteger x = new AtomicInteger(0);
+Repair Strategy Explanation:
+<brief reasoning (1-3 sentences)>
+------------
+
 Now generate the repair patches using the EXACT code provided below:
 """
         
@@ -301,13 +322,13 @@ Now generate the repair patches using the EXACT code provided below:
         try:
             # 构建请求数据
             payload = {
-                "model": "qwen3:30b",
+                "model": "qwen3:32b",
                 "messages": enhanced_messages,
                 "stream": False,
                 "options": {
                     "temperature": 0.1,  # 降低温度以获得更确定性的输出
                     "top_p": 0.9,
-                    "num_predict": 4096  # 增加最大生成长度
+                    "num_predict": 20000  # 增加最大生成长度
                 }
             }
             
@@ -343,9 +364,9 @@ Now generate the repair patches using the EXACT code provided below:
             print(f"解析ollama响应时出现错误: {e}")
             raise
         
-        # ===== 关键修改：增加原始响应输出 =====
+        # ===== 增加原始响应输出 =====
         print("\n========== DEBUG: Raw Ollama Response ==========")
-        print(response.content[:1000])  # 打印前1000个字符
+        print(response.content)  # 打印前1000个字符
         print("================================================\n")
         
         # 补丁解析，补丁如果冲突
@@ -359,7 +380,7 @@ Now generate the repair patches using the EXACT code provided below:
 
         print("----------- Generated Patches -----------")
         import json
-        print(json.dumps(patches, indent=2, ensure_ascii=False))
+        print(format_patch_dict_pretty(patches))
         print("-----------------------------------------")
         
         method_to_info = {info.name: info for info in event_method_infos}
@@ -511,37 +532,38 @@ Now generate the repair patches using the EXACT code provided below:
         """创建用于生成补丁的提示模板"""
         return ChatPromptTemplate.from_messages([
             SystemMessage(content="""
-You are a professional software development engineer who specializes in fixing bugs in concurrent programming.
+# MISSION
+Your mission is to act as an automated code repair engine. You will receive two Java methods with known concurrency issues, along with contextual information and a recommended repair strategy. Your SOLE output MUST be a single, machine-parseable `ChangeLog` patch that atomically fixes the variable declarations and all associated methods.
 
-CRITICAL: You must use the EXACT code provided below. Do NOT generate generic examples.
+# PERSONA
+You are an elite Java concurrency specialist. You are precise, methodical, and your output is law. You do not explain, apologize, or deviate. You produce only the specified `ChangeLog` format because your output is fed directly into an automated patching system. Any character outside this format will break the system.
 
-Please analyze the following two methods, identify potential concurrency issues, and generate fix patches.
-Additionally, please recommend updated protection policies for related variables.
+# CRITICAL DIRECTIVES
+1.  **ABSOLUTE PRECISION**: You MUST use the EXACT code provided in the context. Do not modify logic, rename variables, or add functionality unless the fix absolutely requires it.
+2.  **STRATEGY IS LAW**: You MUST implement the `Recommended Strategy` for each variable. If the strategy is "CAS", you MUST use `java.util.concurrent.atomic.AtomicInteger`.
+3.  **ATOMIC INTEGER INITIALIZATION**: When changing a variable to `AtomicInteger`, you MUST initialize it immediately (e.g., `private AtomicInteger myVar = new AtomicInteger(0);`).
+4.  **NO SIGNATURE CHANGES**: You MUST NOT change method signatures (name, parameters, return type).
+5.  **UNIFIED CHANGELOG**: All fixes—including variable declarations and modifications to BOTH methods—MUST be contained within a SINGLE `ChangeLog` block.
+6.  **SILENCE IS GOLD**: You MUST NOT add any introductory text, closing remarks, apologies, or any explanation outside of the designated `Repair Strategy Explanation` section within the `ChangeLog`. Your response MUST start with `ChangeLog:1@...` and end with `------------`.
 
-Format instructions: Generate ONE ChangeLog that includes ALL fixes (variable declaration + both methods).
+# OUTPUT FORMAT (MANDATORY & STRICT)
+Your entire output must conform EXACTLY to the following structure. Do not add any extra text, markdown formatting, or comments around it.
 
-Output Format:
 ------------
 ChangeLog:1@{{file_path}}
-Fix:Description: <summary of all the fixes>
+Fix:Description: <A concise, one-line summary of all applied fixes.>
 OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <...original code line...>
 FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <...repaired code line...>
 OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <white space> <original code line>
+[{{line_num}}] <...another original code line...>
 FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <white space> <fixed code line>
+[{{line_num}}] <...another repaired code line...>
 ...
-
 Repair Strategy Explanation:
-<explanation of the repair strategy and why this approach was chosen>
+<A brief explanation of why the chosen strategy is appropriate for this specific context.>
 ------------
-
-IMPORTANT: 
-1. Apply the recommended strategy for each variable exactly as specified
-2. When using AtomicInteger, initialize it: new AtomicInteger(0)
-3. Include fixes for variable declaration AND all methods in ONE ChangeLog
 """),
             HumanMessage(content="""
 File Path: {file_path}
@@ -606,7 +628,7 @@ New Patch:
         
         print("\n========== DEBUG: Parsing Response ==========")
         print(f"Response length: {len(response)}")
-        print(f"First 500 chars: {response[:500]}")
+        print(f"Last 500 chars: {response[-500:]}")
         print("=============================================\n")
         
         # 尝试JSON格式解析
@@ -825,3 +847,29 @@ Please manually extract the ChangeLog from the response above.
 class PatchConflictError(Exception):
     """补丁冲突异常"""
     pass
+
+
+
+def format_patch_dict_pretty(data) -> str:
+    """
+    将片段1格式化成片段2的美观形式：
+    - 冒号后直接换行
+    - 字符串中的 \n 转为真实换行
+    - 每一行缩进 2 个空格，保持整体 JSON 可读性
+    """
+    formatted_items = []
+
+    for key, value in data.items():
+        # 1. 转换字符串中的 \n 为真实换行
+        value = value.replace("\\n", "\n").strip()
+
+        # 2. 为每一行内容添加额外缩进
+        indented_value = "\n".join("      " + line for line in value.splitlines())
+
+        # 3. 构建键值对字符串
+        formatted_item = f'    "{key}": \n{indented_value}'
+        formatted_items.append(formatted_item)
+
+    # 4. 拼接成完整 JSON 样式
+    result = "{\n" + ",\n\n".join(formatted_items) + "\n}"
+    return result

@@ -8,6 +8,7 @@ from repair_agent import RepairAgent
 # from patch_applier import PatchApplier
 import json
 import sys
+from pprint import pprint
 
 from langgraph.graph import END, StateGraph
 
@@ -99,11 +100,11 @@ def main():
     # and its output will be passed to 'repair_agent'.
     final_state = graph.invoke(state)
 
-    print("\n--- Final State ---")
-    # The final state will contain the output from the last node that ran, which is 'repair_agent'.
-    # Since repair_agent returns None, this will likely be None.
-    # The patches are printed from within repair_agent.py itself.
-    print(final_state)
+    # print("\n--- Final State ---")
+    # # The final state will contain the output from the last node that ran, which is 'repair_agent'.
+    # # Since repair_agent returns None, this will likely be None.
+    # # The patches are printed from within repair_agent.py itself.
+    # print(json.dumps(make_json_safe(final_state), indent=4, ensure_ascii=False))
     print("-------------------")
 
     # # 运行图
@@ -125,6 +126,29 @@ def main():
     #         print("详细反馈:")
     #         for line in result["feedback"]:
     #             print(f"- {line}")
+
+def pretty_json_multiline(data):
+    s = json.dumps(data, ensure_ascii=False, indent=4)
+    # 把 { 和 } 单独占一行
+    s = s.replace("{\n", "{\n").replace("\n    }", "\n}")
+    return s
+
+def make_json_safe(obj):
+    if obj is ...:
+        return "<Ellipsis>"
+    elif isinstance(obj, dict):
+        return {k: make_json_safe(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple, set)):
+        return [make_json_safe(v) for v in obj]
+    elif isinstance(obj, bytes):
+        return obj.decode('utf-8', errors='replace')
+    else:
+        # 尝试直接转换为基本类型
+        try:
+            json.dumps(obj)
+            return obj
+        except TypeError:
+            return str(obj)
 
 if __name__ == "__main__":
     main()

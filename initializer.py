@@ -139,7 +139,7 @@ class Initializer():
             
             # Ollama API配置
             ollama_api_url = "http://localhost:11434/api/generate"
-            model_name = "qwen3:30b"
+            model_name = "qwen3:32b"
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

@@ -1412,3 +1412,1893 @@ TypeError: '<' not supported between instances of 'NoneType' and 'str'
 2025-09-22 04:48:10,252 - INFO - 已恢复原始配置文件
 2025-09-22 04:48:10,252 - INFO - 批量处理完成！成功: 1, 失败: 0, 总计: 1
 2025-09-22 04:48:10,252 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-13 07:09:57,344 - INFO - 项目根目录: /app/concuFix
+2025-10-13 07:09:57,344 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-13 07:09:57,344 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-13 07:09:57,345 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-13 07:09:57,345 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-13 07:09:57,345 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-13 07:09:57,345 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 07:09:57,345 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-13 07:09:57,345 - INFO - 开始处理样例: airline
+2025-10-13 07:09:57,345 - INFO - 当前配置中的关键字段:
+2025-10-13 07:09:57,345 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 07:09:57,345 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-13 07:09:57,345 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:09:57,345 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:15:55,713 - INFO - 样例 airline 处理成功
+2025-10-13 07:15:55,713 - INFO - 样例 airline 处理耗时 358.37秒
+2025-10-13 07:15:55,714 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-13 07:15:56,714 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-13 07:15:56,714 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 07:15:56,714 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-13 07:15:56,715 - INFO - 开始处理样例: alarmclock
+2025-10-13 07:15:56,715 - INFO - 当前配置中的关键字段:
+2025-10-13 07:15:56,715 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 07:15:56,715 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-13 07:15:56,715 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:15:56,715 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:21:35,313 - INFO - 样例 alarmclock 处理成功
+2025-10-13 07:21:35,313 - INFO - 样例 alarmclock 处理耗时 338.60秒
+2025-10-13 07:21:35,314 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-13 07:21:36,314 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-13 07:21:36,314 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 07:21:36,314 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-13 07:21:36,314 - INFO - 开始处理样例: atmoerror
+2025-10-13 07:21:36,314 - INFO - 当前配置中的关键字段:
+2025-10-13 07:21:36,314 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 07:21:36,314 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-13 07:21:36,314 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:21:36,314 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:22:40,165 - INFO - 样例 atmoerror 处理成功
+2025-10-13 07:22:40,165 - INFO - 样例 atmoerror 处理耗时 63.85秒
+2025-10-13 07:22:40,166 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-13 07:22:41,166 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-13 07:22:41,167 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 07:22:41,167 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-13 07:22:41,167 - INFO - 开始处理样例: buggyprogram
+2025-10-13 07:22:41,168 - INFO - 当前配置中的关键字段:
+2025-10-13 07:22:41,168 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 07:22:41,168 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-13 07:22:41,168 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:22:41,168 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:24:50,393 - INFO - 样例 buggyprogram 处理成功
+2025-10-13 07:24:50,393 - INFO - 样例 buggyprogram 处理耗时 129.23秒
+2025-10-13 07:24:50,394 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-13 07:24:51,395 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-13 07:24:51,396 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-13 07:24:51,396 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-13 07:24:51,396 - INFO - 开始处理样例: consisitency
+2025-10-13 07:24:51,397 - INFO - 当前配置中的关键字段:
+2025-10-13 07:24:51,397 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-13 07:24:51,397 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-13 07:24:51,397 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:24:51,397 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:30:27,778 - INFO - 样例 consisitency 处理成功
+2025-10-13 07:30:27,778 - INFO - 样例 consisitency 处理耗时 336.38秒
+2025-10-13 07:30:27,779 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-13 07:30:28,780 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-13 07:30:28,780 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-13 07:30:28,780 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-13 07:30:28,780 - INFO - 开始处理样例: critical
+2025-10-13 07:30:28,780 - INFO - 当前配置中的关键字段:
+2025-10-13 07:30:28,781 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-13 07:30:28,781 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-13 07:30:28,781 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:30:28,781 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:35:04,474 - INFO - 样例 critical 处理成功
+2025-10-13 07:35:04,474 - INFO - 样例 critical 处理耗时 275.69秒
+2025-10-13 07:35:04,474 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-13 07:35:05,475 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-13 07:35:05,475 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-13 07:35:05,475 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-13 07:35:05,475 - INFO - 开始处理样例: datarace
+2025-10-13 07:35:05,475 - INFO - 当前配置中的关键字段:
+2025-10-13 07:35:05,475 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-13 07:35:05,476 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-13 07:35:05,476 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:35:05,476 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:35:47,916 - INFO - 样例 datarace 处理成功
+2025-10-13 07:35:47,917 - INFO - 样例 datarace 处理耗时 42.44秒
+2025-10-13 07:35:47,917 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-13 07:35:48,918 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-13 07:35:48,918 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-13 07:35:48,918 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-13 07:35:48,919 - INFO - 开始处理样例: even
+2025-10-13 07:35:48,919 - INFO - 当前配置中的关键字段:
+2025-10-13 07:35:48,919 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-13 07:35:48,919 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-13 07:35:48,919 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:35:48,919 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:37:12,052 - INFO - 样例 even 处理成功
+2025-10-13 07:37:12,052 - INFO - 样例 even 处理耗时 83.13秒
+2025-10-13 07:37:12,052 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-13 07:37:13,053 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-13 07:37:13,053 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-13 07:37:13,053 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-13 07:37:13,053 - INFO - 开始处理样例: hashcodetest
+2025-10-13 07:37:13,053 - INFO - 当前配置中的关键字段:
+2025-10-13 07:37:13,053 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-13 07:37:13,053 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-13 07:37:13,053 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 07:37:13,053 - INFO - 工作目录: /app/concuFix
+2025-10-13 07:47:13,066 - ERROR - 样例 hashcodetest 处理超时 (600秒)
+2025-10-13 07:47:13,066 - INFO - 样例 hashcodetest 处理耗时 600.01秒
+2025-10-13 07:47:13,066 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-13 07:47:13,066 - INFO - 遇到错误，停止批量处理
+2025-10-13 07:47:13,067 - INFO - 已恢复原始配置文件
+2025-10-13 07:47:13,067 - INFO - 批量处理完成！成功: 8, 失败: 1, 总计: 20
+2025-10-13 07:47:13,067 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-13 08:17:19,106 - INFO - 项目根目录: /app/concuFix
+2025-10-13 08:17:19,106 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-13 08:17:19,106 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-13 08:17:19,106 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-13 08:17:19,107 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-13 08:17:19,107 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-13 08:17:19,107 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 08:17:19,107 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-13 08:17:19,107 - INFO - 开始处理样例: airline
+2025-10-13 08:17:19,107 - INFO - 当前配置中的关键字段:
+2025-10-13 08:17:19,107 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 08:17:19,107 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-13 08:17:19,107 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 08:17:19,107 - INFO - 工作目录: /app/concuFix
+2025-10-13 08:27:10,172 - INFO - 样例 airline 处理成功
+2025-10-13 08:27:10,172 - INFO - 样例 airline 处理耗时 591.07秒
+2025-10-13 08:27:10,173 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-13 08:27:11,173 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-13 08:27:11,173 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 08:27:11,173 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-13 08:27:11,174 - INFO - 开始处理样例: alarmclock
+2025-10-13 08:27:11,174 - INFO - 当前配置中的关键字段:
+2025-10-13 08:27:11,174 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 08:27:11,174 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-13 08:27:11,175 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 08:27:11,175 - INFO - 工作目录: /app/concuFix
+2025-10-13 08:33:26,553 - INFO - 样例 alarmclock 处理成功
+2025-10-13 08:33:26,553 - INFO - 样例 alarmclock 处理耗时 375.38秒
+2025-10-13 08:33:26,553 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-13 08:33:27,554 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-13 08:33:27,554 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 08:33:27,554 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-13 08:33:27,554 - INFO - 开始处理样例: atmoerror
+2025-10-13 08:33:27,554 - INFO - 当前配置中的关键字段:
+2025-10-13 08:33:27,554 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 08:33:27,554 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-13 08:33:27,554 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 08:33:27,554 - INFO - 工作目录: /app/concuFix
+2025-10-13 08:34:36,709 - INFO - 样例 atmoerror 处理成功
+2025-10-13 08:34:36,709 - INFO - 样例 atmoerror 处理耗时 69.16秒
+2025-10-13 08:34:36,710 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-13 08:34:37,710 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-13 08:34:37,710 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 08:34:37,711 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-13 08:34:37,711 - INFO - 开始处理样例: buggyprogram
+2025-10-13 08:34:37,712 - INFO - 当前配置中的关键字段:
+2025-10-13 08:34:37,712 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 08:34:37,712 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-13 08:34:37,712 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 08:34:37,712 - INFO - 工作目录: /app/concuFix
+2025-10-13 08:44:37,733 - ERROR - 样例 buggyprogram 处理超时 (600秒)
+2025-10-13 08:44:37,733 - INFO - 样例 buggyprogram 处理耗时 600.02秒
+2025-10-13 08:44:37,733 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-13 08:44:37,734 - INFO - 遇到错误，停止批量处理
+2025-10-13 08:44:37,734 - INFO - 已恢复原始配置文件
+2025-10-13 08:44:37,734 - INFO - 批量处理完成！成功: 3, 失败: 1, 总计: 20
+2025-10-13 08:44:37,734 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-13 11:29:54,811 - INFO - 项目根目录: /app/concuFix
+2025-10-13 11:29:54,811 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-13 11:29:54,811 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-13 11:29:54,811 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-13 11:29:54,812 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-13 11:29:54,813 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-13 11:29:54,813 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:29:54,813 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-13 11:29:54,813 - INFO - 开始处理样例: airline
+2025-10-13 11:29:54,813 - INFO - 当前配置中的关键字段:
+2025-10-13 11:29:54,813 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:29:54,813 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-13 11:29:54,813 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 11:29:54,813 - INFO - 工作目录: /app/concuFix
+2025-10-13 11:30:56,530 - INFO - 项目根目录: /app/concuFix
+2025-10-13 11:30:56,530 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-13 11:30:56,530 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-13 11:30:56,531 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-13 11:30:56,531 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-13 11:30:56,531 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-13 11:30:56,531 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:30:56,531 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-13 11:30:56,531 - INFO - 开始处理样例: airline
+2025-10-13 11:30:56,531 - INFO - 当前配置中的关键字段:
+2025-10-13 11:30:56,531 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:30:56,531 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-13 11:30:56,531 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 11:30:56,531 - INFO - 工作目录: /app/concuFix
+2025-10-13 11:31:45,105 - ERROR - 样例 airline 处理失败，返回码: 1
+2025-10-13 11:31:45,106 - ERROR - 错误信息: Traceback (most recent call last):
+  File "/app/concuFix/main.py", line 130, in <module>
+    main()
+    ~~~~^^
+  File "/app/concuFix/main.py", line 100, in main
+    final_state = graph.invoke(state)
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/main.py", line 3026, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<10 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/main.py", line 2647, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        [t for t in loop.tasks.values() if not t.writes],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        schedule_task=loop.accept_push,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/_runner.py", line 162, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<10 lines>...
+        },
+        ^^
+    )
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/_retry.py", line 42, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/_internal/_runnable.py", line 657, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/_internal/_runnable.py", line 401, in invoke
+    ret = self.func(*args, **kwargs)
+  File "/app/concuFix/main.py", line 68, in <lambda>
+    builder.add_node("repair_agent", lambda state: repair_agent.process(state) )
+                                                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/app/concuFix/repair_agent.py", line 83, in process
+    patches, policies = self.generate_patch(
+                        ~~~~~~~~~~~~~~~~~~~^
+        state,
+        ^^^^^^
+    ...<5 lines>...
+        source_code=state['source_code']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/concuFix/repair_agent.py", line 200, in generate_patch
+    'strategy': policy_info.get('optimal_strategy', 'Unknown'),
+                ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+During task with name 'repair_agent' and id '0ec35e22-ec2a-c675-1978-b8294a7e7d54'
+2025-10-13 11:31:45,106 - INFO - 样例 airline 处理耗时 48.57秒
+2025-10-13 11:31:45,107 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-13 11:31:45,107 - INFO - 遇到错误，停止批量处理
+2025-10-13 11:31:45,107 - INFO - 已恢复原始配置文件
+2025-10-13 11:31:45,107 - INFO - 批量处理完成！成功: 0, 失败: 1, 总计: 20
+2025-10-13 11:31:45,107 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-13 11:53:17,550 - INFO - 项目根目录: /app/concuFix
+2025-10-13 11:53:17,550 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-13 11:53:17,550 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-13 11:53:17,551 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-13 11:53:17,551 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-13 11:53:17,551 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-13 11:53:17,551 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:53:17,552 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-13 11:53:17,552 - INFO - 开始处理样例: airline
+2025-10-13 11:53:17,552 - INFO - 当前配置中的关键字段:
+2025-10-13 11:53:17,552 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-13 11:53:17,552 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-13 11:53:17,552 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 11:53:17,552 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:01:04,734 - INFO - 样例 airline 处理成功
+2025-10-13 12:01:04,734 - INFO - 样例 airline 处理耗时 467.18秒
+2025-10-13 12:01:04,735 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-13 12:01:05,735 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-13 12:01:05,736 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 12:01:05,736 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-13 12:01:05,736 - INFO - 开始处理样例: alarmclock
+2025-10-13 12:01:05,737 - INFO - 当前配置中的关键字段:
+2025-10-13 12:01:05,737 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-13 12:01:05,737 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-13 12:01:05,737 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:01:05,737 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:14:17,250 - INFO - 样例 alarmclock 处理成功
+2025-10-13 12:14:17,250 - INFO - 样例 alarmclock 处理耗时 791.51秒
+2025-10-13 12:14:17,251 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-13 12:14:18,251 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-13 12:14:18,251 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 12:14:18,251 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-13 12:14:18,252 - INFO - 开始处理样例: atmoerror
+2025-10-13 12:14:18,252 - INFO - 当前配置中的关键字段:
+2025-10-13 12:14:18,252 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-13 12:14:18,252 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-13 12:14:18,252 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:14:18,252 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:15:51,075 - INFO - 样例 atmoerror 处理成功
+2025-10-13 12:15:51,075 - INFO - 样例 atmoerror 处理耗时 92.82秒
+2025-10-13 12:15:51,076 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-13 12:15:52,076 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-13 12:15:52,076 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 12:15:52,076 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-13 12:15:52,077 - INFO - 开始处理样例: buggyprogram
+2025-10-13 12:15:52,077 - INFO - 当前配置中的关键字段:
+2025-10-13 12:15:52,077 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-13 12:15:52,077 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-13 12:15:52,077 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:15:52,077 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:22:09,597 - INFO - 样例 buggyprogram 处理成功
+2025-10-13 12:22:09,597 - INFO - 样例 buggyprogram 处理耗时 377.52秒
+2025-10-13 12:22:09,597 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-13 12:22:10,597 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-13 12:22:10,598 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-13 12:22:10,598 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-13 12:22:10,598 - INFO - 开始处理样例: consisitency
+2025-10-13 12:22:10,598 - INFO - 当前配置中的关键字段:
+2025-10-13 12:22:10,598 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-13 12:22:10,598 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-13 12:22:10,598 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:22:10,598 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:24:21,012 - INFO - 样例 consisitency 处理成功
+2025-10-13 12:24:21,012 - INFO - 样例 consisitency 处理耗时 130.41秒
+2025-10-13 12:24:21,012 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-13 12:24:22,013 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-13 12:24:22,013 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-13 12:24:22,013 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-13 12:24:22,013 - INFO - 开始处理样例: critical
+2025-10-13 12:24:22,014 - INFO - 当前配置中的关键字段:
+2025-10-13 12:24:22,014 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-13 12:24:22,014 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-13 12:24:22,014 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:24:22,014 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:25:06,497 - INFO - 样例 critical 处理成功
+2025-10-13 12:25:06,497 - INFO - 样例 critical 处理耗时 44.48秒
+2025-10-13 12:25:06,497 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-13 12:25:07,497 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-13 12:25:07,498 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-13 12:25:07,498 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-13 12:25:07,498 - INFO - 开始处理样例: datarace
+2025-10-13 12:25:07,498 - INFO - 当前配置中的关键字段:
+2025-10-13 12:25:07,498 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-13 12:25:07,498 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-13 12:25:07,498 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:25:07,498 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:25:42,763 - INFO - 样例 datarace 处理成功
+2025-10-13 12:25:42,763 - INFO - 样例 datarace 处理耗时 35.26秒
+2025-10-13 12:25:42,763 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-13 12:25:43,764 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-13 12:25:43,764 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-13 12:25:43,764 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-13 12:25:43,764 - INFO - 开始处理样例: even
+2025-10-13 12:25:43,764 - INFO - 当前配置中的关键字段:
+2025-10-13 12:25:43,765 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-13 12:25:43,765 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-13 12:25:43,765 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:25:43,765 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:26:54,412 - INFO - 样例 even 处理成功
+2025-10-13 12:26:54,412 - INFO - 样例 even 处理耗时 70.65秒
+2025-10-13 12:26:54,413 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-13 12:26:55,413 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-13 12:26:55,413 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-13 12:26:55,414 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-13 12:26:55,414 - INFO - 开始处理样例: hashcodetest
+2025-10-13 12:26:55,414 - INFO - 当前配置中的关键字段:
+2025-10-13 12:26:55,414 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-13 12:26:55,414 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-13 12:26:55,414 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:26:55,414 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:34:12,680 - INFO - 样例 hashcodetest 处理成功
+2025-10-13 12:34:12,680 - INFO - 样例 hashcodetest 处理耗时 437.27秒
+2025-10-13 12:34:12,681 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-13 12:34:13,681 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-13 12:34:13,681 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-13 12:34:13,682 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-13 12:34:13,682 - INFO - 开始处理样例: linkedlist
+2025-10-13 12:34:13,682 - INFO - 当前配置中的关键字段:
+2025-10-13 12:34:13,682 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-13 12:34:13,682 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-13 12:34:13,682 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:34:13,682 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:34:57,793 - INFO - 样例 linkedlist 处理成功
+2025-10-13 12:34:57,793 - INFO - 样例 linkedlist 处理耗时 44.11秒
+2025-10-13 12:34:57,793 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-13 12:34:58,794 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-13 12:34:58,794 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-13 12:34:58,794 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-13 12:34:58,794 - INFO - 开始处理样例: mergesort
+2025-10-13 12:34:58,794 - INFO - 当前配置中的关键字段:
+2025-10-13 12:34:58,795 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-13 12:34:58,795 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-13 12:34:58,795 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:34:58,795 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:35:34,375 - INFO - 样例 mergesort 处理成功
+2025-10-13 12:35:34,375 - INFO - 样例 mergesort 处理耗时 35.58秒
+2025-10-13 12:35:34,376 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-13 12:35:35,376 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-13 12:35:35,376 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-13 12:35:35,377 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-13 12:35:35,377 - INFO - 开始处理样例: pingpong
+2025-10-13 12:35:35,377 - INFO - 当前配置中的关键字段:
+2025-10-13 12:35:35,377 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-13 12:35:35,377 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-13 12:35:35,377 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:35:35,377 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:37:08,931 - INFO - 样例 pingpong 处理成功
+2025-10-13 12:37:08,931 - INFO - 样例 pingpong 处理耗时 93.55秒
+2025-10-13 12:37:08,931 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-13 12:37:09,932 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-13 12:37:09,932 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-13 12:37:09,932 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-13 12:37:09,932 - INFO - 开始处理样例: reorder1
+2025-10-13 12:37:09,932 - INFO - 当前配置中的关键字段:
+2025-10-13 12:37:09,932 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-13 12:37:09,932 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-13 12:37:09,932 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:37:09,932 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:47:35,370 - INFO - 样例 reorder1 处理成功
+2025-10-13 12:47:35,370 - INFO - 样例 reorder1 处理耗时 625.44秒
+2025-10-13 12:47:35,371 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-13 12:47:36,371 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-13 12:47:36,371 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-13 12:47:36,372 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-13 12:47:36,372 - INFO - 开始处理样例: store
+2025-10-13 12:47:36,372 - INFO - 当前配置中的关键字段:
+2025-10-13 12:47:36,372 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-13 12:47:36,372 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-13 12:47:36,373 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:47:36,373 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:48:03,350 - INFO - 样例 store 处理成功
+2025-10-13 12:48:03,351 - INFO - 样例 store 处理耗时 26.98秒
+2025-10-13 12:48:03,351 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-13 12:48:04,352 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-13 12:48:04,352 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-13 12:48:04,352 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-13 12:48:04,352 - INFO - 开始处理样例: stringbuffer
+2025-10-13 12:48:04,353 - INFO - 当前配置中的关键字段:
+2025-10-13 12:48:04,353 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-13 12:48:04,353 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-13 12:48:04,353 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:48:04,353 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:54:22,714 - INFO - 样例 stringbuffer 处理成功
+2025-10-13 12:54:22,715 - INFO - 样例 stringbuffer 处理耗时 378.36秒
+2025-10-13 12:54:22,717 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-13 12:54:23,717 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-13 12:54:23,717 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-13 12:54:23,717 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-13 12:54:23,718 - INFO - 开始处理样例: test1
+2025-10-13 12:54:23,718 - INFO - 当前配置中的关键字段:
+2025-10-13 12:54:23,718 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-13 12:54:23,718 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-13 12:54:23,718 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:54:23,718 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:55:02,648 - INFO - 样例 test1 处理成功
+2025-10-13 12:55:02,648 - INFO - 样例 test1 处理耗时 38.93秒
+2025-10-13 12:55:02,649 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-13 12:55:03,649 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-13 12:55:03,649 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-13 12:55:03,649 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-13 12:55:03,650 - INFO - 开始处理样例: test2
+2025-10-13 12:55:03,650 - INFO - 当前配置中的关键字段:
+2025-10-13 12:55:03,650 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-13 12:55:03,650 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-13 12:55:03,650 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:55:03,650 - INFO - 工作目录: /app/concuFix
+2025-10-13 12:55:42,367 - INFO - 样例 test2 处理成功
+2025-10-13 12:55:42,367 - INFO - 样例 test2 处理耗时 38.72秒
+2025-10-13 12:55:42,367 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-13 12:55:43,368 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-13 12:55:43,368 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-13 12:55:43,368 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-13 12:55:43,368 - INFO - 开始处理样例: twoStage
+2025-10-13 12:55:43,369 - INFO - 当前配置中的关键字段:
+2025-10-13 12:55:43,369 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-13 12:55:43,369 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-13 12:55:43,369 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 12:55:43,369 - INFO - 工作目录: /app/concuFix
+2025-10-13 13:00:47,274 - INFO - 样例 twoStage 处理成功
+2025-10-13 13:00:47,275 - INFO - 样例 twoStage 处理耗时 303.91秒
+2025-10-13 13:00:47,275 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-13 13:00:48,275 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-13 13:00:48,276 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-13 13:00:48,276 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-13 13:00:48,276 - INFO - 开始处理样例: wrongLock
+2025-10-13 13:00:48,276 - INFO - 当前配置中的关键字段:
+2025-10-13 13:00:48,276 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-13 13:00:48,276 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-13 13:00:48,276 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 13:00:48,276 - INFO - 工作目录: /app/concuFix
+2025-10-13 13:02:00,602 - INFO - 样例 wrongLock 处理成功
+2025-10-13 13:02:00,602 - INFO - 样例 wrongLock 处理耗时 72.33秒
+2025-10-13 13:02:00,603 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-13 13:02:01,603 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-13 13:02:01,604 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-13 13:02:01,604 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-13 13:02:01,604 - INFO - 开始处理样例: wronglock2
+2025-10-13 13:02:01,604 - INFO - 当前配置中的关键字段:
+2025-10-13 13:02:01,604 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-13 13:02:01,604 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-13 13:02:01,604 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-13 13:02:01,604 - INFO - 工作目录: /app/concuFix
+2025-10-13 13:07:33,705 - INFO - 样例 wronglock2 处理成功
+2025-10-13 13:07:33,706 - INFO - 样例 wronglock2 处理耗时 332.10秒
+2025-10-13 13:07:33,706 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-13 13:07:33,706 - INFO - 已恢复原始配置文件
+2025-10-13 13:07:33,706 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-13 13:07:33,706 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-14 06:07:13,504 - INFO - 项目根目录: /app/concuFix
+2025-10-14 06:07:13,504 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-14 06:07:13,504 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-14 06:07:13,505 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-14 06:07:13,505 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-14 06:07:13,505 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-14 06:07:13,505 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 06:07:13,505 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-14 06:07:13,505 - INFO - 开始处理样例: airline
+2025-10-14 06:07:13,506 - INFO - 当前配置中的关键字段:
+2025-10-14 06:07:13,506 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 06:07:13,506 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-14 06:07:13,506 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:07:13,506 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:08:02,550 - ERROR - 样例 airline 处理失败，返回码: 1
+2025-10-14 06:08:02,550 - ERROR - 错误信息: Traceback (most recent call last):
+  File "/app/concuFix/main.py", line 130, in <module>
+    main()
+    ~~~~^^
+  File "/app/concuFix/main.py", line 100, in main
+    final_state = graph.invoke(state)
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/main.py", line 3026, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<10 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/main.py", line 2647, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        [t for t in loop.tasks.values() if not t.writes],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        schedule_task=loop.accept_push,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/_runner.py", line 162, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<10 lines>...
+        },
+        ^^
+    )
+    ^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/pregel/_retry.py", line 42, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/_internal/_runnable.py", line 657, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+  File "/opt/conda/lib/python3.13/site-packages/langgraph/_internal/_runnable.py", line 401, in invoke
+    ret = self.func(*args, **kwargs)
+  File "/app/concuFix/main.py", line 68, in <lambda>
+    builder.add_node("repair_agent", lambda state: repair_agent.process(state) )
+                                                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/app/concuFix/repair_agent.py", line 83, in process
+    patches, policies = self.generate_patch(
+                        ~~~~~~~~~~~~~~~~~~~^
+        state,
+        ^^^^^^
+    ...<5 lines>...
+        source_code=state['source_code']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/concuFix/repair_agent.py", line 200, in generate_patch
+    'strategy': policy_info.get('optimal_strategy', 'Unknown'),
+                ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+During task with name 'repair_agent' and id '74cbbb90-68f9-a78d-e5b0-08203d419dd0'
+2025-10-14 06:08:02,550 - INFO - 样例 airline 处理耗时 49.04秒
+2025-10-14 06:08:02,550 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-14 06:08:02,551 - INFO - 遇到错误，停止批量处理
+2025-10-14 06:08:02,551 - INFO - 已恢复原始配置文件
+2025-10-14 06:08:02,551 - INFO - 批量处理完成！成功: 0, 失败: 1, 总计: 20
+2025-10-14 06:08:02,551 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-14 06:11:51,517 - INFO - 项目根目录: /app/concuFix
+2025-10-14 06:11:51,517 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-14 06:11:51,517 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-14 06:11:51,517 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-14 06:11:51,518 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-14 06:11:51,518 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-14 06:11:51,518 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 06:11:51,518 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-14 06:11:51,518 - INFO - 开始处理样例: airline
+2025-10-14 06:11:51,518 - INFO - 当前配置中的关键字段:
+2025-10-14 06:11:51,518 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 06:11:51,518 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-14 06:11:51,518 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:11:51,518 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:14:52,930 - INFO - 样例 airline 处理成功
+2025-10-14 06:14:52,930 - INFO - 样例 airline 处理耗时 181.41秒
+2025-10-14 06:14:52,931 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-14 06:14:53,931 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-14 06:14:53,931 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 06:14:53,931 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-14 06:14:53,932 - INFO - 开始处理样例: alarmclock
+2025-10-14 06:14:53,932 - INFO - 当前配置中的关键字段:
+2025-10-14 06:14:53,932 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 06:14:53,932 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-14 06:14:53,932 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:14:53,932 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:17:15,304 - INFO - 样例 alarmclock 处理成功
+2025-10-14 06:17:15,304 - INFO - 样例 alarmclock 处理耗时 141.37秒
+2025-10-14 06:17:15,305 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-14 06:17:16,305 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-14 06:17:16,305 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 06:17:16,305 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-14 06:17:16,306 - INFO - 开始处理样例: atmoerror
+2025-10-14 06:17:16,306 - INFO - 当前配置中的关键字段:
+2025-10-14 06:17:16,306 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 06:17:16,306 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-14 06:17:16,306 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:17:16,306 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:23:06,517 - INFO - 样例 atmoerror 处理成功
+2025-10-14 06:23:06,517 - INFO - 样例 atmoerror 处理耗时 350.21秒
+2025-10-14 06:23:06,517 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-14 06:23:07,517 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-14 06:23:07,518 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 06:23:07,518 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-14 06:23:07,518 - INFO - 开始处理样例: buggyprogram
+2025-10-14 06:23:07,518 - INFO - 当前配置中的关键字段:
+2025-10-14 06:23:07,518 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 06:23:07,518 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-14 06:23:07,518 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:23:07,518 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:25:33,841 - INFO - 样例 buggyprogram 处理成功
+2025-10-14 06:25:33,841 - INFO - 样例 buggyprogram 处理耗时 146.32秒
+2025-10-14 06:25:33,841 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-14 06:25:34,842 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-14 06:25:34,842 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 06:25:34,842 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-14 06:25:34,843 - INFO - 开始处理样例: consisitency
+2025-10-14 06:25:34,843 - INFO - 当前配置中的关键字段:
+2025-10-14 06:25:34,843 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 06:25:34,843 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-14 06:25:34,843 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:25:34,843 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:31:57,791 - INFO - 样例 consisitency 处理成功
+2025-10-14 06:31:57,791 - INFO - 样例 consisitency 处理耗时 382.95秒
+2025-10-14 06:31:57,792 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-14 06:31:58,792 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-14 06:31:58,792 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 06:31:58,792 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-14 06:31:58,793 - INFO - 开始处理样例: critical
+2025-10-14 06:31:58,793 - INFO - 当前配置中的关键字段:
+2025-10-14 06:31:58,793 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 06:31:58,793 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-14 06:31:58,793 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:31:58,793 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:32:32,721 - INFO - 样例 critical 处理成功
+2025-10-14 06:32:32,722 - INFO - 样例 critical 处理耗时 33.93秒
+2025-10-14 06:32:32,722 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-14 06:32:33,722 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-14 06:32:33,723 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 06:32:33,723 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-14 06:32:33,723 - INFO - 开始处理样例: datarace
+2025-10-14 06:32:33,723 - INFO - 当前配置中的关键字段:
+2025-10-14 06:32:33,723 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 06:32:33,723 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-14 06:32:33,723 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:32:33,723 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:33:05,769 - INFO - 样例 datarace 处理成功
+2025-10-14 06:33:05,769 - INFO - 样例 datarace 处理耗时 32.05秒
+2025-10-14 06:33:05,769 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-14 06:33:06,770 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-14 06:33:06,770 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-14 06:33:06,770 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-14 06:33:06,770 - INFO - 开始处理样例: even
+2025-10-14 06:33:06,770 - INFO - 当前配置中的关键字段:
+2025-10-14 06:33:06,770 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-14 06:33:06,770 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-14 06:33:06,770 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:33:06,770 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:34:12,851 - INFO - 样例 even 处理成功
+2025-10-14 06:34:12,852 - INFO - 样例 even 处理耗时 66.08秒
+2025-10-14 06:34:12,852 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-14 06:34:13,852 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-14 06:34:13,853 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 06:34:13,853 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-14 06:34:13,853 - INFO - 开始处理样例: hashcodetest
+2025-10-14 06:34:13,853 - INFO - 当前配置中的关键字段:
+2025-10-14 06:34:13,853 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 06:34:13,853 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-14 06:34:13,853 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:34:13,853 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:45:53,731 - INFO - 样例 hashcodetest 处理成功
+2025-10-14 06:45:53,731 - INFO - 样例 hashcodetest 处理耗时 699.88秒
+2025-10-14 06:45:53,732 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-14 06:45:54,732 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-14 06:45:54,733 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 06:45:54,733 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-14 06:45:54,733 - INFO - 开始处理样例: linkedlist
+2025-10-14 06:45:54,733 - INFO - 当前配置中的关键字段:
+2025-10-14 06:45:54,733 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 06:45:54,733 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-14 06:45:54,734 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:45:54,734 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:46:44,676 - INFO - 样例 linkedlist 处理成功
+2025-10-14 06:46:44,676 - INFO - 样例 linkedlist 处理耗时 49.94秒
+2025-10-14 06:46:44,677 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-14 06:46:45,677 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-14 06:46:45,677 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 06:46:45,678 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-14 06:46:45,678 - INFO - 开始处理样例: mergesort
+2025-10-14 06:46:45,678 - INFO - 当前配置中的关键字段:
+2025-10-14 06:46:45,678 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 06:46:45,678 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-14 06:46:45,678 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:46:45,678 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:47:29,290 - INFO - 样例 mergesort 处理成功
+2025-10-14 06:47:29,290 - INFO - 样例 mergesort 处理耗时 43.61秒
+2025-10-14 06:47:29,291 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-14 06:47:30,291 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-14 06:47:30,291 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 06:47:30,291 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-14 06:47:30,292 - INFO - 开始处理样例: pingpong
+2025-10-14 06:47:30,292 - INFO - 当前配置中的关键字段:
+2025-10-14 06:47:30,292 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 06:47:30,292 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-14 06:47:30,292 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:47:30,292 - INFO - 工作目录: /app/concuFix
+2025-10-14 06:52:27,942 - INFO - 样例 pingpong 处理成功
+2025-10-14 06:52:27,942 - INFO - 样例 pingpong 处理耗时 297.65秒
+2025-10-14 06:52:27,942 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-14 06:52:28,942 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-14 06:52:28,943 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 06:52:28,943 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-14 06:52:28,943 - INFO - 开始处理样例: reorder1
+2025-10-14 06:52:28,943 - INFO - 当前配置中的关键字段:
+2025-10-14 06:52:28,943 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 06:52:28,943 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-14 06:52:28,943 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 06:52:28,943 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:02:54,934 - INFO - 样例 reorder1 处理成功
+2025-10-14 07:02:54,934 - INFO - 样例 reorder1 处理耗时 625.99秒
+2025-10-14 07:02:54,935 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-14 07:02:55,935 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-14 07:02:55,935 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-14 07:02:55,935 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-14 07:02:55,936 - INFO - 开始处理样例: store
+2025-10-14 07:02:55,936 - INFO - 当前配置中的关键字段:
+2025-10-14 07:02:55,936 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-14 07:02:55,936 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-14 07:02:55,936 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:02:55,936 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:03:14,529 - INFO - 样例 store 处理成功
+2025-10-14 07:03:14,529 - INFO - 样例 store 处理耗时 18.59秒
+2025-10-14 07:03:14,530 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-14 07:03:15,530 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-14 07:03:15,530 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 07:03:15,530 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-14 07:03:15,531 - INFO - 开始处理样例: stringbuffer
+2025-10-14 07:03:15,531 - INFO - 当前配置中的关键字段:
+2025-10-14 07:03:15,531 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 07:03:15,531 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-14 07:03:15,531 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:03:15,531 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:05:18,557 - INFO - 样例 stringbuffer 处理成功
+2025-10-14 07:05:18,557 - INFO - 样例 stringbuffer 处理耗时 123.03秒
+2025-10-14 07:05:18,560 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-14 07:05:19,560 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-14 07:05:19,560 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 07:05:19,560 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-14 07:05:19,560 - INFO - 开始处理样例: test1
+2025-10-14 07:05:19,560 - INFO - 当前配置中的关键字段:
+2025-10-14 07:05:19,561 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 07:05:19,561 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-14 07:05:19,561 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:05:19,561 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:06:04,046 - INFO - 样例 test1 处理成功
+2025-10-14 07:06:04,046 - INFO - 样例 test1 处理耗时 44.49秒
+2025-10-14 07:06:04,047 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-14 07:06:05,047 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-14 07:06:05,047 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 07:06:05,047 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-14 07:06:05,048 - INFO - 开始处理样例: test2
+2025-10-14 07:06:05,048 - INFO - 当前配置中的关键字段:
+2025-10-14 07:06:05,048 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 07:06:05,048 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-14 07:06:05,048 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:06:05,048 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:06:47,437 - INFO - 样例 test2 处理成功
+2025-10-14 07:06:47,437 - INFO - 样例 test2 处理耗时 42.39秒
+2025-10-14 07:06:47,438 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-14 07:06:48,438 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-14 07:06:48,438 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 07:06:48,438 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-14 07:06:48,439 - INFO - 开始处理样例: twoStage
+2025-10-14 07:06:48,439 - INFO - 当前配置中的关键字段:
+2025-10-14 07:06:48,439 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 07:06:48,439 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-14 07:06:48,439 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:06:48,439 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:11:41,874 - INFO - 样例 twoStage 处理成功
+2025-10-14 07:11:41,874 - INFO - 样例 twoStage 处理耗时 293.44秒
+2025-10-14 07:11:41,875 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-14 07:11:42,875 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-14 07:11:42,875 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 07:11:42,875 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-14 07:11:42,876 - INFO - 开始处理样例: wrongLock
+2025-10-14 07:11:42,876 - INFO - 当前配置中的关键字段:
+2025-10-14 07:11:42,876 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 07:11:42,876 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-14 07:11:42,876 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:11:42,876 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:12:49,567 - INFO - 样例 wrongLock 处理成功
+2025-10-14 07:12:49,568 - INFO - 样例 wrongLock 处理耗时 66.69秒
+2025-10-14 07:12:49,568 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-14 07:12:50,568 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-14 07:12:50,569 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 07:12:50,569 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-14 07:12:50,569 - INFO - 开始处理样例: wronglock2
+2025-10-14 07:12:50,569 - INFO - 当前配置中的关键字段:
+2025-10-14 07:12:50,569 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 07:12:50,569 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-14 07:12:50,569 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 07:12:50,569 - INFO - 工作目录: /app/concuFix
+2025-10-14 07:14:02,776 - INFO - 样例 wronglock2 处理成功
+2025-10-14 07:14:02,776 - INFO - 样例 wronglock2 处理耗时 72.21秒
+2025-10-14 07:14:02,777 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-14 07:14:02,777 - INFO - 已恢复原始配置文件
+2025-10-14 07:14:02,777 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-14 07:14:02,778 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-14 09:33:26,356 - INFO - 项目根目录: /app/concuFix
+2025-10-14 09:33:26,356 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-14 09:33:26,356 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-14 09:33:26,357 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-14 09:33:26,357 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-14 09:33:26,357 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-14 09:33:26,357 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 09:33:26,357 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-14 09:33:26,357 - INFO - 开始处理样例: airline
+2025-10-14 09:33:26,357 - INFO - 当前配置中的关键字段:
+2025-10-14 09:33:26,358 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 09:33:26,358 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-14 09:33:26,358 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 09:33:26,358 - INFO - 工作目录: /app/concuFix
+2025-10-14 09:44:27,297 - INFO - 样例 airline 处理成功
+2025-10-14 09:44:27,297 - INFO - 样例 airline 处理耗时 660.94秒
+2025-10-14 09:44:27,298 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-14 09:44:28,298 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-14 09:44:28,298 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 09:44:28,299 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-14 09:44:28,299 - INFO - 开始处理样例: alarmclock
+2025-10-14 09:44:28,300 - INFO - 当前配置中的关键字段:
+2025-10-14 09:44:28,300 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 09:44:28,300 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-14 09:44:28,300 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 09:44:28,300 - INFO - 工作目录: /app/concuFix
+2025-10-14 09:47:11,958 - INFO - 样例 alarmclock 处理成功
+2025-10-14 09:47:11,958 - INFO - 样例 alarmclock 处理耗时 163.66秒
+2025-10-14 09:47:11,959 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-14 09:47:12,960 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-14 09:47:12,960 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 09:47:12,960 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-14 09:47:12,960 - INFO - 开始处理样例: atmoerror
+2025-10-14 09:47:12,961 - INFO - 当前配置中的关键字段:
+2025-10-14 09:47:12,961 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 09:47:12,961 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-14 09:47:12,961 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 09:47:12,961 - INFO - 工作目录: /app/concuFix
+2025-10-14 09:48:20,865 - INFO - 样例 atmoerror 处理成功
+2025-10-14 09:48:20,866 - INFO - 样例 atmoerror 处理耗时 67.90秒
+2025-10-14 09:48:20,866 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-14 09:48:21,866 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-14 09:48:21,867 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 09:48:21,867 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-14 09:48:21,867 - INFO - 开始处理样例: buggyprogram
+2025-10-14 09:48:21,867 - INFO - 当前配置中的关键字段:
+2025-10-14 09:48:21,867 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 09:48:21,867 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-14 09:48:21,867 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 09:48:21,867 - INFO - 工作目录: /app/concuFix
+2025-10-14 09:54:19,155 - INFO - 项目根目录: /app/concuFix
+2025-10-14 09:54:19,155 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-14 09:54:19,155 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-14 09:54:19,156 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-14 09:54:19,156 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-14 09:54:19,156 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-14 09:54:19,156 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 09:54:19,156 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-14 09:54:19,157 - INFO - 开始处理样例: airline
+2025-10-14 09:54:19,157 - INFO - 当前配置中的关键字段:
+2025-10-14 09:54:19,157 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 09:54:19,157 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-14 09:54:19,157 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 09:54:19,157 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:05:22,429 - INFO - 样例 airline 处理成功
+2025-10-14 10:05:22,429 - INFO - 样例 airline 处理耗时 663.27秒
+2025-10-14 10:05:22,430 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-14 10:05:23,430 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-14 10:05:23,430 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 10:05:23,430 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-14 10:05:23,431 - INFO - 开始处理样例: alarmclock
+2025-10-14 10:05:23,431 - INFO - 当前配置中的关键字段:
+2025-10-14 10:05:23,431 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 10:05:23,431 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-14 10:05:23,431 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:05:23,431 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:07:32,714 - INFO - 样例 alarmclock 处理成功
+2025-10-14 10:07:32,714 - INFO - 样例 alarmclock 处理耗时 129.28秒
+2025-10-14 10:07:32,715 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-14 10:07:33,715 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-14 10:07:33,715 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 10:07:33,715 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-14 10:07:33,716 - INFO - 开始处理样例: atmoerror
+2025-10-14 10:07:33,716 - INFO - 当前配置中的关键字段:
+2025-10-14 10:07:33,716 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 10:07:33,716 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-14 10:07:33,716 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:07:33,716 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:08:49,375 - INFO - 样例 atmoerror 处理成功
+2025-10-14 10:08:49,375 - INFO - 样例 atmoerror 处理耗时 75.66秒
+2025-10-14 10:08:49,376 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-14 10:08:50,376 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-14 10:08:50,376 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 10:08:50,377 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-14 10:08:50,377 - INFO - 开始处理样例: buggyprogram
+2025-10-14 10:08:50,377 - INFO - 当前配置中的关键字段:
+2025-10-14 10:08:50,377 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 10:08:50,377 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-14 10:08:50,377 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:08:50,377 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:10:55,609 - INFO - 样例 buggyprogram 处理成功
+2025-10-14 10:10:55,609 - INFO - 样例 buggyprogram 处理耗时 125.23秒
+2025-10-14 10:10:55,610 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-14 10:10:56,610 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-14 10:10:56,610 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 10:10:56,611 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-14 10:10:56,611 - INFO - 开始处理样例: consisitency
+2025-10-14 10:10:56,611 - INFO - 当前配置中的关键字段:
+2025-10-14 10:10:56,611 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 10:10:56,611 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-14 10:10:56,611 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:10:56,611 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:21:40,128 - INFO - 样例 consisitency 处理成功
+2025-10-14 10:21:40,128 - INFO - 样例 consisitency 处理耗时 643.52秒
+2025-10-14 10:21:40,129 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-14 10:21:41,129 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-14 10:21:41,129 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 10:21:41,130 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-14 10:21:41,130 - INFO - 开始处理样例: critical
+2025-10-14 10:21:41,130 - INFO - 当前配置中的关键字段:
+2025-10-14 10:21:41,130 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 10:21:41,130 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-14 10:21:41,130 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:21:41,131 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:22:05,009 - INFO - 样例 critical 处理成功
+2025-10-14 10:22:05,009 - INFO - 样例 critical 处理耗时 23.88秒
+2025-10-14 10:22:05,009 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-14 10:22:06,009 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-14 10:22:06,010 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 10:22:06,010 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-14 10:22:06,011 - INFO - 开始处理样例: datarace
+2025-10-14 10:22:06,011 - INFO - 当前配置中的关键字段:
+2025-10-14 10:22:06,011 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 10:22:06,011 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-14 10:22:06,011 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:22:06,011 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:22:36,699 - INFO - 样例 datarace 处理成功
+2025-10-14 10:22:36,699 - INFO - 样例 datarace 处理耗时 30.69秒
+2025-10-14 10:22:36,699 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-14 10:22:37,699 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-14 10:22:37,700 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-14 10:22:37,700 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-14 10:22:37,700 - INFO - 开始处理样例: even
+2025-10-14 10:22:37,700 - INFO - 当前配置中的关键字段:
+2025-10-14 10:22:37,700 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-14 10:22:37,700 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-14 10:22:37,700 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:22:37,700 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:23:51,470 - INFO - 样例 even 处理成功
+2025-10-14 10:23:51,470 - INFO - 样例 even 处理耗时 73.77秒
+2025-10-14 10:23:51,470 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-14 10:23:52,471 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-14 10:23:52,471 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 10:23:52,471 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-14 10:23:52,471 - INFO - 开始处理样例: hashcodetest
+2025-10-14 10:23:52,471 - INFO - 当前配置中的关键字段:
+2025-10-14 10:23:52,472 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 10:23:52,472 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-14 10:23:52,472 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:23:52,472 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:33:26,575 - INFO - 样例 hashcodetest 处理成功
+2025-10-14 10:33:26,575 - INFO - 样例 hashcodetest 处理耗时 574.10秒
+2025-10-14 10:33:26,576 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-14 10:33:27,576 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-14 10:33:27,576 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 10:33:27,577 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-14 10:33:27,577 - INFO - 开始处理样例: linkedlist
+2025-10-14 10:33:27,577 - INFO - 当前配置中的关键字段:
+2025-10-14 10:33:27,577 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 10:33:27,577 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-14 10:33:27,577 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:33:27,577 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:38:55,089 - INFO - 样例 linkedlist 处理成功
+2025-10-14 10:38:55,089 - INFO - 样例 linkedlist 处理耗时 327.51秒
+2025-10-14 10:38:55,089 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-14 10:38:56,090 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-14 10:38:56,090 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 10:38:56,090 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-14 10:38:56,091 - INFO - 开始处理样例: mergesort
+2025-10-14 10:38:56,091 - INFO - 当前配置中的关键字段:
+2025-10-14 10:38:56,091 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 10:38:56,091 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-14 10:38:56,091 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:38:56,091 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:39:44,533 - INFO - 样例 mergesort 处理成功
+2025-10-14 10:39:44,533 - INFO - 样例 mergesort 处理耗时 48.44秒
+2025-10-14 10:39:44,533 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-14 10:39:45,533 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-14 10:39:45,534 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 10:39:45,534 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-14 10:39:45,534 - INFO - 开始处理样例: pingpong
+2025-10-14 10:39:45,534 - INFO - 当前配置中的关键字段:
+2025-10-14 10:39:45,534 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 10:39:45,534 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-14 10:39:45,534 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:39:45,534 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:40:37,505 - INFO - 样例 pingpong 处理成功
+2025-10-14 10:40:37,505 - INFO - 样例 pingpong 处理耗时 51.97秒
+2025-10-14 10:40:37,506 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-14 10:40:38,506 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-14 10:40:38,506 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 10:40:38,506 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-14 10:40:38,507 - INFO - 开始处理样例: reorder1
+2025-10-14 10:40:38,507 - INFO - 当前配置中的关键字段:
+2025-10-14 10:40:38,507 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 10:40:38,507 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-14 10:40:38,507 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:40:38,507 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:47:21,472 - INFO - 样例 reorder1 处理成功
+2025-10-14 10:47:21,472 - INFO - 样例 reorder1 处理耗时 402.96秒
+2025-10-14 10:47:21,473 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-14 10:47:22,473 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-14 10:47:22,473 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-14 10:47:22,473 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-14 10:47:22,474 - INFO - 开始处理样例: store
+2025-10-14 10:47:22,474 - INFO - 当前配置中的关键字段:
+2025-10-14 10:47:22,474 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-14 10:47:22,474 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-14 10:47:22,474 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:47:22,474 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:47:42,092 - INFO - 样例 store 处理成功
+2025-10-14 10:47:42,093 - INFO - 样例 store 处理耗时 19.62秒
+2025-10-14 10:47:42,093 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-14 10:47:43,093 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-14 10:47:43,093 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 10:47:43,094 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-14 10:47:43,094 - INFO - 开始处理样例: stringbuffer
+2025-10-14 10:47:43,094 - INFO - 当前配置中的关键字段:
+2025-10-14 10:47:43,094 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 10:47:43,094 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-14 10:47:43,094 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:47:43,094 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:49:49,295 - INFO - 样例 stringbuffer 处理成功
+2025-10-14 10:49:49,295 - INFO - 样例 stringbuffer 处理耗时 126.20秒
+2025-10-14 10:49:49,299 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-14 10:49:50,299 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-14 10:49:50,299 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 10:49:50,299 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-14 10:49:50,300 - INFO - 开始处理样例: test1
+2025-10-14 10:49:50,300 - INFO - 当前配置中的关键字段:
+2025-10-14 10:49:50,300 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 10:49:50,300 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-14 10:49:50,300 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:49:50,300 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:50:36,709 - INFO - 样例 test1 处理成功
+2025-10-14 10:50:36,709 - INFO - 样例 test1 处理耗时 46.41秒
+2025-10-14 10:50:36,710 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-14 10:50:37,710 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-14 10:50:37,710 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 10:50:37,711 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-14 10:50:37,711 - INFO - 开始处理样例: test2
+2025-10-14 10:50:37,711 - INFO - 当前配置中的关键字段:
+2025-10-14 10:50:37,711 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 10:50:37,711 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-14 10:50:37,711 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:50:37,711 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:51:13,300 - INFO - 样例 test2 处理成功
+2025-10-14 10:51:13,300 - INFO - 样例 test2 处理耗时 35.59秒
+2025-10-14 10:51:13,301 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-14 10:51:14,301 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-14 10:51:14,301 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 10:51:14,301 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-14 10:51:14,302 - INFO - 开始处理样例: twoStage
+2025-10-14 10:51:14,302 - INFO - 当前配置中的关键字段:
+2025-10-14 10:51:14,302 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 10:51:14,302 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-14 10:51:14,302 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:51:14,302 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:56:17,857 - INFO - 样例 twoStage 处理成功
+2025-10-14 10:56:17,857 - INFO - 样例 twoStage 处理耗时 303.55秒
+2025-10-14 10:56:17,857 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-14 10:56:18,857 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-14 10:56:18,858 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 10:56:18,858 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-14 10:56:18,858 - INFO - 开始处理样例: wrongLock
+2025-10-14 10:56:18,858 - INFO - 当前配置中的关键字段:
+2025-10-14 10:56:18,858 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 10:56:18,858 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-14 10:56:18,858 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:56:18,858 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:57:36,909 - INFO - 样例 wrongLock 处理成功
+2025-10-14 10:57:36,910 - INFO - 样例 wrongLock 处理耗时 78.05秒
+2025-10-14 10:57:36,910 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-14 10:57:37,910 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-14 10:57:37,910 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 10:57:37,911 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-14 10:57:37,911 - INFO - 开始处理样例: wronglock2
+2025-10-14 10:57:37,911 - INFO - 当前配置中的关键字段:
+2025-10-14 10:57:37,911 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 10:57:37,911 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-14 10:57:37,911 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 10:57:37,911 - INFO - 工作目录: /app/concuFix
+2025-10-14 10:58:58,209 - INFO - 样例 wronglock2 处理成功
+2025-10-14 10:58:58,210 - INFO - 样例 wronglock2 处理耗时 80.30秒
+2025-10-14 10:58:58,210 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-14 10:58:58,210 - INFO - 已恢复原始配置文件
+2025-10-14 10:58:58,210 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-14 10:58:58,210 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-14 13:11:26,150 - INFO - 项目根目录: /app/concuFix
+2025-10-14 13:11:26,150 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-14 13:11:26,150 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-14 13:11:26,151 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-14 13:11:26,151 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-14 13:11:26,151 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-14 13:11:26,151 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 13:11:26,152 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-14 13:11:26,152 - INFO - 开始处理样例: airline
+2025-10-14 13:11:26,152 - INFO - 当前配置中的关键字段:
+2025-10-14 13:11:26,152 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-14 13:11:26,152 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-14 13:11:26,152 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:11:26,152 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:18:44,079 - INFO - 样例 airline 处理成功
+2025-10-14 13:18:44,080 - INFO - 样例 airline 处理耗时 437.93秒
+2025-10-14 13:18:44,080 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-14 13:18:45,080 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-14 13:18:45,081 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 13:18:45,081 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-14 13:18:45,081 - INFO - 开始处理样例: alarmclock
+2025-10-14 13:18:45,082 - INFO - 当前配置中的关键字段:
+2025-10-14 13:18:45,082 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-14 13:18:45,082 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-14 13:18:45,082 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:18:45,082 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:21:15,590 - INFO - 样例 alarmclock 处理成功
+2025-10-14 13:21:15,590 - INFO - 样例 alarmclock 处理耗时 150.51秒
+2025-10-14 13:21:15,591 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-14 13:21:16,591 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-14 13:21:16,591 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 13:21:16,592 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-14 13:21:16,592 - INFO - 开始处理样例: atmoerror
+2025-10-14 13:21:16,592 - INFO - 当前配置中的关键字段:
+2025-10-14 13:21:16,592 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-14 13:21:16,592 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-14 13:21:16,592 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:21:16,592 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:23:31,869 - INFO - 样例 atmoerror 处理成功
+2025-10-14 13:23:31,869 - INFO - 样例 atmoerror 处理耗时 135.28秒
+2025-10-14 13:23:31,870 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-14 13:23:32,870 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-14 13:23:32,871 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 13:23:32,871 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-14 13:23:32,871 - INFO - 开始处理样例: buggyprogram
+2025-10-14 13:23:32,872 - INFO - 当前配置中的关键字段:
+2025-10-14 13:23:32,872 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-14 13:23:32,872 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-14 13:23:32,872 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:23:32,872 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:31:34,723 - INFO - 样例 buggyprogram 处理成功
+2025-10-14 13:31:34,723 - INFO - 样例 buggyprogram 处理耗时 481.85秒
+2025-10-14 13:31:34,724 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-14 13:31:35,724 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-14 13:31:35,724 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 13:31:35,724 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-14 13:31:35,725 - INFO - 开始处理样例: consisitency
+2025-10-14 13:31:35,725 - INFO - 当前配置中的关键字段:
+2025-10-14 13:31:35,725 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-14 13:31:35,725 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-14 13:31:35,725 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:31:35,725 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:38:06,744 - INFO - 样例 consisitency 处理成功
+2025-10-14 13:38:06,744 - INFO - 样例 consisitency 处理耗时 391.02秒
+2025-10-14 13:38:06,745 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-14 13:38:07,745 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-14 13:38:07,745 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 13:38:07,745 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-14 13:38:07,746 - INFO - 开始处理样例: critical
+2025-10-14 13:38:07,746 - INFO - 当前配置中的关键字段:
+2025-10-14 13:38:07,746 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-14 13:38:07,746 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-14 13:38:07,746 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:38:07,746 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:39:14,759 - INFO - 样例 critical 处理成功
+2025-10-14 13:39:14,759 - INFO - 样例 critical 处理耗时 67.01秒
+2025-10-14 13:39:14,760 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-14 13:39:15,760 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-14 13:39:15,760 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 13:39:15,760 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-14 13:39:15,761 - INFO - 开始处理样例: datarace
+2025-10-14 13:39:15,761 - INFO - 当前配置中的关键字段:
+2025-10-14 13:39:15,761 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-14 13:39:15,761 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-14 13:39:15,761 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:39:15,761 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:40:13,230 - INFO - 样例 datarace 处理成功
+2025-10-14 13:40:13,230 - INFO - 样例 datarace 处理耗时 57.47秒
+2025-10-14 13:40:13,231 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-14 13:40:14,231 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-14 13:40:14,231 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-14 13:40:14,231 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-14 13:40:14,232 - INFO - 开始处理样例: even
+2025-10-14 13:40:14,232 - INFO - 当前配置中的关键字段:
+2025-10-14 13:40:14,232 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-14 13:40:14,232 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-14 13:40:14,232 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:40:14,232 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:42:22,161 - INFO - 样例 even 处理成功
+2025-10-14 13:42:22,161 - INFO - 样例 even 处理耗时 127.93秒
+2025-10-14 13:42:22,162 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-14 13:42:23,162 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-14 13:42:23,162 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 13:42:23,163 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-14 13:42:23,163 - INFO - 开始处理样例: hashcodetest
+2025-10-14 13:42:23,163 - INFO - 当前配置中的关键字段:
+2025-10-14 13:42:23,163 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-14 13:42:23,163 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-14 13:42:23,163 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:42:23,163 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:46:42,520 - INFO - 样例 hashcodetest 处理成功
+2025-10-14 13:46:42,520 - INFO - 样例 hashcodetest 处理耗时 259.36秒
+2025-10-14 13:46:42,522 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-14 13:46:43,522 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-14 13:46:43,522 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 13:46:43,523 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-14 13:46:43,523 - INFO - 开始处理样例: linkedlist
+2025-10-14 13:46:43,523 - INFO - 当前配置中的关键字段:
+2025-10-14 13:46:43,523 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-14 13:46:43,523 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-14 13:46:43,523 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:46:43,523 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:47:56,885 - INFO - 样例 linkedlist 处理成功
+2025-10-14 13:47:56,885 - INFO - 样例 linkedlist 处理耗时 73.36秒
+2025-10-14 13:47:56,886 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-14 13:47:57,886 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-14 13:47:57,886 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 13:47:57,886 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-14 13:47:57,887 - INFO - 开始处理样例: mergesort
+2025-10-14 13:47:57,887 - INFO - 当前配置中的关键字段:
+2025-10-14 13:47:57,887 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-14 13:47:57,887 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-14 13:47:57,887 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:47:57,887 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:49:06,603 - INFO - 样例 mergesort 处理成功
+2025-10-14 13:49:06,603 - INFO - 样例 mergesort 处理耗时 68.72秒
+2025-10-14 13:49:06,604 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-14 13:49:07,604 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-14 13:49:07,605 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 13:49:07,605 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-14 13:49:07,606 - INFO - 开始处理样例: pingpong
+2025-10-14 13:49:07,606 - INFO - 当前配置中的关键字段:
+2025-10-14 13:49:07,606 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-14 13:49:07,606 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-14 13:49:07,606 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:49:07,606 - INFO - 工作目录: /app/concuFix
+2025-10-14 13:54:29,816 - INFO - 样例 pingpong 处理成功
+2025-10-14 13:54:29,816 - INFO - 样例 pingpong 处理耗时 322.21秒
+2025-10-14 13:54:29,817 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-14 13:54:30,817 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-14 13:54:30,817 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 13:54:30,817 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-14 13:54:30,818 - INFO - 开始处理样例: reorder1
+2025-10-14 13:54:30,818 - INFO - 当前配置中的关键字段:
+2025-10-14 13:54:30,818 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-14 13:54:30,818 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-14 13:54:30,818 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 13:54:30,818 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:05:14,853 - INFO - 样例 reorder1 处理成功
+2025-10-14 14:05:14,854 - INFO - 样例 reorder1 处理耗时 644.04秒
+2025-10-14 14:05:14,854 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-14 14:05:15,854 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-14 14:05:15,855 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-14 14:05:15,855 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-14 14:05:15,856 - INFO - 开始处理样例: store
+2025-10-14 14:05:15,856 - INFO - 当前配置中的关键字段:
+2025-10-14 14:05:15,856 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-14 14:05:15,856 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-14 14:05:15,856 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:05:15,856 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:06:04,052 - INFO - 样例 store 处理成功
+2025-10-14 14:06:04,052 - INFO - 样例 store 处理耗时 48.20秒
+2025-10-14 14:06:04,053 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-14 14:06:05,053 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-14 14:06:05,054 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 14:06:05,054 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-14 14:06:05,054 - INFO - 开始处理样例: stringbuffer
+2025-10-14 14:06:05,054 - INFO - 当前配置中的关键字段:
+2025-10-14 14:06:05,054 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-14 14:06:05,054 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-14 14:06:05,054 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:06:05,054 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:08:40,546 - INFO - 样例 stringbuffer 处理成功
+2025-10-14 14:08:40,546 - INFO - 样例 stringbuffer 处理耗时 155.49秒
+2025-10-14 14:08:40,549 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-14 14:08:41,549 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-14 14:08:41,549 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 14:08:41,549 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-14 14:08:41,550 - INFO - 开始处理样例: test1
+2025-10-14 14:08:41,550 - INFO - 当前配置中的关键字段:
+2025-10-14 14:08:41,550 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-14 14:08:41,550 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-14 14:08:41,550 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:08:41,550 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:10:12,511 - INFO - 样例 test1 处理成功
+2025-10-14 14:10:12,511 - INFO - 样例 test1 处理耗时 90.96秒
+2025-10-14 14:10:12,512 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-14 14:10:13,513 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-14 14:10:13,513 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 14:10:13,513 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-14 14:10:13,514 - INFO - 开始处理样例: test2
+2025-10-14 14:10:13,514 - INFO - 当前配置中的关键字段:
+2025-10-14 14:10:13,514 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-14 14:10:13,514 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-14 14:10:13,515 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:10:13,515 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:12:08,467 - INFO - 样例 test2 处理成功
+2025-10-14 14:12:08,467 - INFO - 样例 test2 处理耗时 114.95秒
+2025-10-14 14:12:08,468 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-14 14:12:09,468 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-14 14:12:09,469 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 14:12:09,469 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-14 14:12:09,470 - INFO - 开始处理样例: twoStage
+2025-10-14 14:12:09,470 - INFO - 当前配置中的关键字段:
+2025-10-14 14:12:09,470 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-14 14:12:09,470 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-14 14:12:09,470 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:12:09,470 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:17:42,384 - INFO - 样例 twoStage 处理成功
+2025-10-14 14:17:42,384 - INFO - 样例 twoStage 处理耗时 332.91秒
+2025-10-14 14:17:42,384 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-14 14:17:43,384 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-14 14:17:43,385 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 14:17:43,385 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-14 14:17:43,385 - INFO - 开始处理样例: wrongLock
+2025-10-14 14:17:43,385 - INFO - 当前配置中的关键字段:
+2025-10-14 14:17:43,386 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-14 14:17:43,386 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-14 14:17:43,386 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:17:43,386 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:23:12,291 - INFO - 样例 wrongLock 处理成功
+2025-10-14 14:23:12,291 - INFO - 样例 wrongLock 处理耗时 328.91秒
+2025-10-14 14:23:12,292 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-14 14:23:13,292 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-14 14:23:13,292 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 14:23:13,292 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-14 14:23:13,293 - INFO - 开始处理样例: wronglock2
+2025-10-14 14:23:13,293 - INFO - 当前配置中的关键字段:
+2025-10-14 14:23:13,293 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-14 14:23:13,293 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-14 14:23:13,293 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-14 14:23:13,293 - INFO - 工作目录: /app/concuFix
+2025-10-14 14:29:15,725 - INFO - 样例 wronglock2 处理成功
+2025-10-14 14:29:15,725 - INFO - 样例 wronglock2 处理耗时 362.43秒
+2025-10-14 14:29:15,726 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-14 14:29:15,726 - INFO - 已恢复原始配置文件
+2025-10-14 14:29:15,726 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-14 14:29:15,726 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-15 03:10:56,898 - INFO - 项目根目录: /app/concuFix
+2025-10-15 03:10:56,913 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-15 03:10:56,913 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-15 03:10:56,914 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-15 03:10:56,955 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-15 03:10:56,955 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-15 03:10:56,955 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-15 03:10:56,955 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-15 03:10:56,961 - INFO - 开始处理样例: airline
+2025-10-15 03:10:56,961 - INFO - 当前配置中的关键字段:
+2025-10-15 03:10:56,961 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-15 03:10:56,961 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-15 03:10:56,962 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:10:56,962 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:13:46,716 - INFO - 样例 airline 处理成功
+2025-10-15 03:13:46,717 - INFO - 样例 airline 处理耗时 169.75秒
+2025-10-15 03:13:46,728 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-15 03:13:47,728 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-15 03:13:47,728 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-15 03:13:47,728 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-15 03:13:47,728 - INFO - 开始处理样例: alarmclock
+2025-10-15 03:13:47,728 - INFO - 当前配置中的关键字段:
+2025-10-15 03:13:47,728 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-15 03:13:47,728 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-15 03:13:47,728 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:13:47,728 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:20:03,970 - INFO - 样例 alarmclock 处理成功
+2025-10-15 03:20:03,971 - INFO - 样例 alarmclock 处理耗时 376.24秒
+2025-10-15 03:20:03,972 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-15 03:20:04,973 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-15 03:20:04,973 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-15 03:20:04,973 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-15 03:20:04,974 - INFO - 开始处理样例: atmoerror
+2025-10-15 03:20:04,974 - INFO - 当前配置中的关键字段:
+2025-10-15 03:20:04,974 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-15 03:20:04,974 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-15 03:20:04,974 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:20:04,974 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:22:07,944 - INFO - 样例 atmoerror 处理成功
+2025-10-15 03:22:07,944 - INFO - 样例 atmoerror 处理耗时 122.97秒
+2025-10-15 03:22:07,972 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-15 03:22:08,972 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-15 03:22:08,972 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-15 03:22:08,973 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-15 03:22:08,973 - INFO - 开始处理样例: buggyprogram
+2025-10-15 03:22:08,973 - INFO - 当前配置中的关键字段:
+2025-10-15 03:22:08,974 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-15 03:22:08,974 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-15 03:22:08,974 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:22:08,974 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:24:04,044 - INFO - 样例 buggyprogram 处理成功
+2025-10-15 03:24:04,044 - INFO - 样例 buggyprogram 处理耗时 115.07秒
+2025-10-15 03:24:04,045 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-15 03:24:05,045 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-15 03:24:05,045 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-15 03:24:05,045 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-15 03:24:05,046 - INFO - 开始处理样例: consisitency
+2025-10-15 03:24:05,046 - INFO - 当前配置中的关键字段:
+2025-10-15 03:24:05,046 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-15 03:24:05,046 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-15 03:24:05,046 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:24:05,047 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:30:25,890 - INFO - 样例 consisitency 处理成功
+2025-10-15 03:30:25,890 - INFO - 样例 consisitency 处理耗时 380.84秒
+2025-10-15 03:30:25,891 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-15 03:30:26,891 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-15 03:30:26,891 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-15 03:30:26,892 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-15 03:30:26,892 - INFO - 开始处理样例: critical
+2025-10-15 03:30:26,893 - INFO - 当前配置中的关键字段:
+2025-10-15 03:30:26,893 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-15 03:30:26,893 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-15 03:30:26,893 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:30:26,893 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:31:33,614 - INFO - 样例 critical 处理成功
+2025-10-15 03:31:33,614 - INFO - 样例 critical 处理耗时 66.72秒
+2025-10-15 03:31:33,615 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-15 03:31:34,615 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-15 03:31:34,616 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-15 03:31:34,616 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-15 03:31:34,617 - INFO - 开始处理样例: datarace
+2025-10-15 03:31:34,617 - INFO - 当前配置中的关键字段:
+2025-10-15 03:31:34,617 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-15 03:31:34,617 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-15 03:31:34,617 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:31:34,617 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:32:41,971 - INFO - 样例 datarace 处理成功
+2025-10-15 03:32:41,972 - INFO - 样例 datarace 处理耗时 67.35秒
+2025-10-15 03:32:41,973 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-15 03:32:42,973 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-15 03:32:42,974 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-15 03:32:42,974 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-15 03:32:42,974 - INFO - 开始处理样例: even
+2025-10-15 03:32:42,975 - INFO - 当前配置中的关键字段:
+2025-10-15 03:32:42,975 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-15 03:32:42,975 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-15 03:32:42,975 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:32:42,975 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:34:43,868 - INFO - 样例 even 处理成功
+2025-10-15 03:34:43,868 - INFO - 样例 even 处理耗时 120.89秒
+2025-10-15 03:34:43,869 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-15 03:34:44,869 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-15 03:34:44,870 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-15 03:34:44,870 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-15 03:34:44,870 - INFO - 开始处理样例: hashcodetest
+2025-10-15 03:34:44,871 - INFO - 当前配置中的关键字段:
+2025-10-15 03:34:44,871 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-15 03:34:44,871 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-15 03:34:44,871 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:34:44,871 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:46:52,815 - INFO - 样例 hashcodetest 处理成功
+2025-10-15 03:46:52,815 - INFO - 样例 hashcodetest 处理耗时 727.94秒
+2025-10-15 03:46:52,817 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-15 03:46:53,817 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-15 03:46:53,817 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-15 03:46:53,817 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-15 03:46:53,818 - INFO - 开始处理样例: linkedlist
+2025-10-15 03:46:53,818 - INFO - 当前配置中的关键字段:
+2025-10-15 03:46:53,818 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-15 03:46:53,818 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-15 03:46:53,818 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:46:53,819 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:47:58,221 - INFO - 样例 linkedlist 处理成功
+2025-10-15 03:47:58,221 - INFO - 样例 linkedlist 处理耗时 64.40秒
+2025-10-15 03:47:58,222 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-15 03:47:59,222 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-15 03:47:59,222 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-15 03:47:59,223 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-15 03:47:59,223 - INFO - 开始处理样例: mergesort
+2025-10-15 03:47:59,224 - INFO - 当前配置中的关键字段:
+2025-10-15 03:47:59,224 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-15 03:47:59,224 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-15 03:47:59,224 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:47:59,224 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:49:05,368 - INFO - 样例 mergesort 处理成功
+2025-10-15 03:49:05,369 - INFO - 样例 mergesort 处理耗时 66.14秒
+2025-10-15 03:49:05,370 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-15 03:49:06,370 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-15 03:49:06,370 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-15 03:49:06,371 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-15 03:49:06,371 - INFO - 开始处理样例: pingpong
+2025-10-15 03:49:06,371 - INFO - 当前配置中的关键字段:
+2025-10-15 03:49:06,371 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-15 03:49:06,371 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-15 03:49:06,372 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:49:06,372 - INFO - 工作目录: /app/concuFix
+2025-10-15 03:54:09,693 - INFO - 样例 pingpong 处理成功
+2025-10-15 03:54:09,693 - INFO - 样例 pingpong 处理耗时 303.32秒
+2025-10-15 03:54:09,694 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-15 03:54:10,694 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-15 03:54:10,695 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-15 03:54:10,695 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-15 03:54:10,695 - INFO - 开始处理样例: reorder1
+2025-10-15 03:54:10,696 - INFO - 当前配置中的关键字段:
+2025-10-15 03:54:10,696 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-15 03:54:10,696 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-15 03:54:10,696 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 03:54:10,696 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:04:12,707 - INFO - 样例 reorder1 处理成功
+2025-10-15 04:04:12,707 - INFO - 样例 reorder1 处理耗时 602.01秒
+2025-10-15 04:04:12,708 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-15 04:04:13,708 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-15 04:04:13,708 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-15 04:04:13,709 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-15 04:04:13,709 - INFO - 开始处理样例: store
+2025-10-15 04:04:13,709 - INFO - 当前配置中的关键字段:
+2025-10-15 04:04:13,709 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-15 04:04:13,709 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-15 04:04:13,710 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:04:13,710 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:04:41,080 - INFO - 样例 store 处理成功
+2025-10-15 04:04:41,081 - INFO - 样例 store 处理耗时 27.37秒
+2025-10-15 04:04:41,081 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-15 04:04:42,082 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-15 04:04:42,082 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-15 04:04:42,082 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-15 04:04:42,083 - INFO - 开始处理样例: stringbuffer
+2025-10-15 04:04:42,083 - INFO - 当前配置中的关键字段:
+2025-10-15 04:04:42,083 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-15 04:04:42,083 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-15 04:04:42,083 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:04:42,084 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:11:01,933 - INFO - 样例 stringbuffer 处理成功
+2025-10-15 04:11:01,933 - INFO - 样例 stringbuffer 处理耗时 379.85秒
+2025-10-15 04:11:01,935 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-15 04:11:02,936 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-15 04:11:02,936 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-15 04:11:02,936 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-15 04:11:02,937 - INFO - 开始处理样例: test1
+2025-10-15 04:11:02,937 - INFO - 当前配置中的关键字段:
+2025-10-15 04:11:02,937 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-15 04:11:02,937 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-15 04:11:02,937 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:11:02,937 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:12:39,229 - INFO - 样例 test1 处理成功
+2025-10-15 04:12:39,229 - INFO - 样例 test1 处理耗时 96.29秒
+2025-10-15 04:12:39,230 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-15 04:12:40,230 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-15 04:12:40,230 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-15 04:12:40,231 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-15 04:12:40,231 - INFO - 开始处理样例: test2
+2025-10-15 04:12:40,231 - INFO - 当前配置中的关键字段:
+2025-10-15 04:12:40,232 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-15 04:12:40,232 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-15 04:12:40,232 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:12:40,232 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:14:01,607 - INFO - 样例 test2 处理成功
+2025-10-15 04:14:01,607 - INFO - 样例 test2 处理耗时 81.38秒
+2025-10-15 04:14:01,608 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-15 04:14:02,609 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-15 04:14:02,609 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-15 04:14:02,609 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-15 04:14:02,610 - INFO - 开始处理样例: twoStage
+2025-10-15 04:14:02,610 - INFO - 当前配置中的关键字段:
+2025-10-15 04:14:02,610 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-15 04:14:02,610 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-15 04:14:02,610 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:14:02,610 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:19:10,854 - INFO - 样例 twoStage 处理成功
+2025-10-15 04:19:10,854 - INFO - 样例 twoStage 处理耗时 308.24秒
+2025-10-15 04:19:10,854 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-15 04:19:11,855 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-15 04:19:11,855 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-15 04:19:11,855 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-15 04:19:11,856 - INFO - 开始处理样例: wrongLock
+2025-10-15 04:19:11,856 - INFO - 当前配置中的关键字段:
+2025-10-15 04:19:11,856 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-15 04:19:11,856 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-15 04:19:11,856 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:19:11,857 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:20:18,636 - INFO - 样例 wrongLock 处理成功
+2025-10-15 04:20:18,636 - INFO - 样例 wrongLock 处理耗时 66.78秒
+2025-10-15 04:20:18,637 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-15 04:20:19,638 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-15 04:20:19,638 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-15 04:20:19,638 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-15 04:20:19,639 - INFO - 开始处理样例: wronglock2
+2025-10-15 04:20:19,639 - INFO - 当前配置中的关键字段:
+2025-10-15 04:20:19,639 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-15 04:20:19,639 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-15 04:20:19,639 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 04:20:19,639 - INFO - 工作目录: /app/concuFix
+2025-10-15 04:21:50,142 - INFO - 样例 wronglock2 处理成功
+2025-10-15 04:21:50,142 - INFO - 样例 wronglock2 处理耗时 90.50秒
+2025-10-15 04:21:50,142 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-15 04:21:50,143 - INFO - 已恢复原始配置文件
+2025-10-15 04:21:50,143 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-15 04:21:50,143 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
+2025-10-15 09:10:34,613 - INFO - 项目根目录: /app/concuFix
+2025-10-15 09:10:34,613 - INFO - benchmarks目录: /app/concuFix/benchmarks
+2025-10-15 09:10:34,613 - INFO - 配置文件: /app/concuFix/config.json
+2025-10-15 09:10:34,614 - INFO - 找到 20 个样例文件夹需要处理
+2025-10-15 09:10:34,679 - INFO - 已备份配置文件到: /app/concuFix/config.json.backup
+2025-10-15 09:10:34,679 - INFO - 进度: 1/20 - 当前样例: airline
+2025-10-15 09:10:34,679 - INFO - 更新 project_dir: /app/concuFix/benchmarks/airline
+2025-10-15 09:10:34,680 - INFO - 为样例 airline 设置输出目录: /app/concuFix/results/airline
+2025-10-15 09:10:34,680 - INFO - 开始处理样例: airline
+2025-10-15 09:10:34,680 - INFO - 当前配置中的关键字段:
+2025-10-15 09:10:34,680 - INFO -   project_dir: /app/concuFix/benchmarks/airline
+2025-10-15 09:10:34,680 - INFO -   output_dir: /app/concuFix/results/airline
+2025-10-15 09:10:34,680 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:10:34,680 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:14:03,676 - INFO - 样例 airline 处理成功
+2025-10-15 09:14:03,677 - INFO - 样例 airline 处理耗时 209.00秒
+2025-10-15 09:14:03,677 - INFO - 详细输出已保存到: /app/concuFix/results/airline/details.md
+2025-10-15 09:14:04,678 - INFO - 进度: 2/20 - 当前样例: alarmclock
+2025-10-15 09:14:04,678 - INFO - 更新 project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-15 09:14:04,678 - INFO - 为样例 alarmclock 设置输出目录: /app/concuFix/results/alarmclock
+2025-10-15 09:14:04,679 - INFO - 开始处理样例: alarmclock
+2025-10-15 09:14:04,679 - INFO - 当前配置中的关键字段:
+2025-10-15 09:14:04,679 - INFO -   project_dir: /app/concuFix/benchmarks/alarmclock
+2025-10-15 09:14:04,679 - INFO -   output_dir: /app/concuFix/results/alarmclock
+2025-10-15 09:14:04,679 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:14:04,679 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:17:13,127 - INFO - 样例 alarmclock 处理成功
+2025-10-15 09:17:13,127 - INFO - 样例 alarmclock 处理耗时 188.45秒
+2025-10-15 09:17:13,154 - INFO - 详细输出已保存到: /app/concuFix/results/alarmclock/details.md
+2025-10-15 09:17:14,155 - INFO - 进度: 3/20 - 当前样例: atmoerror
+2025-10-15 09:17:14,155 - INFO - 更新 project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-15 09:17:14,155 - INFO - 为样例 atmoerror 设置输出目录: /app/concuFix/results/atmoerror
+2025-10-15 09:17:14,156 - INFO - 开始处理样例: atmoerror
+2025-10-15 09:17:14,156 - INFO - 当前配置中的关键字段:
+2025-10-15 09:17:14,156 - INFO -   project_dir: /app/concuFix/benchmarks/atmoerror
+2025-10-15 09:17:14,156 - INFO -   output_dir: /app/concuFix/results/atmoerror
+2025-10-15 09:17:14,156 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:17:14,156 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:20:04,211 - INFO - 样例 atmoerror 处理成功
+2025-10-15 09:20:04,211 - INFO - 样例 atmoerror 处理耗时 170.05秒
+2025-10-15 09:20:04,217 - INFO - 详细输出已保存到: /app/concuFix/results/atmoerror/details.md
+2025-10-15 09:20:05,217 - INFO - 进度: 4/20 - 当前样例: buggyprogram
+2025-10-15 09:20:05,218 - INFO - 更新 project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-15 09:20:05,218 - INFO - 为样例 buggyprogram 设置输出目录: /app/concuFix/results/buggyprogram
+2025-10-15 09:20:05,219 - INFO - 开始处理样例: buggyprogram
+2025-10-15 09:20:05,219 - INFO - 当前配置中的关键字段:
+2025-10-15 09:20:05,219 - INFO -   project_dir: /app/concuFix/benchmarks/buggyprogram
+2025-10-15 09:20:05,219 - INFO -   output_dir: /app/concuFix/results/buggyprogram
+2025-10-15 09:20:05,219 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:20:05,219 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:22:24,273 - INFO - 样例 buggyprogram 处理成功
+2025-10-15 09:22:24,273 - INFO - 样例 buggyprogram 处理耗时 139.05秒
+2025-10-15 09:22:24,274 - INFO - 详细输出已保存到: /app/concuFix/results/buggyprogram/details.md
+2025-10-15 09:22:25,274 - INFO - 进度: 5/20 - 当前样例: consisitency
+2025-10-15 09:22:25,275 - INFO - 更新 project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-15 09:22:25,275 - INFO - 为样例 consisitency 设置输出目录: /app/concuFix/results/consisitency
+2025-10-15 09:22:25,275 - INFO - 开始处理样例: consisitency
+2025-10-15 09:22:25,276 - INFO - 当前配置中的关键字段:
+2025-10-15 09:22:25,276 - INFO -   project_dir: /app/concuFix/benchmarks/consisitency
+2025-10-15 09:22:25,276 - INFO -   output_dir: /app/concuFix/results/consisitency
+2025-10-15 09:22:25,276 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:22:25,276 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:24:34,625 - INFO - 样例 consisitency 处理成功
+2025-10-15 09:24:34,625 - INFO - 样例 consisitency 处理耗时 129.35秒
+2025-10-15 09:24:34,626 - INFO - 详细输出已保存到: /app/concuFix/results/consisitency/details.md
+2025-10-15 09:24:35,626 - INFO - 进度: 6/20 - 当前样例: critical
+2025-10-15 09:24:35,626 - INFO - 更新 project_dir: /app/concuFix/benchmarks/critical
+2025-10-15 09:24:35,627 - INFO - 为样例 critical 设置输出目录: /app/concuFix/results/critical
+2025-10-15 09:24:35,627 - INFO - 开始处理样例: critical
+2025-10-15 09:24:35,627 - INFO - 当前配置中的关键字段:
+2025-10-15 09:24:35,627 - INFO -   project_dir: /app/concuFix/benchmarks/critical
+2025-10-15 09:24:35,627 - INFO -   output_dir: /app/concuFix/results/critical
+2025-10-15 09:24:35,627 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:24:35,627 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:34:30,593 - INFO - 样例 critical 处理成功
+2025-10-15 09:34:30,593 - INFO - 样例 critical 处理耗时 594.97秒
+2025-10-15 09:34:30,594 - INFO - 详细输出已保存到: /app/concuFix/results/critical/details.md
+2025-10-15 09:34:31,594 - INFO - 进度: 7/20 - 当前样例: datarace
+2025-10-15 09:34:31,594 - INFO - 更新 project_dir: /app/concuFix/benchmarks/datarace
+2025-10-15 09:34:31,594 - INFO - 为样例 datarace 设置输出目录: /app/concuFix/results/datarace
+2025-10-15 09:34:31,595 - INFO - 开始处理样例: datarace
+2025-10-15 09:34:31,595 - INFO - 当前配置中的关键字段:
+2025-10-15 09:34:31,595 - INFO -   project_dir: /app/concuFix/benchmarks/datarace
+2025-10-15 09:34:31,595 - INFO -   output_dir: /app/concuFix/results/datarace
+2025-10-15 09:34:31,595 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:34:31,595 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:36:03,003 - INFO - 样例 datarace 处理成功
+2025-10-15 09:36:03,003 - INFO - 样例 datarace 处理耗时 91.41秒
+2025-10-15 09:36:03,004 - INFO - 详细输出已保存到: /app/concuFix/results/datarace/details.md
+2025-10-15 09:36:04,004 - INFO - 进度: 8/20 - 当前样例: even
+2025-10-15 09:36:04,004 - INFO - 更新 project_dir: /app/concuFix/benchmarks/even
+2025-10-15 09:36:04,005 - INFO - 为样例 even 设置输出目录: /app/concuFix/results/even
+2025-10-15 09:36:04,005 - INFO - 开始处理样例: even
+2025-10-15 09:36:04,005 - INFO - 当前配置中的关键字段:
+2025-10-15 09:36:04,005 - INFO -   project_dir: /app/concuFix/benchmarks/even
+2025-10-15 09:36:04,006 - INFO -   output_dir: /app/concuFix/results/even
+2025-10-15 09:36:04,006 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:36:04,006 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:39:12,175 - INFO - 样例 even 处理成功
+2025-10-15 09:39:12,175 - INFO - 样例 even 处理耗时 188.17秒
+2025-10-15 09:39:12,247 - INFO - 详细输出已保存到: /app/concuFix/results/even/details.md
+2025-10-15 09:39:13,247 - INFO - 进度: 9/20 - 当前样例: hashcodetest
+2025-10-15 09:39:13,248 - INFO - 更新 project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-15 09:39:13,248 - INFO - 为样例 hashcodetest 设置输出目录: /app/concuFix/results/hashcodetest
+2025-10-15 09:39:13,309 - INFO - 开始处理样例: hashcodetest
+2025-10-15 09:39:13,309 - INFO - 当前配置中的关键字段:
+2025-10-15 09:39:13,309 - INFO -   project_dir: /app/concuFix/benchmarks/hashcodetest
+2025-10-15 09:39:13,309 - INFO -   output_dir: /app/concuFix/results/hashcodetest
+2025-10-15 09:39:13,309 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:39:13,309 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:44:11,060 - INFO - 样例 hashcodetest 处理成功
+2025-10-15 09:44:11,061 - INFO - 样例 hashcodetest 处理耗时 297.75秒
+2025-10-15 09:44:11,062 - INFO - 详细输出已保存到: /app/concuFix/results/hashcodetest/details.md
+2025-10-15 09:44:12,062 - INFO - 进度: 10/20 - 当前样例: linkedlist
+2025-10-15 09:44:12,063 - INFO - 更新 project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-15 09:44:12,063 - INFO - 为样例 linkedlist 设置输出目录: /app/concuFix/results/linkedlist
+2025-10-15 09:44:12,063 - INFO - 开始处理样例: linkedlist
+2025-10-15 09:44:12,063 - INFO - 当前配置中的关键字段:
+2025-10-15 09:44:12,063 - INFO -   project_dir: /app/concuFix/benchmarks/linkedlist
+2025-10-15 09:44:12,064 - INFO -   output_dir: /app/concuFix/results/linkedlist
+2025-10-15 09:44:12,064 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:44:12,064 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:45:42,611 - INFO - 样例 linkedlist 处理成功
+2025-10-15 09:45:42,611 - INFO - 样例 linkedlist 处理耗时 90.55秒
+2025-10-15 09:45:42,611 - INFO - 详细输出已保存到: /app/concuFix/results/linkedlist/details.md
+2025-10-15 09:45:43,611 - INFO - 进度: 11/20 - 当前样例: mergesort
+2025-10-15 09:45:43,611 - INFO - 更新 project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-15 09:45:43,612 - INFO - 为样例 mergesort 设置输出目录: /app/concuFix/results/mergesort
+2025-10-15 09:45:43,612 - INFO - 开始处理样例: mergesort
+2025-10-15 09:45:43,612 - INFO - 当前配置中的关键字段:
+2025-10-15 09:45:43,612 - INFO -   project_dir: /app/concuFix/benchmarks/mergesort
+2025-10-15 09:45:43,612 - INFO -   output_dir: /app/concuFix/results/mergesort
+2025-10-15 09:45:43,612 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:45:43,612 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:47:03,204 - INFO - 样例 mergesort 处理成功
+2025-10-15 09:47:03,205 - INFO - 样例 mergesort 处理耗时 79.59秒
+2025-10-15 09:47:03,205 - INFO - 详细输出已保存到: /app/concuFix/results/mergesort/details.md
+2025-10-15 09:47:04,205 - INFO - 进度: 12/20 - 当前样例: pingpong
+2025-10-15 09:47:04,205 - INFO - 更新 project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-15 09:47:04,206 - INFO - 为样例 pingpong 设置输出目录: /app/concuFix/results/pingpong
+2025-10-15 09:47:04,206 - INFO - 开始处理样例: pingpong
+2025-10-15 09:47:04,206 - INFO - 当前配置中的关键字段:
+2025-10-15 09:47:04,206 - INFO -   project_dir: /app/concuFix/benchmarks/pingpong
+2025-10-15 09:47:04,206 - INFO -   output_dir: /app/concuFix/results/pingpong
+2025-10-15 09:47:04,206 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:47:04,206 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:48:12,079 - INFO - 样例 pingpong 处理成功
+2025-10-15 09:48:12,079 - INFO - 样例 pingpong 处理耗时 67.87秒
+2025-10-15 09:48:12,079 - INFO - 详细输出已保存到: /app/concuFix/results/pingpong/details.md
+2025-10-15 09:48:13,080 - INFO - 进度: 13/20 - 当前样例: reorder1
+2025-10-15 09:48:13,080 - INFO - 更新 project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-15 09:48:13,080 - INFO - 为样例 reorder1 设置输出目录: /app/concuFix/results/reorder1
+2025-10-15 09:48:13,080 - INFO - 开始处理样例: reorder1
+2025-10-15 09:48:13,081 - INFO - 当前配置中的关键字段:
+2025-10-15 09:48:13,081 - INFO -   project_dir: /app/concuFix/benchmarks/reorder1
+2025-10-15 09:48:13,081 - INFO -   output_dir: /app/concuFix/results/reorder1
+2025-10-15 09:48:13,081 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:48:13,081 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:50:56,878 - INFO - 样例 reorder1 处理成功
+2025-10-15 09:50:56,878 - INFO - 样例 reorder1 处理耗时 163.80秒
+2025-10-15 09:50:56,878 - INFO - 详细输出已保存到: /app/concuFix/results/reorder1/details.md
+2025-10-15 09:50:57,878 - INFO - 进度: 14/20 - 当前样例: store
+2025-10-15 09:50:57,879 - INFO - 更新 project_dir: /app/concuFix/benchmarks/store
+2025-10-15 09:50:57,879 - INFO - 为样例 store 设置输出目录: /app/concuFix/results/store
+2025-10-15 09:50:57,879 - INFO - 开始处理样例: store
+2025-10-15 09:50:57,880 - INFO - 当前配置中的关键字段:
+2025-10-15 09:50:57,880 - INFO -   project_dir: /app/concuFix/benchmarks/store
+2025-10-15 09:50:57,880 - INFO -   output_dir: /app/concuFix/results/store
+2025-10-15 09:50:57,880 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:50:57,880 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:51:57,332 - INFO - 样例 store 处理成功
+2025-10-15 09:51:57,332 - INFO - 样例 store 处理耗时 59.45秒
+2025-10-15 09:51:57,333 - INFO - 详细输出已保存到: /app/concuFix/results/store/details.md
+2025-10-15 09:51:58,333 - INFO - 进度: 15/20 - 当前样例: stringbuffer
+2025-10-15 09:51:58,333 - INFO - 更新 project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-15 09:51:58,333 - INFO - 为样例 stringbuffer 设置输出目录: /app/concuFix/results/stringbuffer
+2025-10-15 09:51:58,334 - INFO - 开始处理样例: stringbuffer
+2025-10-15 09:51:58,334 - INFO - 当前配置中的关键字段:
+2025-10-15 09:51:58,334 - INFO -   project_dir: /app/concuFix/benchmarks/stringbuffer
+2025-10-15 09:51:58,334 - INFO -   output_dir: /app/concuFix/results/stringbuffer
+2025-10-15 09:51:58,334 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:51:58,334 - INFO - 工作目录: /app/concuFix
+2025-10-15 09:54:49,834 - INFO - 样例 stringbuffer 处理成功
+2025-10-15 09:54:49,835 - INFO - 样例 stringbuffer 处理耗时 171.50秒
+2025-10-15 09:54:49,836 - INFO - 详细输出已保存到: /app/concuFix/results/stringbuffer/details.md
+2025-10-15 09:54:50,837 - INFO - 进度: 16/20 - 当前样例: test1
+2025-10-15 09:54:50,837 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test1
+2025-10-15 09:54:50,837 - INFO - 为样例 test1 设置输出目录: /app/concuFix/results/test1
+2025-10-15 09:54:50,837 - INFO - 开始处理样例: test1
+2025-10-15 09:54:50,837 - INFO - 当前配置中的关键字段:
+2025-10-15 09:54:50,838 - INFO -   project_dir: /app/concuFix/benchmarks/test1
+2025-10-15 09:54:50,838 - INFO -   output_dir: /app/concuFix/results/test1
+2025-10-15 09:54:50,838 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 09:54:50,838 - INFO - 工作目录: /app/concuFix
+2025-10-15 10:05:53,872 - INFO - 样例 test1 处理成功
+2025-10-15 10:05:53,873 - INFO - 样例 test1 处理耗时 663.04秒
+2025-10-15 10:05:53,873 - INFO - 详细输出已保存到: /app/concuFix/results/test1/details.md
+2025-10-15 10:05:54,874 - INFO - 进度: 17/20 - 当前样例: test2
+2025-10-15 10:05:54,874 - INFO - 更新 project_dir: /app/concuFix/benchmarks/test2
+2025-10-15 10:05:54,874 - INFO - 为样例 test2 设置输出目录: /app/concuFix/results/test2
+2025-10-15 10:05:54,874 - INFO - 开始处理样例: test2
+2025-10-15 10:05:54,874 - INFO - 当前配置中的关键字段:
+2025-10-15 10:05:54,875 - INFO -   project_dir: /app/concuFix/benchmarks/test2
+2025-10-15 10:05:54,875 - INFO -   output_dir: /app/concuFix/results/test2
+2025-10-15 10:05:54,875 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 10:05:54,875 - INFO - 工作目录: /app/concuFix
+2025-10-15 10:07:32,327 - INFO - 样例 test2 处理成功
+2025-10-15 10:07:32,327 - INFO - 样例 test2 处理耗时 97.45秒
+2025-10-15 10:07:32,328 - INFO - 详细输出已保存到: /app/concuFix/results/test2/details.md
+2025-10-15 10:07:33,328 - INFO - 进度: 18/20 - 当前样例: twoStage
+2025-10-15 10:07:33,328 - INFO - 更新 project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-15 10:07:33,328 - INFO - 为样例 twoStage 设置输出目录: /app/concuFix/results/twoStage
+2025-10-15 10:07:33,329 - INFO - 开始处理样例: twoStage
+2025-10-15 10:07:33,329 - INFO - 当前配置中的关键字段:
+2025-10-15 10:07:33,329 - INFO -   project_dir: /app/concuFix/benchmarks/twoStage
+2025-10-15 10:07:33,329 - INFO -   output_dir: /app/concuFix/results/twoStage
+2025-10-15 10:07:33,329 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 10:07:33,329 - INFO - 工作目录: /app/concuFix
+2025-10-15 10:08:25,911 - INFO - 样例 twoStage 处理成功
+2025-10-15 10:08:25,911 - INFO - 样例 twoStage 处理耗时 52.58秒
+2025-10-15 10:08:25,912 - INFO - 详细输出已保存到: /app/concuFix/results/twoStage/details.md
+2025-10-15 10:08:26,912 - INFO - 进度: 19/20 - 当前样例: wrongLock
+2025-10-15 10:08:26,912 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-15 10:08:26,912 - INFO - 为样例 wrongLock 设置输出目录: /app/concuFix/results/wrongLock
+2025-10-15 10:08:26,913 - INFO - 开始处理样例: wrongLock
+2025-10-15 10:08:26,913 - INFO - 当前配置中的关键字段:
+2025-10-15 10:08:26,913 - INFO -   project_dir: /app/concuFix/benchmarks/wrongLock
+2025-10-15 10:08:26,913 - INFO -   output_dir: /app/concuFix/results/wrongLock
+2025-10-15 10:08:26,913 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 10:08:26,913 - INFO - 工作目录: /app/concuFix
+2025-10-15 10:09:18,479 - INFO - 样例 wrongLock 处理成功
+2025-10-15 10:09:18,479 - INFO - 样例 wrongLock 处理耗时 51.57秒
+2025-10-15 10:09:18,498 - INFO - 详细输出已保存到: /app/concuFix/results/wrongLock/details.md
+2025-10-15 10:09:19,498 - INFO - 进度: 20/20 - 当前样例: wronglock2
+2025-10-15 10:09:19,498 - INFO - 更新 project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-15 10:09:19,499 - INFO - 为样例 wronglock2 设置输出目录: /app/concuFix/results/wronglock2
+2025-10-15 10:09:19,499 - INFO - 开始处理样例: wronglock2
+2025-10-15 10:09:19,499 - INFO - 当前配置中的关键字段:
+2025-10-15 10:09:19,499 - INFO -   project_dir: /app/concuFix/benchmarks/wronglock2
+2025-10-15 10:09:19,499 - INFO -   output_dir: /app/concuFix/results/wronglock2
+2025-10-15 10:09:19,499 - INFO - 执行命令: /opt/conda/bin/python main.py
+2025-10-15 10:09:19,499 - INFO - 工作目录: /app/concuFix
+2025-10-15 10:10:47,421 - INFO - 样例 wronglock2 处理成功
+2025-10-15 10:10:47,421 - INFO - 样例 wronglock2 处理耗时 87.92秒
+2025-10-15 10:10:47,422 - INFO - 详细输出已保存到: /app/concuFix/results/wronglock2/details.md
+2025-10-15 10:10:47,422 - INFO - 已恢复原始配置文件
+2025-10-15 10:10:47,422 - INFO - 批量处理完成！成功: 20, 失败: 0, 总计: 20
+2025-10-15 10:10:47,423 - INFO - 总结报告已保存到: /app/concuFix/batch_summary.md
