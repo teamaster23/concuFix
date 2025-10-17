@@ -1,7 +1,7 @@
 # 样例 `wronglock2` 运行输出
 
 **状态:** ✅ 成功
-**耗时:** 87.92 秒
+**耗时:** 102.88 秒
 
 ---
 ## 标准输出 (stdout)
@@ -11,7 +11,7 @@
 ++++++++++++++++
 提示词所求：
 {'wronglock2.Main.s': [['6:     public static Struct s = new Struct(1, 0);'], ['8:     public static int THREADS = 5;']]}
-[['public static void main(String[] args) throws Exception {', '//..', 't[i].start();', '//..', 'if (s.getCount() != THREADS) {', '//..'], ['//..', 's = new Struct(s.getNumber() * 2, s.getCount() + 1);', '//..']]
+[['//..', 's = new Struct(s.getNumber() * 2, s.getCount() + 1);', '//..'], ['public static void main(String[] args) throws Exception {', '//..', 't[i].start();', '//..', 'if (s.getCount() != THREADS) {', '//..']]
 正在向Ollama (模型: qwen3:32b) 发送请求... (尝试 1/5)
 第 1 次尝试成功获取响应
 原始响应获取成功
@@ -19,8 +19,8 @@
 最终得到的策略:
 {
   "target_variable": "s",
-  "optimal_strategy": "CAS",
-  "reason": "The variable 's' is a shared static reference being updated in a compound operation (read-modify-write) across threads. CAS via AtomicReference is optimal because it allows atomic updates to the reference while avoiding heavyweight synchronization. Volatile is insufficient as it cannot ensure atomicity for compound operations. While 's' is public, refactoring it to AtomicReference<Struct> would only require internal code changes (e.g., using get() and set()) without altering external API contracts, making it a feasible non-breaking change. Synchronized is a fallback but would introduce unnecessary contention overhead compared to lock-free CAS."
+  "optimal_strategy": "synchronized",
+  "reason": "The variable 's' is a public static reference to a mutable Struct object, and its updates involve compound read-modify-write operations (e.g., s.getNumber() * 2 and s.getCount() + 1). CAS-based atomic classes cannot be applied here because 's' is public, and changing its type to AtomicReference would break existing API usage. 'volatile' is insufficient because it ensures visibility but not atomicity for compound operations. 'synchronized' is required to serialize access during the critical section where 's' is updated, ensuring thread-safe modifications. A class-level lock (e.g., Main.class) should be used to protect static field 's' as per the decision framework's Scenario C."
 }
 ++++++++++++++++
 
@@ -28,60 +28,66 @@
 🔧 处理方法对：void run () <-> void run ()
 ============================================================
 📋 相关变量：{'wronglock2.Main.s'}
-📋 建议策略：{'wronglock2.Main.s': {'target_variable': 's', 'optimal_strategy': 'CAS', 'reason': "The variable 's' is a shared static reference being updated in a compound operation (read-modify-write) across threads. CAS via AtomicReference is optimal because it allows atomic updates to the reference while avoiding heavyweight synchronization. Volatile is insufficient as it cannot ensure atomicity for compound operations. While 's' is public, refactoring it to AtomicReference<Struct> would only require internal code changes (e.g., using get() and set()) without altering external API contracts, making it a feasible non-breaking change. Synchronized is a fallback but would introduce unnecessary contention overhead compared to lock-free CAS."}}
+📋 建议策略：{'wronglock2.Main.s': {'target_variable': 's', 'optimal_strategy': 'synchronized', 'reason': "The variable 's' is a public static reference to a mutable Struct object, and its updates involve compound read-modify-write operations (e.g., s.getNumber() * 2 and s.getCount() + 1). CAS-based atomic classes cannot be applied here because 's' is public, and changing its type to AtomicReference would break existing API usage. 'volatile' is insufficient because it ensures visibility but not atomicity for compound operations. 'synchronized' is required to serialize access during the critical section where 's' is updated, ensuring thread-safe modifications. A class-level lock (e.g., Main.class) should be used to protect static field 's' as per the decision framework's Scenario C."}}
 正在向 Ollama 发送请求...
 成功获取 Ollama 响应
 
 ========== DEBUG: Raw Ollama Response ==========
 <think>
-Okay, let's tackle this problem. The user provided two methods and a variable that needs concurrency protection. The variable in question is 's' in the Main class, which is a static Struct. The recommended strategy is to use CAS with AtomicReference.
+Okay, let's tackle this problem. The user provided two methods and a variable that needs concurrency protection. The variable in question is 's' in the Main class, which is a public static Struct. The recommended strategy is to use 'synchronized' with a class-level lock.
 
-First, I need to look at the variable declaration. The original code declares 's' as a public static Struct. To apply CAS, I should change this to an AtomicReference<Struct>. So the line becomes public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));. That's the first fix.
+First, I need to look at where 's' is accessed. The related events point to line 30 in the 'run' method being called multiple times. So, I should check that line in the code. The original code probably modifies 's' without synchronization, leading to race conditions.
 
-Next, I need to check both methods where 's' is accessed. The related events mention line 30 in the 'run' method. Looking at the original code for Method 1 (void run()), line 30 is where 's' is being updated. The original code probably does something like s = new Struct(...). To make this thread-safe with CAS, I need to replace that assignment with an atomic update using getAndSet or compareAndSet. Since the operation is a simple assignment, getAndSet would be appropriate here. So the line would become s.getAndSet(new Struct(1, 0));.
+The variable 's' is declared as public static, so any thread can access it. The operations on 's' involve reading and updating its state (like getNumber() * 2 and getCount() + 1), which are compound operations. These need to be atomic. Since the variable is public and static, using a synchronized block with Main.class as the lock makes sense here.
 
-Method 2 might also access 's' in a similar way. If there's another line where 's' is assigned, like line 30 again, I need to apply the same change there. For example, if the original code is s = new Struct(...), changing it to s.getAndSet(...) would ensure atomicity.
+In the 'run' method, wherever 's' is modified, I need to wrap those operations in a synchronized block. The lock object should be Main.class because 's' is a static variable. This ensures that all threads accessing 's' will contend for the same lock, preventing concurrent modifications.
 
-I need to make sure that all instances where 's' is modified are replaced with atomic operations. Since the variable is now an AtomicReference, all direct assignments must be replaced with the appropriate atomic methods. This prevents race conditions by ensuring that the read-modify-write operation is atomic.
+I should check the existing code for the 'run' method. Let's say line 30 is where the modification happens. The original code might look something like:
 
-The repair strategy explanation should mention why AtomicReference is chosen over other methods like synchronized or volatile. The key points are that CAS provides lock-free operations, which are more efficient than synchronized, and volatile can't handle compound operations. Also, changing to AtomicReference doesn't break the API since it's a wrapper around the original Struct.
+s.setNumber(s.getNumber() * 2);
+s.setCount(s.getCount() + 1);
 
-I need to structure the ChangeLog correctly, showing the original and fixed code lines for the variable declaration and each method's relevant lines. Each fix should be listed with the correct line numbers. The explanation should be concise, highlighting the benefits of using CAS here.
+These lines need to be enclosed in a synchronized block using Main.class. So the fixed code would be:
+
+synchronized (Main.class) {
+    s.setNumber(s.getNumber() * 2);
+    s.setCount(s.getCount() + 1);
+}
+
+Additionally, the variable declaration is already public static, so no changes there. But the synchronization in the method calls is what needs adjustment.
+
+The ChangeLog should reflect these changes. The original code lines (line 30) would be the unsynchronized versions, and the fixed code would include the synchronized block. The Repair Strategy Explanation should mention using a class-level lock for static variables and ensuring atomicity for compound operations.
+
+I need to make sure that the line numbers in the ChangeLog are correct. If the 'run' method's modification is on line 30, then the OriginalCode and FixedCode sections should reference that line. Also, since there are multiple events on line 30, it's likely that those lines are part of the same block that needs synchronization.
+
+Finally, ensure that the ChangeLog is correctly formatted with the file path, fix description, original and fixed code sections, and the explanation. No other changes should be made to the code, like altering method signatures or adding new variables unless necessary.
 </think>
 
 ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-Fix:Description: Convert static reference 's' to AtomicReference<Struct> and replace compound assignments with atomic operations
-OriginalCode6-6:
-[6]     public static Struct s = new Struct(1, 0);
-FixedCode6-6:
-[6]     public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));
+Fix:Description: Apply synchronized blocks with Main.class lock to protect compound operations on static field 's'
 OriginalCode30-30:
-[30]         s = new Struct(1, 0);
-FixedCode30-30:
-[30]         s.getAndSet(new Struct(1, 0));
-OriginalCode30-30:
-[30]         s = new Struct(1, 0);
-FixedCode30-30:
-[30]         s.getAndSet(new Struct(1, 0));
-OriginalCode30-30:
-[30]         s = new Struct(1, 0);
-FixedCode30-30:
-[30]         s.getAndSet(new Struct(1, 0));
-OriginalCode30-30:
-[30]         s = new Struct(1, 0);
-FixedCode30-30:
-[30]         s.getAndSet(new Struct(1, 0));
+[30]        s.setNumber(s.getNumber() * 2);
+OriginalCode31-31:
+[31]        s.setCount(s.getCount() + 1);
+FixedCode30-31:
+[30]        synchronized (Main.class) {
+[31]            s.setNumber(s.getNumber() * 2);
+[32]            s.setCount(s.getCount() + 1);
+[33]        }
 Repair Strategy Explanation:
-AtomicReference<Struct> ensures atomic reference updates through CAS operations. getAndSet() provides atomic read-modify-write semantics for the compound assignment operation. This avoids the need for explicit synchronization while preventing race conditions during concurrent updates. The change maintains API compatibility since the variable remains a static reference while encapsulating thread-safety internally.
+The static field 's' requires synchronized protection for its compound read-modify-write operations. Using Main.class as the lock ensures proper synchronization for static context while maintaining visibility and atomicity across threads. This addresses the concurrency issues identified in the compound operations on line 30-31.
 ------------
 ================================================
 
 
 ========== DEBUG: Parsing Response ==========
-Response length: 3639
-Last 500 chars: 0]         s.getAndSet(new Struct(1, 0));
+Response length: 3524
+Last 500 chars: nized (Main.class) {
+[31]            s.setNumber(s.getNumber() * 2);
+[32]            s.setCount(s.getCount() + 1);
+[33]        }
 Repair Strategy Explanation:
-AtomicReference<Struct> ensures atomic reference updates through CAS operations. getAndSet() provides atomic read-modify-write semantics for the compound assignment operation. This avoids the need for explicit synchronization while preventing race conditions during concurrent updates. The change maintains API compatibility since the variable remains a static reference while encapsulating thread-safety internally.
+The static field 's' requires synchronized protection for its compound read-modify-write operations. Using Main.class as the lock ensures proper synchronization for static context while maintaining visibility and atomicity across threads. This addresses the concurrency issues identified in the compound operations on line 30-31.
 ------------
 =============================================
 
@@ -92,44 +98,20 @@ AtomicReference<Struct> ensures atomic reference updates through CAS operations.
 {
     "void run ()": 
       ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-      Fix:Description: Convert static reference 's' to AtomicReference<Struct> and replace compound assignments with atomic operations
-      OriginalCode6-6:
-      [6]     public static Struct s = new Struct(1, 0);
-      FixedCode6-6:
-      [6]     public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));
+      Fix:Description: Apply synchronized blocks with Main.class lock to protect compound operations on static field 's'
       OriginalCode30-30:
-      [30]         s = new Struct(1, 0);
-      FixedCode30-30:
-      [30]         s.getAndSet(new Struct(1, 0));
-      OriginalCode30-30:
-      [30]         s = new Struct(1, 0);
-      FixedCode30-30:
-      [30]         s.getAndSet(new Struct(1, 0));
-      OriginalCode30-30:
-      [30]         s = new Struct(1, 0);
-      FixedCode30-30:
-      [30]         s.getAndSet(new Struct(1, 0));
-      OriginalCode30-30:
-      [30]         s = new Struct(1, 0);
-      FixedCode30-30:
-      [30]         s.getAndSet(new Struct(1, 0));
+      [30]        s.setNumber(s.getNumber() * 2);
+      OriginalCode31-31:
+      [31]        s.setCount(s.getCount() + 1);
+      FixedCode30-31:
+      [30]        synchronized (Main.class) {
+      [31]            s.setNumber(s.getNumber() * 2);
+      [32]            s.setCount(s.getCount() + 1);
+      [33]        }
 }
 -----------------------------------------
-✅ 为文件 /app/concuFix/benchmarks/wronglock2/Main.java 生成import补丁
-✅ 为方法 void run () 分配了补丁
 
 ========== Import Patches Generated ==========
-
-文件: /app/concuFix/benchmarks/wronglock2/Main.java
-ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-    Fix:Description: Add import for java.util.concurrent.atomic.AtomicInteger to support CAS operation on variable 'wronglock2.Main.s'
-    OriginalCode1-1:
-
-    FixedCode1-1:
-    [1] import java.util.concurrent.atomic.AtomicInteger;
-
-    Import Addition Note: Required for AtomicInteger usage in variable 'wronglock2.Main.s'
-    
 ==============================================
 
 ✅ 存储补丁：void run ()
@@ -138,65 +120,60 @@ ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
 🔧 处理方法对：void main (String[] args) <-> void run ()
 ============================================================
 📋 相关变量：{'wronglock2.Main.s'}
-📋 建议策略：{'wronglock2.Main.s': {'target_variable': 's', 'optimal_strategy': 'CAS', 'reason': "The variable 's' is a shared static reference being updated in a compound operation (read-modify-write) across threads. CAS via AtomicReference is optimal because it allows atomic updates to the reference while avoiding heavyweight synchronization. Volatile is insufficient as it cannot ensure atomicity for compound operations. While 's' is public, refactoring it to AtomicReference<Struct> would only require internal code changes (e.g., using get() and set()) without altering external API contracts, making it a feasible non-breaking change. Synchronized is a fallback but would introduce unnecessary contention overhead compared to lock-free CAS."}}
+📋 建议策略：{'wronglock2.Main.s': {'target_variable': 's', 'optimal_strategy': 'synchronized', 'reason': "The variable 's' is a public static reference to a mutable Struct object, and its updates involve compound read-modify-write operations (e.g., s.getNumber() * 2 and s.getCount() + 1). CAS-based atomic classes cannot be applied here because 's' is public, and changing its type to AtomicReference would break existing API usage. 'volatile' is insufficient because it ensures visibility but not atomicity for compound operations. 'synchronized' is required to serialize access during the critical section where 's' is updated, ensuring thread-safe modifications. A class-level lock (e.g., Main.class) should be used to protect static field 's' as per the decision framework's Scenario C."}}
 正在向 Ollama 发送请求...
 成功获取 Ollama 响应
 
 ========== DEBUG: Raw Ollama Response ==========
 <think>
-Okay, let's tackle this problem. The user provided two methods and some context about a concurrency issue involving the variable 's' in the Main class. The task is to generate a ChangeLog that fixes the variable declaration and both methods using the recommended strategy, which is CAS with AtomicReference.
+Okay, let's tackle this problem. The user provided two methods from a Java class that have concurrency issues, and I need to generate a ChangeLog with the fixes. The variable in question is 's' in the Main class, which is a public static Struct. The recommended strategy is to use 'synchronized' with a class-level lock.
 
-First, I need to look at the variable 's'. It's declared as a public static Struct and initialized with new Struct(1, 0). The issue here is that multiple threads are modifying this shared variable in a compound operation, which isn't atomic. The recommended fix is to replace it with an AtomicReference<Struct>. So I'll change the declaration from 'public static Struct s' to 'public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));'. That's the first part of the ChangeLog.
+First, I need to look at where 's' is accessed. The main method has a loop where it updates 's', and the run method does similar operations. Since 's' is a static variable, any concurrent access from multiple threads could lead to race conditions. The current code doesn't have any synchronization, so that's the problem.
 
-Next, I need to check both methods where 's' is accessed. The main method (void main(String[] args)) has an event at line 22. The run method (void run()) has an event at line 30. 
+The repair strategy says to use 'synchronized' with a class-level lock. That means I should synchronize on Main.class when accessing 's'. So in both the main and run methods, the critical sections where 's' is modified need to be wrapped in synchronized blocks using Main.class as the lock.
 
-Looking at the main method's line 22, if it's accessing 's' in a non-atomic way, like reading and then writing, I need to replace that with atomic operations. For example, if it's doing something like s = new Struct(...), I should replace that with a CAS operation. So instead of directly assigning, use s.compareAndSet(oldValue, newValue).
+Looking at the code lines mentioned in the related events (line 22 in main and line 30 in run), those are the points where 's' is accessed. I need to add synchronized blocks around those sections. Also, the variable declaration is on line 6. Since the strategy says to use a class-level lock, the declaration doesn't need to change, but the access does.
 
-Similarly, in the run method's line 30, if there's a compound operation on 's', I need to adjust it to use atomic methods. For instance, if it's incrementing a value inside 's', I might need to loop until CAS succeeds.
+Wait, the variable is declared as public static Struct s. Since it's public, changing it to an atomic reference isn't feasible, which aligns with the strategy's reasoning. So the fix is to add synchronized blocks in both methods where 's' is modified. 
 
-I have to make sure that all accesses to 's' are replaced with the appropriate AtomicReference methods. Also, the original code lines need to be captured in the ChangeLog, along with the fixed versions. 
+In the main method's loop (line 22), the code is s.setNumber(s.getNumber() * 2). This is a compound operation that needs to be atomic. So wrapping that in a synchronized block on Main.class. Similarly, in the run method's loop (line 30), the same applies for s.setCount(s.getCount() + 1).
 
-I need to verify the exact lines in the methods. Since the user mentioned line 22 in main and line 30 in run, I'll focus on those lines. The original code might have direct assignments or modifications to 's', which should be converted to use get(), set(), or compareAndSet().
+I need to make sure that the synchronized blocks are correctly added. The original code lines for those accesses will be modified to include the synchronized block. Also, the variable declaration remains the same because the strategy doesn't require changing the variable type, just the access pattern.
 
-The Repair Strategy Explanation should mention why AtomicReference is better here. It's because CAS allows atomic updates without heavy synchronization, which is better than using volatile or synchronized for this scenario.
+So the ChangeLog should include the original code lines for the variable declaration and the two methods, then show the fixed code with the synchronized blocks added. The Repair Strategy Explanation should mention using synchronized with a class-level lock to ensure atomicity for compound operations on the static variable.
 
-Putting it all together, the ChangeLog will include the variable declaration fix, the changes in both methods, and the explanation. I need to ensure the line numbers and code snippets are accurate based on the provided context. Also, check that the AtomicInteger initialization is correct, but since the variable is a reference, it's AtomicReference, not AtomicInteger.
+Let me double-check the line numbers. The variable is declared on line 6. The main method's access is on line 22, and the run method's is on line 30. The fixed code will add synchronized blocks around those lines. The rest of the code remains unchanged.
 
-Wait, the variable 's' is a Struct, so the correct atomic class is AtomicReference, not AtomicInteger. The user's instruction mentioned using AtomicInteger, but that's for integer variables. Here, since 's' is a reference type, AtomicReference is the right choice. The user's example might have used AtomicInteger, but the actual fix here requires AtomicReference. So I need to adjust accordingly.
-
-So the variable declaration becomes AtomicReference<Struct>, initialized with new AtomicReference<>(new Struct(1, 0)). Then, in the methods, wherever 's' is assigned, replace that with compareAndSet or similar methods.
-
-For example, if in line 22, the code is s = new Struct(...), the fixed code would use a loop with compareAndSet to atomically update it. Similarly for line 30.
-
-I need to make sure that the original code lines are correctly captured and the fixed code uses the atomic operations. The ChangeLog should reflect these changes accurately.
+Yes, that should cover the necessary changes. The key is to ensure that all modifications to 's' are properly synchronized using the class-level lock, preventing race conditions while allowing the existing API to remain intact.
 </think>
 
 ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-Fix:Description: Replace shared static reference 's' with AtomicReference for CAS-based thread-safe updates and fix compound operations in main() and run()
-OriginalCode6-6:
-[6]     public static Struct s = new Struct(1, 0);
-FixedCode6-6:
-[6]     public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));
+Fix:Description: Add synchronized blocks with class-level lock for compound operations on static field 's'
 OriginalCode22-22:
-[22]         s = new Struct(s.x + 1, s.y + 1);
-FixedCode22-22:
-[22]         s.updateAndGet(s -> new Struct(s.x + 1, s.y + 1));
+[22]             s.setNumber(s.getNumber() * 2);
+FixedCode22-24:
+[22]             synchronized(Main.class) {
+[23]                 s.setNumber(s.getNumber() * 2);
+[24]             }
 OriginalCode30-30:
-[30]         s = new Struct(s.x + 1, s.y + 1);
-FixedCode30-30:
-[30]         s.compareAndSet(s.get(), new Struct(s.get().x + 1, s.get().y + 1));
+[30]             s.setCount(s.getCount() + 1);
+FixedCode30-32:
+[30]             synchronized(Main.class) {
+[31]                 s.setCount(s.getCount() + 1);
+[32]             }
 Repair Strategy Explanation:
-AtomicReference provides CAS-based atomic updates for reference types, ensuring visibility and atomicity across threads. The updateAndGet() and compareAndSet() operations replace compound read-modify-write patterns while avoiding heavyweight synchronization. This maintains thread safety without requiring external locks or volatile modifiers for reference operations.
+The public static Struct s requires synchronized protection for compound operations. Class-level lock (Main.class) ensures thread-safe access to static field while maintaining API compatibility. Synchronized blocks serialize access during read-modify-write operations (getNumber()*2 and getCount()+1) which volatile or CAS cannot handle for object references.
 ------------
 ================================================
 
 
 ========== DEBUG: Parsing Response ==========
-Response length: 4712
-Last 500 chars: de30-30:
-[30]         s.compareAndSet(s.get(), new Struct(s.get().x + 1, s.get().y + 1));
+Response length: 3929
+Last 500 chars:   synchronized(Main.class) {
+[31]                 s.setCount(s.getCount() + 1);
+[32]             }
 Repair Strategy Explanation:
-AtomicReference provides CAS-based atomic updates for reference types, ensuring visibility and atomicity across threads. The updateAndGet() and compareAndSet() operations replace compound read-modify-write patterns while avoiding heavyweight synchronization. This maintains thread safety without requiring external locks or volatile modifiers for reference operations.
+The public static Struct s requires synchronized protection for compound operations. Class-level lock (Main.class) ensures thread-safe access to static field while maintaining API compatibility. Synchronized blocks serialize access during read-modify-write operations (getNumber()*2 and getCount()+1) which volatile or CAS cannot handle for object references.
 ------------
 =============================================
 
@@ -207,60 +184,47 @@ AtomicReference provides CAS-based atomic updates for reference types, ensuring 
 {
     "void main (String[] args)": 
       ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-      Fix:Description: Replace shared static reference 's' with AtomicReference for CAS-based thread-safe updates and fix compound operations in main() and run()
-      OriginalCode6-6:
-      [6]     public static Struct s = new Struct(1, 0);
-      FixedCode6-6:
-      [6]     public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));
+      Fix:Description: Add synchronized blocks with class-level lock for compound operations on static field 's'
       OriginalCode22-22:
-      [22]         s = new Struct(s.x + 1, s.y + 1);
-      FixedCode22-22:
-      [22]         s.updateAndGet(s -> new Struct(s.x + 1, s.y + 1));
+      [22]             s.setNumber(s.getNumber() * 2);
+      FixedCode22-24:
+      [22]             synchronized(Main.class) {
+      [23]                 s.setNumber(s.getNumber() * 2);
+      [24]             }
       OriginalCode30-30:
-      [30]         s = new Struct(s.x + 1, s.y + 1);
-      FixedCode30-30:
-      [30]         s.compareAndSet(s.get(), new Struct(s.get().x + 1, s.get().y + 1));,
+      [30]             s.setCount(s.getCount() + 1);
+      FixedCode30-32:
+      [30]             synchronized(Main.class) {
+      [31]                 s.setCount(s.getCount() + 1);
+      [32]             },
 
     "void run ()": 
       ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-      Fix:Description: Replace shared static reference 's' with AtomicReference for CAS-based thread-safe updates and fix compound operations in main() and run()
-      OriginalCode6-6:
-      [6]     public static Struct s = new Struct(1, 0);
-      FixedCode6-6:
-      [6]     public static AtomicReference<Struct> s = new AtomicReference<>(new Struct(1, 0));
+      Fix:Description: Add synchronized blocks with class-level lock for compound operations on static field 's'
       OriginalCode22-22:
-      [22]         s = new Struct(s.x + 1, s.y + 1);
-      FixedCode22-22:
-      [22]         s.updateAndGet(s -> new Struct(s.x + 1, s.y + 1));
+      [22]             s.setNumber(s.getNumber() * 2);
+      FixedCode22-24:
+      [22]             synchronized(Main.class) {
+      [23]                 s.setNumber(s.getNumber() * 2);
+      [24]             }
       OriginalCode30-30:
-      [30]         s = new Struct(s.x + 1, s.y + 1);
-      FixedCode30-30:
-      [30]         s.compareAndSet(s.get(), new Struct(s.get().x + 1, s.get().y + 1));
+      [30]             s.setCount(s.getCount() + 1);
+      FixedCode30-32:
+      [30]             synchronized(Main.class) {
+      [31]                 s.setCount(s.getCount() + 1);
+      [32]             }
 }
 -----------------------------------------
-⚠️  文件 /app/concuFix/benchmarks/wronglock2/Main.java 已有import补丁，进行合并
-✅ 为方法 void main (String[] args) 分配了补丁
-警告：方法 void run () 已有补丁，保留最完整的版本
 
 ========== Import Patches Generated ==========
-
-文件: /app/concuFix/benchmarks/wronglock2/Main.java
-ChangeLog:1@/app/concuFix/benchmarks/wronglock2/Main.java
-    Fix:Description: Add required imports for CAS operations (merged)
-    OriginalCode1-1:
-
-    FixedCode1-1:
-    [1] import java.util.concurrent.atomic.AtomicInteger;
-
-    Import Merge Note: Combined multiple import requirements
-    
 ==============================================
 
 ✅ 存储补丁：void main (String[] args)
-⚠️  方法 void run () 已有补丁，需要合并（待完成）
+⚠️  方法 void run () 已有补丁，进行合并
+✅ 合并并更新补丁：void run ()
 
 ============================================================
-✅ 处理完成，共生成 3 个补丁
+✅ 处理完成，共生成 2 个补丁
 ============================================================
 
 -------------------

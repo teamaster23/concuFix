@@ -94,12 +94,37 @@ class RepairAgent():
             # 更新以前不存在的修复策略
             policy_input.update(policies)
             
-            # ✅ 存储生成的补丁
+            # ✅ 存储生成的补丁（若已存在则自动合并）
             for method_name, patch in patches.items():
                 if method_name in self.patches:
-                    print(f"⚠️  方法 {method_name} 已有补丁，需要合并（待完成）")
-                    # 简单合并策略：保留第一个补丁（因为通常第一个更完整）
-                    # 需之后继续完善：调用大模型进行补丁合并
+                    print(f"⚠️  方法 {method_name} 已有补丁，进行合并")
+                    # 尝试解析方法源码，供合并上下文使用
+                    source_code = ""
+                    try:
+                        if hasattr(cms, 'method1') and cms.method1.name == method_name:
+                            source_code = getattr(cms.method1, 'source_code', '')
+                        elif hasattr(cms, 'method2') and cms.method2.name == method_name:
+                            source_code = getattr(cms.method2, 'source_code', '')
+                        else:
+                            # 回退：从全局方法信息中按名称匹配
+                            for info in state.get('bug_report', {}).method_to_method_info.values():
+                                if getattr(info, 'name', None) == method_name:
+                                    source_code = getattr(info, 'source_code', '')
+                                    break
+                    except Exception:
+                        pass
+
+                    try:
+                        merged_patch = self._merge_patches(
+                            existing_patch=self.patches[method_name],
+                            new_patch=patch,
+                            method_name=method_name,
+                            source_code=source_code
+                        )
+                        self.patches[method_name] = merged_patch
+                        print(f"✅ 合并并更新补丁：{method_name}")
+                    except Exception as e:
+                        print(f"⚠️  合并失败，保留原补丁：{e}")
                 else:
                     self.patches[method_name] = patch
                     print(f"✅ 存储补丁：{method_name}")
@@ -193,13 +218,33 @@ class RepairAgent():
                     variable_definitions[var] = '\n'.join(var_init[0]) if var_init[0] else ''
         
         # ===== 关键修改：格式化建议策略信息 =====
+        # 对建议策略做健壮处理：允许 None、字符串或字典格式
         formatted_suggest_policies = {}
+        safe_suggest_policies = suggest_polices or {}
         for var in related_vars:
-            if var in suggest_polices:
-                policy_info = suggest_polices[var]
+            policy_info = None
+            if isinstance(safe_suggest_policies, dict):
+                policy_info = safe_suggest_policies.get(var)
+
+            if isinstance(policy_info, dict):
+                # 优先使用 optimal_strategy，其次使用 strategy 字段
+                strategy = policy_info.get('optimal_strategy') or policy_info.get('strategy') or 'Unknown'
+                reason = policy_info.get('reason', 'No reason provided')
                 formatted_suggest_policies[var] = {
-                    'strategy': policy_info.get('optimal_strategy', 'Unknown'),
-                    'reason': policy_info.get('reason', 'No reason provided')
+                    'strategy': strategy,
+                    'reason': reason
+                }
+            elif isinstance(policy_info, str):
+                # 直接给了策略字符串（如 "CAS"、"synchronized"）
+                formatted_suggest_policies[var] = {
+                    'strategy': policy_info,
+                    'reason': 'Provided as plain string in suggest_policies'
+                }
+            else:
+                # 缺失或不支持的类型，填充默认值，避免后续解析出错
+                formatted_suggest_policies[var] = {
+                    'strategy': 'Unknown',
+                    'reason': 'No policy provided or unsupported policy type'
                 }
         
         # ===== 关键修改：格式化相关事件信息 =====
@@ -457,7 +502,7 @@ Now generate the repair patches using the EXACT code provided below:
                             print(f"✅ 为文件 {file_path} 生成import补丁")
 
 
-                # ===== 修复：改进补丁分配逻辑 =====
+                # ===== 修复：改进补丁分配逻辑（启用自动合并替代长度启发式） =====
                 for method_name, patch_content in patches.items():
                     method_info = method_to_info.get(method_name)
                     if not method_info:
@@ -469,11 +514,18 @@ Now generate the repair patches using the EXACT code provided below:
                     
                     if method_info:
                         if hasattr(method_info, 'patch') and method_info.patch:
-                            # 如果已有补丁，需要合并
-                            print(f"警告：方法 {method_name} 已有补丁，保留最完整的版本")
-                            # 保留更长的补丁（通常更完整）
-                            if len(patch_content) > len(method_info.patch):
-                                method_info.patch = patch_content
+                            # 已有补丁 → 调用合并
+                            print(f"🧩 合并方法级补丁：{method_name}")
+                            try:
+                                merged_method_patch = self._merge_patches(
+                                    existing_patch=method_info.patch,
+                                    new_patch=patch_content,
+                                    method_name=method_name,
+                                    source_code=getattr(method_info, 'source_code', '')
+                                )
+                                method_info.patch = merged_method_patch
+                            except Exception as e:
+                                print(f"⚠️ 合并失败，保留现有补丁：{e}")
                         else:
                             if hasattr(method_info, 'patch'):
                                 method_info.patch = patch_content
@@ -490,21 +542,86 @@ Now generate the repair patches using the EXACT code provided below:
         
         return patches, policies
 
-    def _merge_patches(self, existing_patch: Dict[str, Any],
-                       new_patch: Dict[str, Any],
+    def _merge_patches(self, existing_patch: str,
+                       new_patch: str,
                        method_name: str,
-                       source_code: str) -> Dict[str, Any]:
-        """调用LLM合并两个补丁"""
+                       source_code: str) -> str:
+        """使用本地 Ollama LLM 合并两个方法级补丁，返回合并后的 ChangeLog 字符串。
+
+        首选调用 LLM 合并；若失败则保守回退为保留旧补丁。
+        """
+        # 构建合并提示词消息
         messages = self.patch_merge_prompt.format_messages(
             method_name=method_name,
-            method_code=source_code,
+            method_code=source_code or "",
             existing_patch=existing_patch,
             new_patch=new_patch
         )
 
-        response = self.llm(messages)
-        merged_patch = self._parse_patch_merge_response(response.content)
-        return merged_patch
+        # 将 LangChain 消息转换为 Ollama 所需格式
+        def _lc_messages_to_ollama(msgs: List[Any]) -> List[Dict[str, str]]:
+            from langchain.schema import AIMessage
+            simple_msgs: List[Dict[str, str]] = []
+            for msg in msgs:
+                role = "user"
+                if isinstance(msg, SystemMessage):
+                    role = "system"
+                elif isinstance(msg, HumanMessage):
+                    role = "user"
+                elif isinstance(msg, AIMessage):
+                    role = "assistant"
+                content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                simple_msgs.append({"role": role, "content": content})
+            return simple_msgs
+
+        enhanced_messages = _lc_messages_to_ollama(messages) if isinstance(messages, list) else [
+            {"role": "system", "content": "You merge patches."},
+            {"role": "user", "content": str(messages)}
+        ]
+
+        # 调用 Ollama 模型
+        import requests
+        import json as _json
+        try:
+            payload = {
+                "model": "qwen3:32b",
+                "messages": enhanced_messages,
+                "stream": False,
+                "options": {
+                    "temperature": 0.1,
+                    "top_p": 0.9,
+                    "num_predict": 4000
+                }
+            }
+            resp = requests.post(
+                "http://localhost:11434/api/chat",
+                headers={"Content-Type": "application/json"},
+                json=payload,
+                timeout=300
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            content = data.get('message', {}).get('content', '')
+
+            # 解析合并结果
+            parsed = self._parse_patch_merge_response(content)
+            merged_text = parsed.get("merged_patch") if isinstance(parsed, dict) else None
+            if not merged_text or not isinstance(merged_text, str):
+                # 若模型未返回预期 JSON，尝试直接使用原文
+                if content.strip():
+                    merged_text = content
+                else:
+                    merged_text = existing_patch
+
+            # 冲突标记仅用于日志
+            if isinstance(parsed, dict) and parsed.get("has_conflict"):
+                print(f"⚠️  合并标记为有冲突：{parsed.get('conflict_details', '')}")
+
+            return merged_text
+        except Exception as e:
+            print(f"调用合并模型失败：{e}")
+            # 回退策略：保留旧补丁（更安全），若旧为空则用新补丁
+            return existing_patch or new_patch
 
     def _has_conflict(self, patch1: Dict[str, Any], patch2: Dict[str, Any]) -> bool:
         """简单检查两个补丁是否冲突"""

@@ -166,7 +166,7 @@ class ConcuFixBatchRunner:
         except Exception as e:
             logger.error(f"保存输出文件失败: {output_path}, 错误: {e}")
 
-    def run_sample(self, sample_path: Path, timeout: int = 1200) -> Dict:
+    def run_sample(self, sample_path: Path, timeout: int = 2000) -> Dict:
         """
         运行单个样例并返回结果
         返回: 包含成功状态、stdout、stderr和耗时的字典
@@ -233,7 +233,7 @@ class ConcuFixBatchRunner:
         
         return result_data
 
-    def run_batch(self, samples: List[Path] = None, timeout: int = 1200, 
+    def run_batch(self, samples: List[Path] = None, timeout: int = 2000, 
                   continue_on_error: bool = True) -> Dict[str, bool]:
         """批量运行样例"""
         if samples is None:
@@ -342,8 +342,8 @@ def main():
     parser = argparse.ArgumentParser(description='批量运行 concuFix 项目')
     parser.add_argument('--project-dir', '-d', default='.', 
                        help='项目目录路径 (默认: 当前目录)')
-    parser.add_argument('--timeout', '-t', type=int, default=1200,
-                       help='每个样例的超时时间(秒) (默认: 1200)')
+    parser.add_argument('--timeout', '-t', type=int, default=2000,
+                       help='每个样例的超时时间(秒) (默认: 2000)')
     parser.add_argument('--continue-on-error', '-c', action='store_true',
                        help='遇到错误时继续处理其他样例')
     parser.add_argument('--samples', '-s', nargs='+',
