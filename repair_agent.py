@@ -21,6 +21,9 @@ class RepairAgent():
         self.patches = {}  # Method → Patch
         self.patch_generation_prompt = self._create_patch_generation_prompt()
         self.patch_merge_prompt = self._create_patch_merge_prompt()
+        # Import 专用提示词
+        self.import_patch_generation_prompt = self._create_import_patch_generation_prompt()
+        self.import_patch_merge_prompt = self._create_import_patch_merge_prompt()
 
     @staticmethod
     def _get_sorted_method_pairs(
@@ -738,6 +741,76 @@ New Patch:
 """)
         ])
 
+    def _create_import_patch_generation_prompt(self) -> ChatPromptTemplate:
+        """创建用于生成 import 补丁的提示模板（使用严格 ChangeLog 格式）"""
+        return ChatPromptTemplate.from_messages([
+            SystemMessage(content="""
+You are a precise Java refactoring engine specialized in managing import statements.
+
+TASK: Generate ONE ChangeLog patch that adds the required import into the given Java file.
+
+STRICT RULES:
+1. Output EXACTLY one ChangeLog block and NOTHING ELSE.
+2. First non-whitespace characters MUST be: "ChangeLog:1@".
+3. End with a single line exactly: "------------".
+4. Use the provided insertion line if given; otherwise place import after the last existing import, or at the top if none.
+5. Do NOT modify or include unrelated lines.
+
+FORMAT:
+------------
+ChangeLog:1@{file_path}
+Fix:Description: Add import for <RequiredImport>
+OriginalCode<start>-<end>:
+[<line>] <existing line or empty>
+FixedCode<start>-<end>:
+[<line>] import <RequiredImport>;
+Repair Strategy Explanation:
+<one or two sentences max>
+------------
+"""),
+            HumanMessage(content="""
+File: {file_path}
+Required Import: {required_import}
+Variable Context: {variable}
+Existing Imports (with line numbers):
+{existing_imports}
+
+Suggested Insertion Line: {suggested_line}
+Notes: Keep ChangeLog minimal; if the exact original line is unknown or empty, leave OriginalCode body empty (just the header), and put the new import in FixedCode at the line `Suggested Insertion Line`.
+""")
+        ])
+
+    def _create_import_patch_merge_prompt(self) -> ChatPromptTemplate:
+        """创建用于合并 import 补丁的提示模板（输出 JSON 包裹 merged_patch）"""
+        return ChatPromptTemplate.from_messages([
+            SystemMessage(content="""
+You are a patch merge engine focused on Java imports.
+Merge the two ChangeLog patches about the same file's import section into ONE consolidated ChangeLog.
+
+REQUIREMENTS:
+- Remove duplicate imports.
+- Keep only import-related edits; don't touch non-import lines.
+- Keep ChangeLog strict format (single block, starts with ChangeLog:1@<file>, ends with ------------).
+- It's OK to renumber lines consistently; if unknown, place imports as a contiguous block.
+
+Return a JSON object:
+{
+  "merged_patch": "<the single ChangeLog block>",
+  "explanation": "<brief>",
+  "has_conflict": false,
+  "conflict_details": ""
+}
+"""),
+            HumanMessage(content="""
+File: {file_path}
+Existing Import Patch:
+{existing_patch}
+
+New Import Patch:
+{new_patch}
+""")
+        ])
+
     def _parse_patch_generation_response(self, response: str, method1_name: str, method2_name: str, 
                                         related_vars: set, suggest_policies: Dict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """解析LLM响应，提取补丁和策略"""
@@ -866,99 +939,164 @@ Please manually extract the ChangeLog from the response above.
     def _generate_import_patch(self, file_path: str, current_imports: List[str], 
                             required_import: str, variable: str) -> str:
         """
-        生成import语句的补丁
-        
-        Args:
-            file_path: 文件路径
-            current_imports: 当前已有的import语句列表
-            required_import: 需要添加的import（如 "java.util.concurrent.atomic.AtomicInteger"）
-            variable: 触发该import的变量名
-        
-        Returns:
-            格式化的import补丁字符串
+        生成 import 语句的补丁（通过本地 Ollama）。失败时回退到简单补丁。
         """
-        # 找到最后一个import语句的行号
+        # 计算建议插入行
         last_import_line = 0
-        import_section = []
-        
+        existing_list = []
         for imp in current_imports:
-            # 假设格式为 "[行号] import 语句"
             try:
                 line_num = int(imp.split(']')[0].strip('['))
-                if line_num > last_import_line:
-                    last_import_line = line_num
-                import_section.append(imp)
-            except (ValueError, IndexError):
-                # 如果解析失败，尝试直接使用
-                import_section.append(imp)
-        
-        # 生成新的import行号（在最后一个import之后）
-        new_import_line = last_import_line + 1
-        
-        # 构建ChangeLog格式的补丁
-        patch = f"""ChangeLog:1@{file_path}
-    Fix:Description: Add import for {required_import} to support CAS operation on variable '{variable}'
-    OriginalCode{new_import_line}-{new_import_line}:
+                last_import_line = max(last_import_line, line_num)
+                existing_list.append(imp)
+            except Exception:
+                existing_list.append(str(imp))
+        suggested_line = last_import_line + 1 if last_import_line > 0 else 1
 
-    FixedCode{new_import_line}-{new_import_line}:
-    [{new_import_line}] import {required_import};
+        # 组装提示词
+        messages = self.import_patch_generation_prompt.format_messages(
+            file_path=file_path,
+            required_import=required_import,
+            variable=variable,
+            existing_imports="\n".join(existing_list) or "<none>",
+            suggested_line=suggested_line,
+        )
 
-    Import Addition Note: Required for AtomicInteger usage in variable '{variable}'
-    """
-        
-        return patch
+        # 转换为 Ollama 消息
+        def _lc_messages_to_ollama(msgs: List[Any]) -> List[Dict[str, str]]:
+            from langchain.schema import AIMessage
+            simple_msgs: List[Dict[str, str]] = []
+            for msg in msgs:
+                role = "user"
+                if isinstance(msg, SystemMessage):
+                    role = "system"
+                elif isinstance(msg, HumanMessage):
+                    role = "user"
+                elif isinstance(msg, AIMessage):
+                    role = "assistant"
+                content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                simple_msgs.append({"role": role, "content": content})
+            return simple_msgs
+
+        enhanced_messages = _lc_messages_to_ollama(messages) if isinstance(messages, list) else [
+            {"role": "system", "content": "Generate import ChangeLog patch."},
+            {"role": "user", "content": str(messages)}
+        ]
+
+        import requests
+        try:
+            payload = {
+                "model": "qwen3:32b",
+                "messages": enhanced_messages,
+                "stream": False,
+                "options": {"temperature": 0.1, "top_p": 0.9, "num_predict": 2000}
+            }
+            resp = requests.post(
+                "http://localhost:11434/api/chat",
+                headers={"Content-Type": "application/json"},
+                json=payload,
+                timeout=180
+            )
+            resp.raise_for_status()
+            content = resp.json().get('message', {}).get('content', '')
+            # 简单校验 ChangeLog 头
+            if content.strip().startswith(f"ChangeLog:1@{file_path}"):
+                return content
+        except Exception as e:
+            print(f"⚠️  生成 import 补丁时调用模型失败，回退：{e}")
+
+        # 回退到简单补丁
+        return (
+            f"ChangeLog:1@{file_path}\n"
+            f"Fix:Description: Add import for {required_import} (fallback)\n"
+            f"OriginalCode{suggested_line}-{suggested_line}:\n\n"
+            f"FixedCode{suggested_line}-{suggested_line}:\n"
+            f"[{suggested_line}] import {required_import};\n"
+            f"Repair Strategy Explanation:\nAdd required import for variable '{variable}'.\n"
+            f"------------"
+        )
 
 
     def _merge_import_patches(self, existing_patch: str, new_patch: str, 
                             file_path: str) -> str:
-        """
-        合并两个import补丁
-        
-        Args:
-            existing_patch: 已存在的import补丁
-            new_patch: 新的import补丁
-            file_path: 文件路径
-        
-        Returns:
-            合并后的补丁
-        """
-        import re
-        
-        # 提取已有的import语句
+        """合并两个 import 补丁（通过本地 Ollama）。失败时回退到正则去重逻辑。"""
+        messages = self.import_patch_merge_prompt.format_messages(
+            file_path=file_path,
+            existing_patch=existing_patch,
+            new_patch=new_patch,
+        )
+
+        # 转换为 Ollama 消息
+        def _lc_messages_to_ollama(msgs: List[Any]) -> List[Dict[str, str]]:
+            from langchain.schema import AIMessage
+            simple_msgs: List[Dict[str, str]] = []
+            for msg in msgs:
+                role = "user"
+                if isinstance(msg, SystemMessage):
+                    role = "system"
+                elif isinstance(msg, HumanMessage):
+                    role = "user"
+                elif isinstance(msg, AIMessage):
+                    role = "assistant"
+                content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                simple_msgs.append({"role": role, "content": content})
+            return simple_msgs
+
+        enhanced_messages = _lc_messages_to_ollama(messages) if isinstance(messages, list) else [
+            {"role": "system", "content": "Merge import patches."},
+            {"role": "user", "content": str(messages)}
+        ]
+
+        import requests, re
+        try:
+            payload = {
+                "model": "qwen3:32b",
+                "messages": enhanced_messages,
+                "stream": False,
+                "options": {"temperature": 0.1, "top_p": 0.9, "num_predict": 2000}
+            }
+            resp = requests.post(
+                "http://localhost:11434/api/chat",
+                headers={"Content-Type": "application/json"},
+                json=payload,
+                timeout=180
+            )
+            resp.raise_for_status()
+            content = resp.json().get('message', {}).get('content', '')
+            parsed = self._parse_patch_merge_response(content)
+            merged_text = parsed.get("merged_patch") if isinstance(parsed, dict) else None
+            if isinstance(merged_text, str) and merged_text.strip().startswith(f"ChangeLog:1@{file_path}"):
+                return merged_text
+            # 若模型未返回预期 JSON/格式，尝试直接原文
+            if content.strip().startswith(f"ChangeLog:1@{file_path}"):
+                return content
+        except Exception as e:
+            print(f"⚠️  合并 import 补丁时调用模型失败，回退：{e}")
+
+        # 回退：使用先前的正则去重合并
         existing_imports = re.findall(r'\[(\d+)\]\s*import\s+([^;]+);', existing_patch)
         new_imports = re.findall(r'\[(\d+)\]\s*import\s+([^;]+);', new_patch)
-        
-        # 合并去重（基于import的包名）
         all_imports = {}
         for line_num, import_name in existing_imports:
             all_imports[import_name.strip()] = int(line_num)
-        
         for line_num, import_name in new_imports:
-            if import_name.strip() not in all_imports:
-                # 使用最大行号+1
+            name = import_name.strip()
+            if name not in all_imports:
                 max_line = max(all_imports.values()) if all_imports else 0
-                all_imports[import_name.strip()] = max_line + 1
-        
-        # 重新构建合并后的补丁
+                all_imports[name] = max_line + 1
         sorted_imports = sorted(all_imports.items(), key=lambda x: x[1])
-        
-        fixed_code_section = ""
-        for import_name, line_num in sorted_imports:
-            fixed_code_section += f"[{line_num}] import {import_name};\n"
-        
+        fixed_code_section = "".join([f"[{ln}] import {nm};\n" for nm, ln in sorted_imports])
         start_line = sorted_imports[0][1] if sorted_imports else 1
         end_line = sorted_imports[-1][1] if sorted_imports else 1
-        
-        merged_patch = f"""ChangeLog:1@{file_path}
-    Fix:Description: Add required imports for CAS operations (merged)
-    OriginalCode{start_line}-{end_line}:
-
-    FixedCode{start_line}-{end_line}:
-    {fixed_code_section}
-    Import Merge Note: Combined multiple import requirements
-    """
-        
-        return merged_patch
+        return (
+            f"ChangeLog:1@{file_path}\n"
+            f"Fix:Description: Merge required imports (fallback)\n"
+            f"OriginalCode{start_line}-{end_line}:\n\n"
+            f"FixedCode{start_line}-{end_line}:\n"
+            f"{fixed_code_section}"
+            f"Repair Strategy Explanation:\nCombine unique imports into a single block.\n"
+            f"------------"
+        )
 
 
 class PatchConflictError(Exception):
