@@ -235,6 +235,19 @@ class RepairAgent():
             related_events=formatted_events,
         )
         
+        # ===== 调试输出：打印 HumanMessage 中的变量值 =====
+        print("\n" + "="*80)
+        print("🔍 [DEBUG] HumanMessage 中的变量值")
+        print("="*80)
+        print(f"method1_name: {m1.name}")
+        print(f"method2_name: {m2.name}")
+        print(f"related_vars: {related_vars}")
+        print(f"variable_definitions: {json.dumps(variable_definitions, indent=2, ensure_ascii=False)}")
+        print(f"suggest_polices: {json.dumps(suggest_polices, indent=2, ensure_ascii=False)}")
+        print(f"related_events: {related_events}")
+        print(f"policy_input: {policy_input}")
+        print("="*80 + "\n")
+        
         # 转换为 Ollama 格式
         def _lc_messages_to_ollama(msgs: List[Any]) -> List[Dict[str, str]]:
             simple_msgs: List[Dict[str, str]] = []
@@ -264,7 +277,7 @@ class RepairAgent():
         for idx, msg in enumerate(enhanced_messages):
             print(f"\n消息 #{idx + 1} (角色: {msg['role']})")
             print("-"*40)
-            print(msg['content'])
+            # print(msg['content'])
         print("\n" + "="*80)
         print("🔄 正在等待 Ollama 响应...")
         print("="*80 + "\n")
@@ -330,7 +343,7 @@ class RepairAgent():
         print("="*80)
         print("🔧 解析得到的补丁:")
         print("-"*80)
-        print(format_patch_dict_pretty(patches))
+        # print(format_patch_dict_pretty(patches))
         print("\n" + "-"*80)
         print("📋 解析得到的策略:")
         print("-"*80)
@@ -503,7 +516,7 @@ class RepairAgent():
             print("="*80)
             print("✅ Ollama 返回的原始内容:")
             print("-"*80)
-            print(content)
+            # print(content)
             print("\n" + "="*80 + "\n")
 
             parsed = self._parse_patch_merge_response(content)
@@ -935,7 +948,7 @@ Please manually extract the ChangeLog from the response above.
             print("="*80)
             print("✅ Ollama 返回的原始内容:")
             print("-"*80)
-            print(content)
+            #print(content)
             print("\n" + "="*80 + "\n")
             
             # 简单校验 ChangeLog 头
