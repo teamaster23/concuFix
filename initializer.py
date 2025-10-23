@@ -147,63 +147,64 @@ class Initializer():
             
             # 主prompt
             prompt = f"""
-You are an expert static analysis assistant specializing in Java concurrency. Your task is to analyze a given code snippet and a list of thread-safety defects to determine the optimal protection strategy.
+You are an expert static analysis assistant specializing in Java concurrency. You will be provided with code snippets related to a specific variable, and your task is to analyze the thread-safety characteristics and determine the optimal protection strategy for that variable.
 
-You must adhere strictly to the following decision framework, prioritizing lock-free and lightweight solutions over heavyweight synchronization.
+You must strictly follow the analysis framework below and ensure your output conforms to the specified structured format.
 
-## Decision Framework
+---
 
-1.  **Evaluate Lock-Free (`CAS`) - FIRST PRIORITY**
-    - First, analyze if the operation can be made lock-free using `AtomicXXX` classes (e.g., `AtomicInteger`, `AtomicReference`).
-    - CAS is preferred for most atomic operations including simple increments, decrements, direct assignments, and even some compound operations that can be restructured atomically.
-    - **Key Consideration**: Even for compound operations, consider if they can be refactored to use atomic classes with methods like `compareAndSet()`, `getAndUpdate()`, or `updateAndGet()`.
-    - **Constraint**: This strategy is only applicable if the target variable is `private`. For non-private fields, modifying the type to `AtomicXXX` would be a breaking API change.
+## Analysis Framework
 
-2.  **Evaluate Lightweight Sync (`volatile`) - SECOND PRIORITY**
-    - The `volatile` keyword is suitable for variables where visibility is the primary concern and write operations are infrequent.
-    - Ideal for status flags, configuration values, or reference updates where atomicity of the write operation itself is sufficient.
-    - **Important**: `volatile` guarantees visibility and atomicity of individual reads/writes but not compound operations.
+Follow these steps in order to determine the optimal protection strategy:
 
-3.  **Assess Heavyweight Synchronization (`synchronized`) - LAST RESORT**
-    - Only resort to `synchronized` when lock-free and lightweight solutions are genuinely insufficient.
-    - Primarily needed for complex compound operations that cannot be restructured atomically or when protecting multiple variables together.
-    - When `synchronized` is necessary, select the appropriate lock object:
-        - **Scenario A**: Protecting a field of another object → lock on the shared field instance
-        - **Scenario B**: Protecting a direct field of current object → use `this` or dedicated private lock
-        - **Scenario C**: Protecting static fields → use class-level lock
+### Step 1: Evaluate Lock-Free Solution (CAS) - FIRST PRIORITY
 
-4.  **Operation Type Assessment (Final Validation)**
-    - After selecting the preferred strategy, validate that it provides the required correctness guarantees.
-    - Ensure the chosen approach handles all aspects of the thread-safety issue effectively.
+- Analyze whether operations on the target variable can be made lock-free using `AtomicXXX` classes (e.g., `AtomicInteger`).
+- CAS is preferred for atomic operations including:
+  - Simple increments, decrements, and direct assignments
+  - Compound operations that can be refactored using atomic methods like `compareAndSet()` or `updateAndGet()`
+- This strategy is only applicable if the target variable is declared as `private`. 
 
-## Code Analysis Context
+### Step 2: Assess Heavyweight Synchronization (synchronized) - FALLBACK OPTION
 
-**Thread-Safety Defects and Variable Information:**
-{variable_to_init}
+- Resort to `synchronized` only when lock-free solutions are genuinely insufficient.
+- When `synchronized` is necessary, select the appropriate lock object:
+  - **Scenario A**: Protecting a field of another object → lock on the shared field instance
+  - **Scenario B**: Protecting a direct field of the current object → use `this` or a dedicated private lock object
+  - **Scenario C**: Protecting static fields → use class-level lock (`ClassName.class`)
 
-**Code Methods/Snippets with Issues:**
-{processed_methods_body}
+### Step 3: Validate Correctness Guarantees
 
-Based on the above information, please analyze the thread-safety issues and determine the optimal protection strategy for the most critical problematic variable.
+- Verify that the chosen strategy provides the required thread-safety guarantees for all operations involving the target variable. Ensure the solution can handle the correctness.
 
-Focus on identifying:
-1. The primary variable causing thread-safety issues
-2. Whether the operations can be made lock-free with atomic classes
-3. If volatile provides sufficient protection for the use case
-4. Only consider synchronized as a fallback option
+---
+
+## Input Code Snippets
+
+Variable Initialization: {{variable_to_init}}
+
+Codes Using the Variable: {{processed_methods_body}}
+
+
+---
 
 ## Structured Output Requirement
 
-Your final output must be a single JSON object in the specified format. In the `reason` field, you must justify your choice by explaining why it is optimal and why you selected this strategy over the alternatives.
+Your final output must be a single JSON object in the specified format. In the reason field, you must justify your choice by explaining why it is optimal and why you selected this strategy over the alternatives.
 
 ```json
-{{
+{
   "target_variable": "variable_name",
-  "optimal_strategy": "CAS/volatile/synchronized",
-  "reason": "Justify the chosen strategy and explain the decision process (e.g., 'CAS was chosen because the operations can be made atomic using AtomicInteger, providing better performance than synchronized while ensuring thread safety. Volatile was insufficient as it cannot guarantee atomicity of increment operations.')"
-}}
+  "optimal_strategy": "CAS/synchronized",
+  "reason": "Detailed justification explaining the decision process. For example: 'CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API.'"
+}
 ```
-            """  # 这里将来会添加实际的prompt内容
+
+**Output Format Rules**:
+- The JSON must be valid and parseable
+- The `optimal_strategy` field must contain exactly one of: `"CAS"` or `"synchronized"`
+- The `reason` field should be a simple explanation (maximum 2-3 sentences)
+            """  
             
             # 辅助函数：提取JSON部分（排除<think></think>标签内容）
             def extract_json_from_response(text: str) -> Optional[str]:

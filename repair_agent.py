@@ -15,6 +15,7 @@ class RepairAgent():
         self.config = config
         self.var_policies = {}
         self.patches = {}
+        self.applied_strategy = {}  # 新增：存储已应用的全局策略
         self.patch_generation_prompt = self._create_patch_generation_prompt()
         self.patch_merge_prompt = self._create_patch_merge_prompt()
         self.import_patch_generation_prompt = self._create_import_patch_generation_prompt()
@@ -98,6 +99,10 @@ class RepairAgent():
         confictMethods = list(dict.fromkeys(confictMethods))
         processed_method_pairs = set()
         
+        # 从 state 中初始化 applied_strategy（如果之前有）
+        if 'applied_strategy' in state:
+            self.applied_strategy = state['applied_strategy']
+        
         for cms in confictMethods:
             method_pair_id = (cms.method1.name, cms.method2.name)
             method_pair_id_2 = (cms.method2.name, cms.method1.name)
@@ -119,9 +124,10 @@ class RepairAgent():
             policy_input = state['policies']
             
             print(f"📋 相关变量：{related_vars}")
-            print(f"📋 建议策略：{suggest_polices}")
+            print(f"📋 建议策略 (Recommended Strategy)：{suggest_polices}")
+            print(f"📋 当前已应用策略 (Applied Strategy)：{self.applied_strategy}")
             
-            patches, policies = self.generate_patch(
+            patches, new_applied_strategies = self.generate_patch(
                 state,
                 cms,
                 related_events,
@@ -131,7 +137,11 @@ class RepairAgent():
                 source_code=state['source_code']
             )
             
-            policy_input.update(policies)
+            # 更新 applied_strategy：只有新变量的策略才会被添加
+            self.applied_strategy.update(new_applied_strategies)
+            policy_input.update(new_applied_strategies)
+            
+            print(f"✅ 本轮新增的 Applied Strategy：{new_applied_strategies}")
             
             for method_name, patch in patches.items():
                 if method_name in self.patches:
@@ -165,7 +175,7 @@ class RepairAgent():
                     self.patches[method_name] = patch
                     print(f"✅ 存储补丁：{method_name}")
 
-            for v, p in policies.items():
+            for v, p in new_applied_strategies.items():
                 if "redefining property" in str(p).lower():
                     affected_methods = self._find_method_pairs_affected_by(v)
                     for affected_method in affected_methods:
@@ -173,7 +183,11 @@ class RepairAgent():
 
         print(f"\n{'='*60}")
         print(f"✅ 处理完成，共生成 {len(self.patches)} 个补丁")
+        print(f"✅ 最终 Applied Strategy：{self.applied_strategy}")
         print(f"{'='*60}\n")
+        
+        # 将 applied_strategy 存入 state
+        state['applied_strategy'] = self.applied_strategy
         
         return None
 
@@ -253,31 +267,40 @@ class RepairAgent():
             state
         )
         
-        # 格式化建议策略信息
-        formatted_suggest_policies = {}
-        safe_suggest_policies = suggest_polices or {}
+        # ========== 关键修改：区分 Applied Strategy 和 Recommended Strategy ==========
+        
+        # 1. 分离已应用策略和推荐策略
+        vars_with_applied_strategy = {}
+        vars_needing_strategy = {}
+        
         for var in related_vars:
-            policy_info = None
-            if isinstance(safe_suggest_policies, dict):
-                policy_info = safe_suggest_policies.get(var)
-
-            if isinstance(policy_info, dict):
-                strategy = policy_info.get('optimal_strategy') or policy_info.get('strategy') or 'Unknown'
-                reason = policy_info.get('reason', 'No reason provided')
-                formatted_suggest_policies[var] = {
-                    'strategy': strategy,
-                    'reason': reason
-                }
-            elif isinstance(policy_info, str):
-                formatted_suggest_policies[var] = {
-                    'strategy': policy_info,
-                    'reason': 'Provided as plain string in suggest_policies'
-                }
+            if var in self.applied_strategy:
+                # 该变量已经有 applied strategy
+                vars_with_applied_strategy[var] = self.applied_strategy[var]
             else:
-                formatted_suggest_policies[var] = {
-                    'strategy': 'Unknown',
-                    'reason': 'No policy provided or unsupported policy type'
-                }
+                # 该变量还没有 applied strategy，需要从 suggest_polices 中获取推荐
+                policy_info = None
+                safe_suggest_policies = suggest_polices or {}
+                if isinstance(safe_suggest_policies, dict):
+                    policy_info = safe_suggest_policies.get(var)
+
+                if isinstance(policy_info, dict):
+                    strategy = policy_info.get('optimal_strategy') or policy_info.get('strategy') or 'Unknown'
+                    reason = policy_info.get('reason', 'No reason provided')
+                    vars_needing_strategy[var] = {
+                        'strategy': strategy,
+                        'reason': reason
+                    }
+                elif isinstance(policy_info, str):
+                    vars_needing_strategy[var] = {
+                        'strategy': policy_info,
+                        'reason': 'Provided as plain string in suggest_policies'
+                    }
+                else:
+                    vars_needing_strategy[var] = {
+                        'strategy': 'Unknown',
+                        'reason': 'No policy provided or unsupported policy type'
+                    }
         
         # 格式化相关事件信息
         formatted_events = []
@@ -297,7 +320,8 @@ class RepairAgent():
             method2_name=m2.name,
             method2_code=method2_code,
             policy_input=policy_input,
-            suggest_polices=formatted_suggest_policies,
+            applied_strategies=vars_with_applied_strategy,
+            recommended_strategies=vars_needing_strategy,
             other_call_chain=other_call_chain,
             init_info=init_info,
             related_vars=list(related_vars),
@@ -313,7 +337,8 @@ class RepairAgent():
         print(f"method2_name: {m2.name}")
         print(f"related_vars: {related_vars}")
         print(f"variable_definitions (formatted):\n{formatted_variable_definitions}")
-        print(f"suggest_polices: {json.dumps(suggest_polices, indent=2, ensure_ascii=False)}")
+        print(f"已应用策略 (Applied Strategy): {json.dumps(vars_with_applied_strategy, indent=2, ensure_ascii=False)}")
+        print(f"推荐策略 (Recommended Strategy): {json.dumps(vars_needing_strategy, indent=2, ensure_ascii=False)}")
         print(f"related_events: {related_events}")
         print(f"policy_input: {policy_input}")
         print("="*80 + "\n")
@@ -399,12 +424,12 @@ class RepairAgent():
             print(f"\n❌ [ERROR] 解析ollama响应时出现错误: {e}\n")
             raise
         
-        patches, policies = self._parse_patch_generation_response(
+        patches, new_applied_strategies = self._parse_patch_generation_response(
             response.content, 
             m1.name, 
             m2.name, 
             related_vars,
-            formatted_suggest_policies
+            vars_needing_strategy
         )
 
         # ===== 调试输出：打印解析后的结果 =====
@@ -415,9 +440,9 @@ class RepairAgent():
         print("-"*80)
         print(json.dumps(patches, indent=2, ensure_ascii=False))
         print("\n" + "-"*80)
-        print("📋 解析得到的策略:")
+        print("📋 解析得到的新 Applied Strategies:")
         print("-"*80)
-        print(json.dumps(policies, indent=2, ensure_ascii=False))
+        print(json.dumps(new_applied_strategies, indent=2, ensure_ascii=False))
         print("\n" + "="*80 + "\n")
         
         method_to_info = {info.name: info for info in event_method_infos}
@@ -425,7 +450,7 @@ class RepairAgent():
         method_to_info.update({m1.name: m1, m2.name: m2})
 
         # 处理 import 部分
-        for var, p in policies.items():
+        for var, p in new_applied_strategies.items():
             if p == "CAS":
                 files_init = {}
                 affected_files = set()
@@ -509,7 +534,7 @@ class RepairAgent():
                     else:
                         print(f"⚠️ 无法找到方法信息：{method_name}")
         
-        return patches, policies
+        return patches, new_applied_strategies
 
     def _merge_patches(self, existing_patch: str,
                        new_patch: str,
@@ -635,7 +660,7 @@ class RepairAgent():
         return affected
 
     def _create_patch_generation_prompt(self) -> ChatPromptTemplate:
-        """创建用于生成补丁的提示模板 - 要求JSON输出"""
+        """创建用于生成补丁的提示模板 - 要求JSON输出，包含 Applied Strategy 逻辑"""
         return ChatPromptTemplate.from_messages([
             SystemMessage(content="""
 **MISSION**
@@ -649,8 +674,13 @@ Elite Java concurrency specialist. Precise, concise, JSON-only output. Your outp
 **CORE RULES**
 
 1. Use exact code from context. Never modify logic or rename variables unless fix requires it
-2. Analyze protection strategy for variables in given code and adopt appropriate strategy
-3. Recommended strategy must be followed unless it prevents successful repair
+2. **Applied Strategy vs Recommended Strategy:**
+   - **Applied Strategy** is MANDATORY and GLOBAL. If a variable has an applied strategy, you MUST follow it strictly for ALL operations.
+   - **Recommended Strategy** is only a suggestion when there is NO applied strategy for that variable. You may deviate if necessary.
+   - When an applied strategy exists for a variable, the recommended strategy is IRRELEVANT and should be IGNORED.
+3. **Strategy Output Rules:**
+   - If you are fixing a variable that does NOT have an applied strategy yet (first time processing), you MUST output a protection strategy for it in the "applied_strategies" field.
+   - If the variable already has an applied strategy, DO NOT output it again. It will be enforced as a constraint.
 4. Infer from previous initialization code whether current patch needs initialization
 5. Do not change method signatures unless absolutely necessary
 6. Response MUST be valid JSON format. No markdown blocks, no commentary outside JSON
@@ -690,13 +720,17 @@ This is an example, you don't need to output the content directly, but your outp
       "changes": [...]
     }
   },
-  "policies": {
-    "variable_name": "CAS/synchronized",
-    "another_variable": "CAS/synchronized"
+  "applied_strategies": {
+    "variable_name": "CAS/synchronized"
   },
   "explanation": "1-3 sentences explaining the overall repair strategy"
 }
-```
+
+IMPORTANT NOTES ON applied_strategies:
+
+-   Only output strategies for variables that DO NOT already have an applied strategy.
+-   If a variable is being processed for the first time in this run, output its strategy here.
+-   If a variable already has an applied strategy (provided in the input), DO NOT include it in the output.
 
 **FAILURE RESPONSE**
 
@@ -706,25 +740,22 @@ If cannot generate valid JSON, output: `{"error": "JSON_FORMAT_ERROR", "details"
             HumanMessage(content="""
 File Path: {file_path}
 
-Method 1 Name: {method1_name}
-Method 1 Code: {method1_code}
+Method 1 Name: {method1_name} Method 1 Code: {method1_code}
 
-Method 2 Name: {method2_name}
-Method 2 Code: {method2_code}
+Method 2 Name: {method2_name} Method 2 Code: {method2_code}
 
 Variables to Protect: {related_vars}
 
-Variable Definitions (with line numbers):
-{variable_definitions}
+Variable Definitions (with line numbers): {variable_definitions}
 
-Recommended Strategies (MUST FOLLOW):
-{suggest_polices}
+Applied Strategies (MANDATORY - MUST FOLLOW): {applied_strategies}
 
-Related Concurrency Events:
-{related_events}
+Recommended Strategies (ONLY USE if NO Applied Strategy exists): {recommended_strategies}
+
+Related Concurrency Events: {related_events}
 
 Current Protection Policy: {policy_input}
-
+                         
 Now generate the repair patches in JSON format. Include fixes for BOTH methods and variable declarations.
 """)
         ])
@@ -746,14 +777,11 @@ Return format (valid JSON):
 """),
             HumanMessage(content="""
 Method Name: {method_name}
-Original Code:
-{method_code}
+Original Code: {method_code}
 
-Existing Patch:
-{existing_patch}
+Existing Patch: {existing_patch}
 
-New Patch:
-{new_patch}
+New Patch: {new_patch}
 """)
         ])
 
@@ -831,10 +859,9 @@ New Import Patch:
 {new_patch}
 """)
         ])
-
     def _parse_patch_generation_response(self, response: str, method1_name: str, method2_name: str, 
-                                        related_vars: set, suggest_policies: Dict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-        """解析LLM响应，提取JSON格式的补丁和策略"""
+                                        related_vars: set, recommended_strategies: Dict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+        """解析LLM响应，提取JSON格式的补丁和新的 applied_strategies"""
         
         print("\n" + "="*80)
         print("🔍 [DEBUG] 开始解析 LLM 响应")
@@ -862,27 +889,27 @@ New Import Patch:
                 raise ValueError("LLM返回错误标记")
             
             patches = data.get("patches", {})
-            policies = data.get("policies", {})
+            new_applied_strategies = data.get("applied_strategies", {})
             
             # 转换JSON patch格式为字符串格式（保持向后兼容）
             string_patches = {}
             for method_name, patch_data in patches.items():
                 string_patches[method_name] = json.dumps(patch_data, indent=2, ensure_ascii=False)
             
-            print(f"✅ 成功解析JSON格式响应: {len(string_patches)} 个补丁, {len(policies)} 个策略")
-            return string_patches, policies
+            print(f"✅ 成功解析JSON格式响应: {len(string_patches)} 个补丁, {len(new_applied_strategies)} 个新策略")
+            return string_patches, new_applied_strategies
             
         except (json.JSONDecodeError, ValueError) as e:
             print(f"⚠️  JSON解析失败: {e}")
             print("⚠️  尝试回退到文本解析...")
         
-        # 回退逻辑：使用建议策略
+        # 回退逻辑：使用推荐策略
         patches = {}
-        policies = {}
+        new_applied_strategies = {}
         
         for var in related_vars:
-            if var in suggest_policies:
-                policies[var] = suggest_policies[var].get('strategy', 'synchronized')
+            if var not in self.applied_strategy and var in recommended_strategies:
+                new_applied_strategies[var] = recommended_strategies[var].get('strategy', 'synchronized')
         
         # 生成回退补丁
         fallback_patch_json = {
@@ -903,8 +930,8 @@ New Import Patch:
         patches[method1_name] = fallback_patch_str
         patches[method2_name] = fallback_patch_str
         
-        print(f"⚠️  使用回退逻辑: {len(patches)} 个补丁, {len(policies)} 个策略\n")
-        return patches, policies
+        print(f"⚠️  使用回退逻辑: {len(patches)} 个补丁, {len(new_applied_strategies)} 个新策略\n")
+        return patches, new_applied_strategies
 
     def _parse_patch_merge_response(self, response: str) -> Dict[str, Any]:
         """解析LLM响应，提取合并后的补丁"""
@@ -1102,7 +1129,7 @@ New Import Patch:
         except Exception as e:
             print(f"\n❌ [ERROR] 合并 import 补丁时调用模型失败: {e}\n")
 
-        # 回退：使用正则去重合并
+        # 回退：使用JSON回退合并逻辑
         print("⚠️  使用JSON回退合并逻辑")
         try:
             existing_data = json.loads(existing_patch)
@@ -1145,6 +1172,6 @@ New Import Patch:
             return existing_patch
 
 
-class PatchConflictError(Exception):
-    """补丁冲突异常"""
+class PatchConflictError(Exception): 
+    """补丁冲突异常""" 
     pass
