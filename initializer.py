@@ -193,11 +193,11 @@ Codes Using the Variable: {{processed_methods_body}}
 Your final output must be a single JSON object in the specified format. In the reason field, you must justify your choice by explaining why it is optimal and why you selected this strategy over the alternatives.
 
 ```json
-{
+{{
   "target_variable": "variable_name",
   "optimal_strategy": "CAS/synchronized",
   "reason": "Detailed justification explaining the decision process. For example: 'CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API.'"
-}
+}}
 ```
 
 **Output Format Rules**:
