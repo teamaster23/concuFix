@@ -1,7 +1,9 @@
-from typing import Dict, Any, List, Tuple, Set
+from typing import Dict, Any, List, Tuple, Set, Optional
 from entity import ConfictMethod
 from initializer import Event
+import requests
 import json
+import re
 
 
 class RepairAgent():
@@ -185,6 +187,7 @@ class RepairAgent():
                     other_call_chain[method_info.name] = method_info
 
         event_method_infos = []
+        """相关事件对应的方法信息"""
         for event in related_events:
             method_info = resolve_method_info((event.file, event.method))
             if method_info:
@@ -244,107 +247,209 @@ class RepairAgent():
         formatted_events = []
         for event in related_events:
             formatted_events.append({
-                'variable': event.variable,
                 'file': event.file,
                 'method': event.method,
-                'line': getattr(event, 'line', 'Unknown')
+                'line': getattr(event, 'line', 'Unknown'),
             })
-        
-        # ===== 精简：仅构造一个字符串 custom_prompt 并直接发送 =====
-        import requests
-        import json
 
-        print(json.dumps(source_code, indent=2, ensure_ascii=False, default=str))
+        # 对formatted_events去重，将相同file和method的事件合并，行号全部集中至line中并去重
+        unique_events = []
+        # 以 (file, method) 为键聚合事件行号
+        event_map: Dict[Tuple[str, str], Set[str]] = {}
+        for ev in formatted_events:
+            file_key = str(ev.get('file', ''))
+            method_key = str(ev.get('method', ''))
+            line_val = ev.get('line', 'Unknown')
+            # 统一为字符串，便于序列化与去重
+            if isinstance(line_val, list):
+                line_list = [str(x) for x in line_val]
+            else:
+                line_list = [str(line_val)]
+
+            key = (file_key, method_key)
+            if key not in event_map:
+                event_map[key] = set()
+            for lv in line_list:
+                if lv:  # 过滤空字符串
+                    event_map[key].add(lv)
+
+        # 将聚合后的结果转为列表；对数字行号按数值排序，其它保留字典序
+        def sort_key(x: str):
+            try:
+                return (0, int(x))
+            except ValueError:
+                return (1, x)
+
+        for (f, m), lines in event_map.items():
+            sorted_lines = sorted(lines, key=sort_key)
+            unique_events.append({
+                'file': f,
+                'method': m,
+                # 将所有相关行号合并到同一字段中（保持字段名为 line 以兼容现有结构）
+                'line': sorted_lines
+            })
+
+        # 去重后的事件列表
+        formatted_events = unique_events
+
+        # ===== 精简：仅构造一个字符串 custom_prompt 并直接发送 =====
+        import json
+        import re
+        # print(json.dumps(source_code, indent=2, ensure_ascii=False, default=str))
 
         # 统一将上下文与格式要求合并为单一字符串提示
-        custom_prompt = (f"""
-**MISSION**
-
-You are an automated Java concurrency bug repair engine. Receive Java methods with concurrency issues, context, and repair strategy. Output machine-parseable `ChangeLog` patches.
-
+        custom_prompt = f"""
 **ROLE**
+You are an automated Java concurrency bug repair engine that outputs structured JSON data.
 
-Elite Java concurrency specialist. Precise, concise, format-only output. Your output feeds directly into an automated patching system.
+**MISSION**
+Analyze the provided Java methods with concurrency issues and generate repair patches in strict JSON format.
 
-**CORE RULES**
+**INPUT CONTEXT**
 
-1. Use exact code from context. Never modify logic or rename variables unless fix requires it
-2. Analyze protection strategy for variables in given code and adopt appropriate strategy. Output must specify actual protection strategy for corresponding variables. When modifications involve data structure changes, include clear indicators
-3. Recommended strategy must be followed unless it prevents successful repair
-4. Infer from previous initialization code whether current patch needs initialization
-5. Do not change method signatures unless absolutely necessary
-6. Response MUST start with `ChangeLog:` and end with `------------`. No markdown blocks, no commentary
+## Method Information
+- **Method 1**: {method1_name}
+  - File: {m1.file_path}
+  - Source Code:
+{json.dumps(method1_code, ensure_ascii=False, indent=2)}
+
+- **Method 2**: {method2_name}
+  - File: {m2.file_path}
+  - Source Code:
+{json.dumps(method2_code, ensure_ascii=False, indent=2)}
+
+## Variables Requiring Protection
+{json.dumps(list(related_vars), ensure_ascii=False, indent=2)}
+
+## Variable Definitions
+{json.dumps(variable_definitions, ensure_ascii=False, indent=2)}
+
+## Applied Protection Policies 
+These strategies have been confirmed and MUST be strictly followed:
+{json.dumps(policy_input, ensure_ascii=False, indent=2)}
+
+## Recommended Strategies (Reference Only)
+{json.dumps(formatted_suggest_policies, ensure_ascii=False, indent=2)}
+
+## Concurrency Events
+{json.dumps(unique_events, ensure_ascii=False, indent=2)}
+
+## Call chain Information
+{json.dumps(other_call_chain, ensure_ascii=False, indent=2)}
+
+## Initialization Information
+{json.dumps(init_info, ensure_ascii=False, indent=2, default=str)}
+
+---
+
+**REPAIR RULES**
+
+1. **Code Accuracy**: 
+    Use EXACT code from the provided context. Only modify what is necessary for thread-safety.
+
+2. **Strategy Selection**:
+   - **MUST** follow strategies in "Applied Protection Policies" if present
+   - **MAY** adjust "Recommended Strategies" if they conflict with correctness
+   
+3. **CAS Strategy Requirements**:
+   - Replace primitive types with AtomicXXX (e.g., `int` → `AtomicInteger`)
+   - Initialize properly (e.g., `private AtomicInteger balance = new AtomicInteger(0);`)
+   - Update all access patterns (e.g., `balance++` → `balance.incrementAndGet()`)
+   
+4. **Synchronized Strategy Requirements**:
+   - Choose appropriate lock object:
+     * Instance field → use `this` or dedicated lock
+     * Static field → use `ClassName.class`
+     * External object field → lock on that object
+
+5. **Method Signatures**: Keep unchanged unless absolutely necessary
+
+---
 
 **OUTPUT FORMAT (MANDATORY)**
 
-First character of response MUST be `C` (start of ChangeLog). Last line MUST be `------------`. No markdown code fences, no explanatory text outside the format.
-```
-ChangeLog:1@{{file_path}}
-Fix:Description:: <concise summary of all fixes>
-OriginalCode{{start_line}}-{{end_line}}:
-[{{line_num}}] {{original code line}}
-[{{line_num}}] {{original code line}}
-...
-FixedCode{{start_line}}-{{end_line}}:
-[{{line_num}}] {{fixed code line}}
-[{{line_num}}] {{fixed code line}}
-...
+You MUST output a single valid JSON object with this exact structure:
 
-ChangeLog:{{ChangeLog_number}}@{{file_path}}
-Fix:Description:: <concise summary of all fixes>
-OriginalCode{{start_line}}-{{end_line}}:
-[{{line_num}}] {{original code line}}
-...
-FixedCode{{start_line}}-{{end_line}}:
-[{{line_num}}] {{fixed code line}}
-[{{line_num}}] {{fixed code line}}
-[{{line_num}}] {{fixed code line}}
-...
+{{
+  "changelogs": [
+    {{
+      "id": 1,
+      "file_path": "path/to/File.java",
+      "description": "Brief description of the fix",
+      "changes": [
+        {{
+          "original_code": {{
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {{"line_num": <number>, "content": "original code line"}}
+            ]
+          }},
+          "fixed_code": {{
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {{"line_num": <number>, "content": "fixed code line"}}
+            ]
+          }}
+        }}
+      ]
+    }}
+  ],
+  "applied_strategies": {{
+    "variable_name": {{
+      "target_variable": "variable_name",
+      "optimal_strategy": "CAS"
+    }}
+  }},
+  "repair_explanation": "1-3 sentences explaining the overall repair strategy and why it ensures thread-safety."
+}}
 
-Repair Strategy Explanation:
-<1-3 sentences explaining why this strategy is appropriate>
-------------
-```
+**Field Specifications**:
 
-**NOTES**:
-- Each `Patch` block contains original code (m lines) and corresponding fixed code (n lines), where m and n can differ
-- Multiple `Patch` blocks allowed
+- `changelogs`: Array of changelog objects, one per file modified
+  - `id`: Sequential number (1, 2, 3, ...)
+  - `file_path`: Full path to the Java file
+  - `description`: Concise summary of what was fixed
+  - `changes`: Array of code change objects
+    - `original_code.lines`: Array of original code lines with line numbers
+    - `fixed_code.lines`: Array of fixed code lines with line numbers
+    - Line numbers in `fixed_code` should match `original_code` when replacing existing lines
+    - If adding new lines, use sequential numbering
+
+- `applied_strategies`: Dictionary mapping variable names to their protection strategies
+  - `target_variable`: The exact variable name being protected
+  - `optimal_strategy`: One of: `"CAS"`, `"synchronized"`, `"volatile"`
+  - **DO NOT** include a `reason` field
+
+- `repair_explanation`: Brief justification (max 3 sentences)
+
+---
+
+**CRITICAL REQUIREMENTS**
+
+1. Output MUST be valid, parseable JSON
+2. Do NOT wrap JSON in markdown code blocks
+3. Do NOT add any text before or after the JSON object
+4. First character MUST be opening brace, last character MUST be closing brace
+5. All string values must be properly escaped
+6. Use double quotes for JSON keys and string values
 
 **FAILURE RESPONSE**
 
-If format cannot be generated, output only: `CHANGELOG_FORMAT_ERROR`
+If you cannot generate a valid repair, output exactly:
+{{
+  "error": "Unable to generate repair",
+  "reason": "Brief explanation of why repair failed"
+}}
 
+---
 
-Method 1 File Path: {m1.file_path}
-Method 2 File Path: {m2.file_path}
+**NOW GENERATE THE REPAIR**
 
-Method 1 Name: {method1_name}
-Method 1 Code: {method1_code}
-
-Method 2 Name: {method2_name}
-Method 2 Code: {method2_code}
-
-Variables to Protect: {related_vars}
-
-Variable Definitions:
-{variable_definitions}
-
-Applied Protection Policy(Can not be changed): 
-{policy_input}
-
-Recommended Strategies:
-{suggest_polices}
-
-Related Concurrency Events:
-{related_events}
-
-Source_Code:
-{source_code}
-
-Now generate the repair patches using the EXACT code provided above. Generate ONE complete ChangeLog that includes fixes for BOTH methods and the variable declaration.
-
+Analyze the methods `{method1_name}` and `{method2_name}`, apply the appropriate concurrency protection strategies, and output the repair in the JSON format specified above.
 """
-                )
+
 
         print("==============发送给ollama的原文==============")
         print(custom_prompt)
@@ -360,7 +465,7 @@ Now generate the repair patches using the EXACT code provided above. Generate ON
                 "options": {
                     "temperature": 0.1,
                     "top_p": 0.9,
-                    "num_predict": 20000
+                    "num_predict": 8000
                 }
             }
 
@@ -611,117 +716,128 @@ Now generate the repair patches using the EXACT code provided above. Generate ON
         return affected
 
 
-
     def _parse_patch_generation_response(self, response: str, method1_name: str, method2_name: str, 
                                         related_vars: set, suggest_policies: Dict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-        """解析LLM响应，提取补丁和策略"""
+        """解析LLM的JSON响应，提取补丁和策略"""
         import re
+        import json
         
-        print("\n========== DEBUG: Parsing Response ==========")
+        print("\n========== DEBUG: Parsing JSON Response ==========")
         print(f"Response length: {len(response)}")
-        print(f"Last 500 chars: {response[-500:]}")
-        print("=============================================\n")
+        print(f"First 200 chars: {response[:200]}")
+        print("==================================================\n")
         
-        # 尝试JSON格式解析
+        # 辅助函数：提取JSON部分
+        def extract_json(text: str) -> Optional[str]:
+            """从响应中提取JSON对象"""
+            # 移除可能的markdown代码块标记
+            text = re.sub(r'```json\s*', '', text)
+            text = re.sub(r'```\s*', '', text)
+            text = text.strip()
+            
+            # 查找JSON对象的边界
+            start = text.find('{')
+            end = text.rfind('}')
+            
+            if start != -1 and end != -1 and start < end:
+                return text[start:end + 1]
+            return None
+        
         try:
-            import json
-            json_match = re.search(r'\{[\s\S]*"patches"[\s\S]*\}', response)
-            if json_match:
-                data = json.loads(json_match.group(0))
-                print("成功解析JSON格式响应")
-                return data.get("patches", {}), data.get("updated_policies", {})
+            # 1. 提取JSON字符串
+            json_str = extract_json(response)
+            if not json_str:
+                raise ValueError("无法在响应中找到JSON对象")
+            
+            # 2. 解析JSON
+            data = json.loads(json_str)
+            
+            # 3. 验证必需字段
+            if "changelogs" not in data:
+                raise ValueError("JSON中缺少 'changelogs' 字段")
+            
+            # 4. 转换为旧格式的patches字典（保持兼容性）
+            patches = {}
+            changelogs = data.get("changelogs", [])
+            
+            for changelog in changelogs:
+                file_path = changelog.get("file_path", "")
+                description = changelog.get("description", "")
+                changes = changelog.get("changes", [])
+                
+                # 构建ChangeLog格式字符串（用于向后兼容）
+                patch_content = f"ChangeLog:{changelog.get('id', 1)}@{file_path}\n"
+                patch_content += f"Fix:Description: {description}\n"
+                
+                for change in changes:
+                    orig = change.get("original_code", {})
+                    fixed = change.get("fixed_code", {})
+                    
+                    # Original code section
+                    orig_start = orig.get("start_line", 0)
+                    orig_end = orig.get("end_line", 0)
+                    patch_content += f"OriginalCode{orig_start}-{orig_end}:\n"
+                    for line_obj in orig.get("lines", []):
+                        patch_content += f"[{line_obj.get('line_num')}] {line_obj.get('content')}\n"
+                    
+                    # Fixed code section
+                    fixed_start = fixed.get("start_line", 0)
+                    fixed_end = fixed.get("end_line", 0)
+                    patch_content += f"FixedCode{fixed_start}-{fixed_end}:\n"
+                    for line_obj in fixed.get("lines", []):
+                        patch_content += f"[{line_obj.get('line_num')}] {line_obj.get('content')}\n"
+                
+                # 为两个方法都分配补丁
+                patches[method1_name] = patch_content
+                patches[method2_name] = patch_content
+            
+            # 5. 提取策略（已经是正确的格式，不包含reason）
+            policies = {}
+            applied_strategies = data.get("applied_strategies", {})
+            
+            for var_name, strategy_obj in applied_strategies.items():
+                # 只提取 optimal_strategy 字段
+                policies[var_name] = strategy_obj.get("optimal_strategy", "synchronized")
+            
+            print(f"✅ 成功解析JSON: {len(patches)} 个补丁, {len(policies)} 个策略")
+            print(f"策略详情: {json.dumps(policies, ensure_ascii=False, indent=2)}")
+            
+            return patches, policies
+            
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON解析失败: {e}")
+            print(f"尝试解析的内容: {json_str[:500] if json_str else 'None'}")
+            
         except Exception as e:
-            print(f"JSON解析失败: {e}")
+            print(f"❌ 解析过程出错: {e}")
         
-        # 尝试解析ChangeLog格式
-        patches = {}
+        # 回退逻辑：生成错误提示补丁
+        print("⚠️  使用回退逻辑生成补丁")
+        fallback_patch = f"""# ⚠️ JSON Parsing Failed - Manual Review Required
+
+    LLM Response (first 1000 chars):
+    {response[:1000]}
+
+    ---
+    Expected JSON format but received invalid response.
+    Please review the raw output above and manually create the patch.
+    """
+        
+        patches = {
+            method1_name: fallback_patch,
+            method2_name: fallback_patch
+        }
+        
+        # 从建议策略中提取默认策略
         policies = {}
-        
-        # 查找ChangeLog块
-        changelog_pattern = r'ChangeLog:\d+@([^\n]+)([\s\S]*?)(?=ChangeLog:\d+@|Repair Strategy|$)'
-        changelogs = re.findall(changelog_pattern, response)
-        
-        if changelogs:
-            print(f"找到 {len(changelogs)} 个ChangeLog块")
-            
-            # 合并所有 ChangeLog 块到一个补丁
-            all_original_blocks = []
-            all_fixed_blocks = []
-            file_path = None
-            fix_description = "Applied CAS strategy using AtomicInteger for thread-safe operations"
-            
-            for file, content in changelogs:
-                if not file_path:
-                    file_path = file.strip()
-                
-                # 提取Fix描述
-                fix_desc_match = re.search(r'Fix:Description:\s*([^\n]+)', content)
-                if fix_desc_match:
-                    fix_description = fix_desc_match.group(1)
-                
-                # 提取Original和Fixed代码块
-                original_blocks = re.findall(r'OriginalCode(\d+)-(\d+):([\s\S]*?)(?=FixedCode|\Z)', content)
-                fixed_blocks = re.findall(r'FixedCode(\d+)-(\d+):([\s\S]*?)(?=OriginalCode|Repair Strategy|ChangeLog|$)', content)
-                
-                all_original_blocks.extend(original_blocks)
-                all_fixed_blocks.extend(fixed_blocks)
-            
-            # ===== 关键修复：确保 AtomicInteger 有初始化 =====
-            enhanced_fixed_blocks = []
-            for start, end, fixed_code in all_fixed_blocks:
-                # 检查是否包含 AtomicInteger 声明但没有初始化
-                if 'AtomicInteger balance' in fixed_code and 'new AtomicInteger' not in fixed_code:
-                    # 添加初始化
-                    fixed_code = re.sub(
-                        r'(AtomicInteger\s+balance)\s*;',
-                        r'\1 = new AtomicInteger(0);',
-                        fixed_code
-                    )
-                    print("✅ 自动添加了 AtomicInteger 初始化")
-                enhanced_fixed_blocks.append((start, end, fixed_code))
-            
-            # 构建完整的补丁 - 为两个方法生成统一的补丁
-            patch_content = f"ChangeLog:1@{file_path}\nFix:Description: {fix_description}\n"
-            
-            for i, (start, end, orig_code) in enumerate(all_original_blocks):
-                patch_content += f"OriginalCode{start}-{end}:{orig_code}"
-                if i < len(enhanced_fixed_blocks):
-                    fstart, fend, fixed_code = enhanced_fixed_blocks[i]
-                    patch_content += f"FixedCode{fstart}-{fend}:{fixed_code}"
-            
-            # ===== 关键修复：为两个方法都分配这个完整补丁 =====
-            patches[method1_name] = patch_content
-            patches[method2_name] = patch_content
-            
-            print(f"✅ 为 {method1_name} 和 {method2_name} 生成了统一的完整补丁")
-        
-        # 从建议策略中提取policies
         for var in related_vars:
             if var in suggest_policies:
-                policies[var] = suggest_policies[var].get('strategy', 'synchronized')
+                strategy_info = suggest_policies[var]
+                if isinstance(strategy_info, dict):
+                    policies[var] = strategy_info.get('optimal_strategy') or strategy_info.get('strategy', 'synchronized')
+                else:
+                    policies[var] = str(strategy_info)
         
-        # 如果没有解析到任何补丁，使用回退逻辑
-        if not patches:
-            print("警告：无法解析补丁，使用回退逻辑")
-            
-            # ===== 改进的回退逻辑：尝试从响应中提取有用信息 =====
-            fallback_patch = f"""# ⚠️ Automatic Parsing Failed - Manual Review Required
-
-File: {method1_name} and {method2_name}
-Recommended Strategy: {suggest_policies}
-
-LLM Response (first 2000 chars):
-{response[:2000]}
-
----
-Please manually extract the ChangeLog from the response above.
-"""
-            patches = {
-                method1_name: fallback_patch,
-                method2_name: fallback_patch
-            }
-        
-        print(f"解析结果: {len(patches)} 个补丁, {len(policies)} 个策略")
         return patches, policies
 
     def _parse_patch_merge_response(self, response: str) -> Dict[str, Any]:

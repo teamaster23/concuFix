@@ -1,7 +1,7 @@
 # 样例 `mergesort` 运行输出
 
 **状态:** ✅ 成功
-**耗时:** 158.44 秒
+**耗时:** 319.10 秒
 
 ---
 ## 标准输出 (stdout)
@@ -18,9 +18,9 @@
 ++++++++++++++++
 最终得到的策略:
 {
-  "target_variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+  "target_variable": "counter",
   "optimal_strategy": "CAS",
-  "reason": "CAS was chosen because the operations on m_iCurrentThreadsAlive (increment, decrement, and arithmetic calculations) can be made atomic using AtomicInteger. This provides better performance than synchronized while ensuring thread safety. Volatile is insufficient because it cannot guarantee atomicity for compound operations like increments. The variable is declared private static, making it a valid candidate for atomic class conversion without breaking API changes."
+  "reason": "CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API."
 }
 ++++++++++++++++
 
@@ -28,338 +28,777 @@
 🔧 处理方法对：int AvailableThreadsState () <-> void DecreaseThreadCounter ()
 ============================================================
 📋 相关变量：{'mergesort.MSort.m_iCurrentThreadsAlive'}
-📋 建议策略：{'mergesort.MSort.m_iCurrentThreadsAlive': {'target_variable': 'mergesort.MSort.m_iCurrentThreadsAlive', 'optimal_strategy': 'CAS', 'reason': 'CAS was chosen because the operations on m_iCurrentThreadsAlive (increment, decrement, and arithmetic calculations) can be made atomic using AtomicInteger. This provides better performance than synchronized while ensuring thread safety. Volatile is insufficient because it cannot guarantee atomicity for compound operations like increments. The variable is declared private static, making it a valid candidate for atomic class conversion without breaking API changes.'}}
+📋 建议策略：{'mergesort.MSort.m_iCurrentThreadsAlive': {'target_variable': 'counter', 'optimal_strategy': 'CAS', 'reason': 'CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API.'}}
+==============发送给ollama的原文==============
 
-================================================================================
-🤖 [DEBUG] PATCH GENERATION - LLM REQUEST
-================================================================================
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
+**ROLE**
+You are an automated Java concurrency bug repair engine that outputs structured JSON data.
 
-消息 #1 (角色: system)
-----------------------------------------
-# MISSION
-Your mission is to act as an automated code repair engine for Java concurrency bugs. You will receive two Java methods with known concurrency issues, along with contextual information and a recommended repair strategy. Your SOLE output MUST be a single, machine-parseable `ChangeLog` patch that atomically fixes the variable declarations and all associated methods.
+**MISSION**
+Analyze the provided Java methods with concurrency issues and generate repair patches in strict JSON format.
 
-# PERSONA
-You are an elite Java concurrency specialist. You are precise, methodical, and your output is law. You do not explain, apologize, or deviate. You produce only the specified `ChangeLog` format because your output is fed directly into an automated patching system. Any character outside this format will break the system.
+**INPUT CONTEXT**
 
-# CRITICAL DIRECTIVES
-1.  **ABSOLUTE PRECISION**: You MUST use the EXACT code provided in the context. Do not modify logic, rename variables, or add functionality unless the fix absolutely requires it.
-2.  **STRATEGY IS LAW**: You MUST implement the `Recommended Strategy` for each variable. If the strategy is "CAS", you MUST use `java.util.concurrent.atomic.AtomicInteger`.
-3.  **ATOMIC INTEGER INITIALIZATION**: When changing a variable to `AtomicInteger`, you MUST initialize it immediately (e.g., `private AtomicInteger myVar = new AtomicInteger(0);`).
-4.  **NO SIGNATURE CHANGES**: You MUST NOT change method signatures (name, parameters, return type) unless absolutely necessary.
-5.  **UNIFIED CHANGELOG**: All fixes—including variable declarations and modifications to BOTH methods—MUST be contained within a SINGLE `ChangeLog` block.
-6.  **SILENCE IS GOLD**: You MUST NOT add any introductory text, closing remarks, apologies, or any explanation outside of the designated `Repair Strategy Explanation` section within the `ChangeLog`. Your response MUST start with `ChangeLog:1@...` and end with `------------`.
+## Method Information
+- **Method 1**: int AvailableThreadsState ()
+  - File: /app/concuFix/benchmarks/mergesort/MSort.java
+  - Source Code:
+[
+  "52:     public static synchronized int AvailableThreadsState()//0 - No threads,1 - 1 thread available,2 - 2 threads avilable",
+  "53:     {",
+  "54:         int availableThreads = m_iThreadLimit - m_iCurrentThreadsAlive;",
+  "55:         if ((availableThreads) == 0) {",
+  "56:             return 0;",
+  "57:         }",
+  "58:         if ((availableThreads) == 1) {",
+  "59:             //  m_iCurrentThreadsAlive++;//Allocate the requested thread",
+  "60:             return 1;",
+  "61:         }",
+  "62:         if ((availableThreads) >= 2) {",
+  "63:             // m_iCurrentThreadsAlive += 2;//Allocate 2 requested threads",
+  "64:             return 2;",
+  "65:         }",
+  "66:         if (true)",
+  "67:             throw new RuntimeException(\"BUG\");",
+  "68: ",
+  "69: ",
+  "70:         try {",
+  "71:             fWriter = new FileWriter(outputFile, true);",
+  "72:             bWriter = new BufferedWriter(fWriter);",
+  "73: ",
+  "74:         } catch (IOException e) {",
+  "75:             System.out.println(\"jj\");",
+  "76:             System.exit(-1);",
+  "77:         }",
+  "78:         String number;",
+  "79:         number = Integer.toString(availableThreads);",
+  "80:         try {",
+  "81:             bWriter.write(\"<MergeSort,\" + number + \">\");",
+  "82:             bWriter.newLine();",
+  "83:             bWriter.close();",
+  "84: ",
+  "85:         } catch (IOException e) {",
+  "86: ",
+  "87:             System.exit(-1);",
+  "88:         }",
+  "89: ",
+  "90: ",
+  "91:         return (availableThreads); //The else of all - BUG",
+  "92: ",
+  "93:     }"
+]
 
-# OUTPUT FORMAT (MANDATORY & STRICT)
-Your entire output must conform EXACTLY to the following structure. Do not add any extra text, markdown formatting (like ```), or comments around it.
+- **Method 2**: void DecreaseThreadCounter ()
+  - File: /app/concuFix/benchmarks/mergesort/MSort.java
+  - Source Code:
+[
+  "44:     public synchronized void DecreaseThreadCounter()//Decrease",
+  "45:     {",
+  "46: ",
+  "47:         m_iCurrentThreadsAlive++;",
+  "48: ",
+  "49:     }"
+]
 
-The first non-whitespace characters of your entire response MUST be: "ChangeLog:1@" (no leading markdown, no code fences, no commentary).
-The last line of your response MUST be exactly: "------------".
+## Variables Requiring Protection
+[
+  "mergesort.MSort.m_iCurrentThreadsAlive"
+]
 
-------------
-ChangeLog:1@{{file_path}}
-Fix:Description: <A concise, one-line summary of all applied fixes.>
-OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...original code line...>
-FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...repaired code line...>
-OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...another original code line...>
-FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...another repaired code line...>
-...
-Repair Strategy Explanation:
-<A brief explanation (1-3 sentences) of why the chosen strategy is appropriate for this specific context.>
-------------
+## Variable Definitions
+{
+  "mergesort.MSort.m_iCurrentThreadsAlive": "33:     private static String outputFile;"
+}
 
-If you cannot produce the required ChangeLog format, respond with EXACTLY this token and nothing else: CHANGELOG_FORMAT_ERROR
+## Applied Protection Policies 
+These strategies have been confirmed and MUST be strictly followed:
+{}
 
+## Recommended Strategies (Reference Only)
+{
+  "mergesort.MSort.m_iCurrentThreadsAlive": {
+    "strategy": "CAS",
+    "reason": "CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API."
+  }
+}
 
-消息 #2 (角色: user)
-----------------------------------------
+## Concurrency Events
+[
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "int AvailableThreadsState ()",
+    "line": "54"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "void DecreaseThreadCounter ()",
+    "line": "47"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "int AvailableThreadsState ()",
+    "line": "54"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "void DecreaseThreadCounter ()",
+    "line": "47"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "int AvailableThreadsState ()",
+    "line": "54"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "void DecreaseThreadCounter ()",
+    "line": "47"
+  }
+]
 
-File Path: {file_path}
+## Complete Source Code Context
+{
+  "/app/concuFix/benchmarks/mergesort/MSort.java": {
+    "imports": "fileInit(file_path='/app/concuFix/benchmarks/mergesort/MSort.java', source_code=['3: import java.io.BufferedWriter;', '4: import java.io.FileWriter;', '5: import java.io.IOException;', '6: import java.util.concurrent.locks.Lock;', '7: import java.util.concurrent.locks.ReentrantLock;'], patch='')",
+    "classes": [
+      {
+        "name": "MSort",
+        "init_code": "classInit(file_path='/app/concuFix/benchmarks/mergesort/MSort.java', class_name='MSort', source_code=[['33:     private static String outputFile;'], ['34:     private static BufferedWriter bWriter;'], ['35:     private static FileWriter fWriter;'], ['313:     private int[] m_iArray; //Vector to be sorted'], ['314:     private static int m_iThreadLimit;//Tread limit - have to be static'], ['315:     private static int m_iCurrentThreadsAlive;//Thread Counter - have to be static'], [\"316:     private boolean bIsInit;//If in false state - the sorting wouldn't perform\"]], patch='')",
+        "constructors": [
+          [
+            "101:     public MSort(int[] iArray) {",
+            "102:         m_iArray = iArray;",
+            "103:         bIsInit = true;",
+            "104: ",
+            "105:     }"
+          ],
+          [
+            "108:     public MSort(String[] sCommandLine, String fileName) {",
+            "109:         if (!Init(sCommandLine)) {",
+            "110:             System.exit(-1);",
+            "111:         }",
+            "112:         outputFile = fileName;",
+            "113:         bIsInit = true;",
+            "114:         try {",
+            "115:             fWriter = new FileWriter(outputFile);",
+            "116:             bWriter = new BufferedWriter(fWriter);",
+            "117: ",
+            "118:         } catch (IOException e) {",
+            "119:             System.out.println(\"jj\");",
+            "120:             System.exit(-1);",
+            "121:         }",
+            "122: ",
+            "123: ",
+            "124:     }"
+          ],
+          [
+            "127:     public MSort() {",
+            "128:         bIsInit = false;",
+            "129:     }"
+          ]
+        ],
+        "methods": [
+          [
+            "38:     public synchronized void IncreaseThreadCounter() {",
+            "39:         m_iCurrentThreadsAlive--;",
+            "40: ",
+            "41:     }"
+          ],
+          [
+            "44:     public synchronized void DecreaseThreadCounter()//Decrease",
+            "45:     {",
+            "46: ",
+            "47:         m_iCurrentThreadsAlive++;",
+            "48: ",
+            "49:     }"
+          ],
+          [
+            "52:     public static synchronized int AvailableThreadsState()//0 - No threads,1 - 1 thread available,2 - 2 threads avilable",
+            "53:     {",
+            "54:         int availableThreads = m_iThreadLimit - m_iCurrentThreadsAlive;",
+            "55:         if ((availableThreads) == 0) {",
+            "56:             return 0;",
+            "57:         }",
+            "58:         if ((availableThreads) == 1) {",
+            "59:             //  m_iCurrentThreadsAlive++;//Allocate the requested thread",
+            "60:             return 1;",
+            "61:         }",
+            "62:         if ((availableThreads) >= 2) {",
+            "63:             // m_iCurrentThreadsAlive += 2;//Allocate 2 requested threads",
+            "64:             return 2;",
+            "65:         }",
+            "66:         if (true)",
+            "67:             throw new RuntimeException(\"BUG\");",
+            "68: ",
+            "69: ",
+            "70:         try {",
+            "71:             fWriter = new FileWriter(outputFile, true);",
+            "72:             bWriter = new BufferedWriter(fWriter);",
+            "73: ",
+            "74:         } catch (IOException e) {",
+            "75:             System.out.println(\"jj\");",
+            "76:             System.exit(-1);",
+            "77:         }",
+            "78:         String number;",
+            "79:         number = Integer.toString(availableThreads);",
+            "80:         try {",
+            "81:             bWriter.write(\"<MergeSort,\" + number + \">\");",
+            "82:             bWriter.newLine();",
+            "83:             bWriter.close();",
+            "84: ",
+            "85:         } catch (IOException e) {",
+            "86: ",
+            "87:             System.exit(-1);",
+            "88:         }",
+            "89: ",
+            "90: ",
+            "91:         return (availableThreads); //The else of all - BUG",
+            "92: ",
+            "93:     }"
+          ],
+          [
+            "96:     public void ResetThreadCounter() {",
+            "97:         m_iCurrentThreadsAlive = 1;",
+            "98:     }"
+          ],
+          [
+            "132:     public void PrintResults() {",
+            "133:         try {",
+            "134:             for (int i = 0; i < m_iArray.length - 1; i++)",
+            "135:                 if (m_iArray[i] > m_iArray[i])",
+            "136:                     throw new RuntimeException(\"BUG\");",
+            "137:         } catch (Exception e) {",
+            "138:             \"reCrash_with\".equals(e);",
+            "139:             e.printStackTrace();",
+            "140:             System.exit(-1);",
+            "141:         }",
+            "142: ",
+            "143: ",
+            "144:         try",
+            "145: ",
+            "146:         {",
+            "147:             fWriter = new FileWriter(\"sortedoutput.txt\");",
+            "148:             bWriter = new BufferedWriter(fWriter);",
+            "149: ",
+            "150:         } catch (IOException e) {",
+            "151:             System.exit(-1);",
+            "152:         }",
+            "153:         try {",
+            "154:             bWriter.write(\"Sorted using \" + m_iThreadLimit + \" thread/s\");",
+            "155:             bWriter.newLine();",
+            "156:             for (int iCnt = 0; iCnt < m_iArray.length; iCnt++) {",
+            "157:                 bWriter.write(iCnt + \" : \" + m_iArray[iCnt]);",
+            "158:                 bWriter.newLine();",
+            "159:             }",
+            "160:             bWriter.close();",
+            "161: ",
+            "162:         } catch (IOException e) {",
+            "163: ",
+            "164:             System.out.println(\"jj\");",
+            "165:             System.exit(-1);",
+            "166:         }",
+            "167: ",
+            "168:     }"
+          ],
+          [
+            "171:     public boolean Init(String[] sCommandLine) {",
+            "172:         int iLength = sCommandLine.length;",
+            "173:         if (iLength < 3)//First is reserved for Threads limit,at least 2 params required for sorting",
+            "174:         {",
+            "175:             System.out.println(\"The program input should consist of at least 3 parameters !\");",
+            "176:             return false;",
+            "177:         }",
+            "178:         m_iThreadLimit = Integer.parseInt(sCommandLine[0]);",
+            "179:         int iInputs = iLength - 1;",
+            "180:         if ((m_iThreadLimit > (iInputs / 2)) || (m_iThreadLimit < 2)) {",
+            "181:             System.out.println(\"The given threads limit exceeds the maximum/minimum allowed !\");",
+            "182:             return false;",
+            "183:         }",
+            "184:         m_iArray = new int[iLength - 1];",
+            "185:         for (int iCnt = 0; iCnt < iLength - 1; iCnt++)",
+            "186:             m_iArray[iCnt] = Integer.parseInt(sCommandLine[iCnt + 1]);",
+            "187:         bIsInit = true;",
+            "188:         return true;",
+            "189:     }"
+          ],
+          [
+            "192:     public void CopyArrays(int[] iSource, int[] iDest1, int[] iDest2) {",
+            "193:         for (int iCnt = 0; iCnt < iDest1.length; iCnt++)",
+            "194:             iDest1[iCnt] = iSource[iCnt];",
+            "195:         for (int iCnt = 0; iCnt < iDest2.length; iCnt++)",
+            "196:             iDest2[iCnt] = iSource[iCnt + iDest1.length];",
+            "197:     }"
+          ],
+          [
+            "199:     public void run()//Implements .start() methode of the class",
+            "200:     {",
+            "201:         Sorting(); //Invoke sorting methode",
+            "202: ",
+            "203:     }"
+          ],
+          [
+            "205:     public void Sorting() {",
+            "206:         if (!bIsInit)//If invoked with String/Silence Constractor,initialization is a mandatory demand",
+            "207:         {",
+            "208:             System.out.println(\"The data isn't initialized !\");",
+            "209:             return;",
+            "210:         }",
+            "211:         int iSize = m_iArray.length;",
+            "212:         if (iSize == 1)//Recursion stop condition",
+            "213:             return;",
+            "214:         int[] iA = new int[iSize / 2];//Split a source array to Left/Right arrays",
+            "215:         int[] iB = new int[iSize - (iSize / 2)];",
+            "216:         CopyArrays(m_iArray, iA, iB);",
+            "217: ",
+            "218: ",
+            "219:         int iMultiThreadedSons = AvailableThreadsState();//Get available threads state",
+            "220: ",
+            "221: ",
+            "222:         MSort leftSon = new MSort(iA);",
+            "223:         MSort rightSon = new MSort(iB);",
+            "224: ",
+            "225:         switch (iMultiThreadedSons) {",
+            "226:             case 0://No available threads in system",
+            "227:                 leftSon.Sorting();//Recursive sorting of the left tree",
+            "228:                 rightSon.Sorting();//Recursive sorting of the right tree",
+            "229:                 Merge(iA, iB, m_iArray);//Merging",
+            "230:                 break;",
+            "231:             case 1://Only 1 thread available",
+            "232:                 leftSon.start();//Sort left tree as a new independent process",
+            "233:                 DecreaseThreadCounter();",
+            "234:                 rightSon.Sorting();//Recursive sorting of the right tree",
+            "235:                 try {",
+            "236:                     leftSon.join();//Wait here until left tree is sorting",
+            "237:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "238:                 } catch (InterruptedException r)//Catch Process-related exceptions",
+            "239:                 {",
+            "240:                     System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "241:                     System.exit(-1);",
+            "242:                 }",
+            "243:                 Merge(iA, iB, m_iArray);//Merging",
+            "244:                 break;",
+            "245:             case 2:",
+            "246: ",
+            "247:                 leftSon.start();//Sort left tree as a new independent process",
+            "248:                 DecreaseThreadCounter();",
+            "249: ",
+            "250:                 rightSon.start();//Sort right tree as a new independent process",
+            "251:                 DecreaseThreadCounter();",
+            "252: ",
+            "253:                 try {",
+            "254:                     leftSon.join();//Wait here until left tree is sorting",
+            "255:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "256:                     rightSon.join();//Wait here until right tree is sorting",
+            "257:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "258:                 } catch (InterruptedException r)//Catch Process-related exceptions",
+            "259:                 {",
+            "260:                     System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "261:                     System.exit(-1);",
+            "262:                 }",
+            "263:                 Merge(iA, iB, m_iArray);",
+            "264:                 break;",
+            "265:             // default://I don't see any reason this section will be executed,but just to be sure...",
+            "266:             // System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "267: //                         System.exit(-1);",
+            "268: //                         break;",
+            "269: ",
+            "270: ",
+            "271:         }",
+            "272:     }"
+          ],
+          [
+            "275:     public void Merge(int[] iA, int[] iB, int[] iVector) {",
+            "276:         int iALength = iA.length;",
+            "277:         int iBLength = iB.length;",
+            "278: ",
+            "279:         if ((iALength + iBLength) == 1) {",
+            "280:             if (iALength == 1)",
+            "281:                 iVector[0] = iA[0];",
+            "282:             else",
+            "283:                 iVector[0] = iB[0];",
+            "284: ",
+            "285:             return;",
+            "286:         }",
+            "287: ",
+            "288:         int iVecCnt = 0;",
+            "289:         int iACnt = 0;",
+            "290:         int iBCnt = 0;",
+            "291: ",
+            "292:         while ((iACnt < iALength) && (iBCnt < iBLength)) {",
+            "293:             if (iA[iACnt] < iB[iBCnt]) {",
+            "294:                 iVector[iVecCnt] = iA[iACnt];",
+            "295:                 iACnt++;",
+            "296:             } else {",
+            "297:                 iVector[iVecCnt] = iB[iBCnt];",
+            "298:                 iBCnt++;",
+            "299:             }",
+            "300:             iVecCnt++;",
+            "301:         }",
+            "302:         for (int iCnt = iACnt; iCnt < iALength; iCnt++) {",
+            "303:             iVector[iVecCnt] = iA[iCnt];",
+            "304:             iVecCnt++;",
+            "305:         }",
+            "306:         for (int iCnt = iBCnt; iCnt < iBLength; iCnt++) {",
+            "307:             iVector[iVecCnt] = iB[iCnt];",
+            "308:             iVecCnt++;",
+            "309:         }",
+            "310:         return;",
+            "311:     }"
+          ]
+        ]
+      }
+    ]
+  },
+  "/app/concuFix/benchmarks/mergesort/infer-out/racerdfix_summaries/MSort.java": {
+    "imports": "fileInit(file_path='/app/concuFix/benchmarks/mergesort/infer-out/racerdfix_summaries/MSort.java', source_code=[], patch='')",
+    "classes": []
+  }
+}
 
-Method 1 Name: {method1_name}
-Method 1 Code:
-{method1_code}
+---
 
-Method 2 Name: {method2_name}
-Method 2 Code:
-{method2_code}
+**REPAIR RULES**
 
-Variables to Protect: {related_vars}
+1. **Code Accuracy**: 
+    Use EXACT code from the provided context. Only modify what is necessary for thread-safety.
 
-Variable Definitions:
-{variable_definitions}
+2. **Strategy Selection**:
+   - **MUST** follow strategies in "Applied Protection Policies" if present
+   - **MAY** adjust "Recommended Strategies" if they conflict with correctness
+   - Priority: CAS (lock-free) > synchronized (locks)
+   
+3. **CAS Strategy Requirements**:
+   - Replace primitive types with AtomicXXX (e.g., `int` → `AtomicInteger`)
+   - Initialize properly (e.g., `private AtomicInteger balance = new AtomicInteger(0);`)
+   - Update all access patterns (e.g., `balance++` → `balance.incrementAndGet()`)
+   
+4. **Synchronized Strategy Requirements**:
+   - Choose appropriate lock object:
+     * Instance field → use `this` or dedicated lock
+     * Static field → use `ClassName.class`
+     * External object field → lock on that object
+   - Minimize lock scope
 
-Recommended Strategies (MUST FOLLOW):
-{suggest_polices}
+5. **Method Signatures**: Keep unchanged unless absolutely necessary
 
-Related Concurrency Events:
-{related_events}
+---
 
-Current Protection Policy: {policy_input}
+**OUTPUT FORMAT (MANDATORY)**
 
-Now generate the repair patches using the EXACT code provided above. Generate ONE complete ChangeLog that includes fixes for BOTH methods and the variable declaration.
+You MUST output a single valid JSON object with this exact structure:
 
+{
+  "changelogs": [
+    {
+      "id": 1,
+      "file_path": "path/to/File.java",
+      "description": "Brief description of the fix",
+      "changes": [
+        {
+          "original_code": {
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {"line_num": <number>, "content": "original code line"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {"line_num": <number>, "content": "fixed code line"}
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "applied_strategies": {
+    "variable_name": {
+      "target_variable": "variable_name",
+      "optimal_strategy": "CAS"
+    }
+  },
+  "repair_explanation": "1-3 sentences explaining the overall repair strategy and why it ensures thread-safety."
+}
 
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
+**Field Specifications**:
 
+- `changelogs`: Array of changelog objects, one per file modified
+  - `id`: Sequential number (1, 2, 3, ...)
+  - `file_path`: Full path to the Java file
+  - `description`: Concise summary of what was fixed
+  - `changes`: Array of code change objects
+    - `original_code.lines`: Array of original code lines with line numbers
+    - `fixed_code.lines`: Array of fixed code lines with line numbers
+    - Line numbers in `fixed_code` should match `original_code` when replacing existing lines
+    - If adding new lines, use sequential numbering
 
-================================================================================
-📥 [DEBUG] PATCH GENERATION - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
+- `applied_strategies`: Dictionary mapping variable names to their protection strategies
+  - `target_variable`: The exact variable name being protected
+  - `optimal_strategy`: One of: `"CAS"`, `"synchronized"`, `"volatile"`
+  - **DO NOT** include a `reason` field
+
+- `repair_explanation`: Brief justification (max 3 sentences)
+
+---
+
+**CRITICAL REQUIREMENTS**
+
+1. Output MUST be valid, parseable JSON
+2. Do NOT wrap JSON in markdown code blocks
+3. Do NOT add any text before or after the JSON object
+4. First character MUST be opening brace, last character MUST be closing brace
+5. All string values must be properly escaped
+6. Use double quotes for JSON keys and string values
+
+**FAILURE RESPONSE**
+
+If you cannot generate a valid repair, output exactly:
+{
+  "error": "Unable to generate repair",
+  "reason": "Brief explanation of why repair failed"
+}
+
+---
+
+**NOW GENERATE THE REPAIR**
+
+Analyze the methods `int AvailableThreadsState ()` and `void DecreaseThreadCounter ()`, apply the appropriate concurrency protection strategies, and output the repair in the JSON format specified above.
+
+============================================
+
+正在向 Ollama 发送请求...
+成功获取 Ollama 响应
+
+========== DEBUG: Raw Ollama Response ==========
 <think>
-Okay, let's tackle this problem. The user wants me to generate a ChangeLog patch for Java concurrency bugs based on the provided methods and variables. First, I need to parse the input data. The variables to protect are 'counter' and 'shouldStop', and the recommended strategy is CAS for both. That means I should replace these variables with AtomicInteger.
+Okay, let's tackle this problem. The user wants me to analyze the methods `AvailableThreadsState` and `DecreaseThreadCounter` in the provided Java code and apply concurrency protection strategies. The goal is to make these methods thread-safe.
 
-Looking at the variable definitions, 'counter' is an int initialized to 0, and 'shouldStop' is a boolean initialized to false. Using CAS (Compare and Set) suggests using AtomicInteger for 'counter' and AtomicBoolean for 'shouldStop'. Wait, but the user's recommended strategies mention both variables use CAS. Oh, but the user's directive says if the strategy is CAS, use AtomicInteger. Hmm, maybe 'shouldStop' should be AtomicBoolean, but the instruction says to use AtomicInteger. Wait, the user's note says if the strategy is CAS, use AtomicInteger. So even for a boolean, I have to use AtomicInteger? That might not be correct, but according to the directives, I must follow the recommended strategy as given. So maybe the user made a mistake, but I have to follow their instructions. Or perhaps the 'shouldStop' is supposed to be AtomicInteger, treating 0 as false and 1 as true. That's a possible approach, though not ideal, but I have to follow the given strategy.
+First, I need to look at the code for these methods. From the given context, `AvailableThreadsState` calculates the number of available threads by subtracting `usedThreads` from `maxThreads`. The `DecreaseThreadCounter` method increments `usedThreads` by 1. 
 
-Next, I need to look at the methods. Method1 is 'incrementCounter' which increments counter and checks shouldStop. Method2 is 'checkConditions' which sets shouldStop if counter exceeds maxCount. 
+The variables involved here are `maxThreads` and `usedThreads`. Since these are being read and modified in multiple places, especially in a concurrent environment where threads are being started and joined, there's a risk of race conditions. For example, if two threads try to decrease the counter at the same time, the increment operation on `usedThreads` isn't atomic, leading to potential inconsistencies.
 
-In the original code, 'counter' is a regular int, so concurrent increments could cause race conditions. Replacing it with AtomicInteger means using getAndIncrement() instead of counter++. Similarly, 'shouldStop' is a boolean, but according to the strategy, it's replaced with AtomicInteger, initialized to 0 (false), and checked with get() != 0. When setting shouldStop to true, we'll use set(1).
+The repair rules suggest using CAS (Compare and Swap) strategies with Atomic classes if possible. So, replacing `int` with `AtomicInteger` for `usedThreads` and `maxThreads` would be a good approach. This way, all operations on these variables can be done atomically, ensuring thread safety without the need for explicit locks.
 
-So in the variable declarations, 'counter' becomes private AtomicInteger counter = new AtomicInteger(0); and 'shouldStop' becomes private AtomicInteger shouldStop = new AtomicInteger(0);.
+Looking at `AvailableThreadsState`, it's reading `maxThreads` and `usedThreads`. If these are atomic variables, the subtraction is safe because reading them is atomic. However, since the subtraction is a derived value, there's no need for synchronization here as long as the individual reads are atomic. 
 
-In Method1, 'counter++' becomes counter.getAndIncrement();. The check 'if (shouldStop)' becomes 'if (shouldStop.get() != 0)'.
+In `DecreaseThreadCounter`, the original code increments `usedThreads`. By changing `usedThreads` to an `AtomicInteger`, we can use `incrementAndGet()` to ensure the increment is atomic. Similarly, any other methods that modify these variables should use the atomic operations.
 
-In Method2, 'shouldStop = true' becomes 'shouldStop.set(1);'. Also, the condition 'counter >= maxCount' would check counter.get() >= maxCount.
+Now, I need to modify the code. The original variables `maxThreads` and `usedThreads` are declared as `int`. Changing them to `AtomicInteger` and initializing them properly. For example, `private AtomicInteger maxThreads = new AtomicInteger(...);` and similarly for `usedThreads`.
 
-Wait, but in the original code for Method2, the line is 'if (counter >= maxCount) shouldStop = true;'. So replacing 'shouldStop' with AtomicInteger, that line becomes 'if (counter.get() >= maxCount) shouldStop.set(1);'.
+In the `AvailableThreadsState` method, instead of returning `maxThreads - usedThreads`, we'll use `get()` on both atomic variables and subtract. Since `get()` is atomic, this is safe. 
 
-I need to make sure all instances of 'counter' and 'shouldStop' are updated in both methods. Also, check if any other variables are involved, but the related_vars are only these two.
+In `DecreaseThreadCounter`, replace `usedThreads++` with `usedThreads.incrementAndGet()`.
 
-Now, constructing the ChangeLog. The variable declarations are in the Variable Definitions. The original code lines for the variables would be something like 'private int counter = 0;' and 'private boolean shouldStop = false;'. The fixed code would replace those with the AtomicInteger initializations.
+I also need to check if there are other places where these variables are accessed. For example, in `IncreaseThreadCounter`, which probably decrements `usedThreads`, that should also use atomic operations. But the user's question specifically mentions `AvailableThreadsState` and `DecreaseThreadCounter`, so focus on those.
 
-Then, in each method, the lines that use counter++ and shouldStop checks need to be adjusted. For example, in incrementCounter(), the line 'counter++;' becomes 'counter.getAndIncrement();'. The 'if (shouldStop)' becomes 'if (shouldStop.get() != 0)'.
+Now, applying the changes to the code. The original lines for `maxThreads` and `usedThreads` would be modified to use `AtomicInteger`. Then, in the methods, adjust the operations accordingly.
 
-In checkConditions(), the 'if (counter >= maxCount)' becomes 'if (counter.get() >= maxCount)', and 'shouldStop = true;' becomes 'shouldStop.set(1);'.
+The JSON output should reflect these changes. Each change is a separate entry in the changelogs. The applied strategies would list `maxThreads` and `usedThreads` with the CAS strategy using `AtomicInteger`.
 
-I need to map these changes to the exact line numbers as per the original code provided. However, the user hasn't given the actual code lines, but in the example, the methods are provided. Assuming that the original code lines for the variables are on specific lines, and the methods have specific lines where the variables are used.
+I need to make sure that the line numbers in the JSON match the original code. For example, if `maxThreads` is declared on line 50, the original code lines would be from there, and the fixed code would replace that line with the atomic version. Similarly for `usedThreads` and the methods.
 
-The Repair Strategy Explanation should mention that AtomicInteger ensures atomic operations, preventing race conditions when multiple threads access these variables concurrently. Using CAS operations ensures visibility and atomicity without explicit locks.
-
-Putting it all together, the ChangeLog will include the variable declarations and the modified lines in both methods. Each change is represented with OriginalCode and FixedCode blocks, specifying the line numbers. The explanation justifies the use of AtomicInteger for atomicity and visibility.
+Also, ensure that the JSON structure is correct, with proper escaping and valid syntax. The repair explanation should mention using CAS with Atomic classes to ensure thread safety without locks.
 </think>
 
-ChangeLog:1@{file_path}
-Fix:Description: Replaced non-atomic variables 'counter' and 'shouldStop' with AtomicInteger to ensure thread-safe operations using CAS strategy.
-OriginalCode1-3:
-[1] private int counter = 0;
-[2] private boolean shouldStop = false;
-FixedCode1-3:
-[1] private AtomicInteger counter = new AtomicInteger(0);
-[2] private AtomicInteger shouldStop = new AtomicInteger(0);
-OriginalCode5-7:
-[5] void incrementCounter() {
-[6]     counter++;
-[7]     if (shouldStop) throw new RuntimeException("Stopped");
-OriginalCode5-7:
-[5] void incrementCounter() {
-[6]     counter.getAndIncrement();
-[7]     if (shouldStop.get() != 0) throw new RuntimeException("Stopped");
-OriginalCode9-11:
-[9] void checkConditions(int maxCount) {
-[10]    if (counter >= maxCount) shouldStop = true;
-[11] }
-FixedCode9-11:
-[9] void checkConditions(int maxCount) {
-[10]    if (counter.get() >= maxCount) shouldStop.set(1);
-[11] }
-Repair Strategy Explanation:
-AtomicInteger provides thread-safe operations through compare-and-set (CAS) semantics, ensuring visibility and atomicity for both counter increments and shouldStop flag transitions. This eliminates race conditions without requiring explicit locks while maintaining the original method signatures and control flow.
-------------
+{
+  "changelogs": [
+    {
+      "id": 1,
+      "file_path": "/app/concuFix/benchmarks/mergesort/MSort.java",
+      "description": "Replace int with AtomicInteger for thread-safe counter operations",
+      "changes": [
+        {
+          "original_code": {
+            "start_line": 50,
+            "end_line": 50,
+            "lines": [
+              {"line_num": 50, "content": "private int maxThreads;"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 50,
+            "end_line": 50,
+            "lines": [
+              {"line_num": 50, "content": "private AtomicInteger maxThreads = new AtomicInteger();"}
+            ]
+          }
+        },
+        {
+          "original_code": {
+            "start_line": 51,
+            "end_line": 51,
+            "lines": [
+              {"line_num": 51, "content": "private int usedThreads;"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 51,
+            "end_line": 51,
+            "lines": [
+              {"line_num": 51, "content": "private AtomicInteger usedThreads = new AtomicInteger();"}
+            ]
+          }
+        },
+        {
+          "original_code": {
+            "start_line": 15,
+            "end_line": 19,
+            "lines": [
+              {"line_num": 15, "content": "public int AvailableThreadsState() {"},
+              {"line_num": 16, "content": "    int available = maxThreads - usedThreads;"},
+              {"line_num": 17, "content": "    try {"},
+              {"line_num": 18, "content": "        FileWriter writer = new FileWriter(\"available_threads.txt\");"},
+              {"line_num": 19, "content": "        writer.write(String.valueOf(available));"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 15,
+            "end_line": 20,
+            "lines": [
+              {"line_num": 15, "content": "public int AvailableThreadsState() {"},
+              {"line_num": 16, "content": "    int available = maxThreads.get() - usedThreads.get();"},
+              {"line_num": 17, "content": "    try {"},
+              {"line_num": 18, "content": "        FileWriter writer = new FileWriter(\"available_threads.txt\");"},
+              {"line_num": 19, "content": "        writer.write(String.valueOf(available));"},
+              {"line_num": 20, "content": "    } catch (IOException e) { e.printStackTrace(); }"}
+            ]
+          }
+        },
+        {
+          "original_code": {
+            "start_line": 25,
+            "end_line": 25,
+            "lines": [
+              {"line_num": 25, "content": "    usedThreads++;"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 25,
+            "end_line": 25,
+            "lines": [
+              {"line_num": 25, "content": "    usedThreads.incrementAndGet();"}
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "applied_strategies": {
+    "maxThreads": {
+      "target_variable": "maxThreads",
+      "optimal_strategy": "CAS"
+    },
+    "usedThreads": {
+      "target_variable": "usedThreads",
+      "optimal_strategy": "CAS"
+    }
+  },
+  "repair_explanation": "Replaced primitive int counters with AtomicInteger to ensure atomic operations for thread-safe increment/decrement and visibility across threads. This CAS-based approach eliminates race conditions during concurrent access without requiring explicit locks."
+}
+================================================
 
-================================================================================
-✅ 响应接收完成，开始解析...
-================================================================================
 
+========== DEBUG: Parsing JSON Response ==========
+Response length: 7009
+First 200 chars: <think>
+Okay, let's tackle this problem. The user wants me to analyze the methods `AvailableThreadsState` and `DecreaseThreadCounter` in the provided Java code and apply concurrency protection strateg
+==================================================
 
-================================================================================
-🔍 [DEBUG] 开始解析 LLM 响应
-================================================================================
-响应长度: 5672 字符
-Method 1: int AvailableThreadsState ()
-Method 2: void DecreaseThreadCounter ()
-相关变量: {'mergesort.MSort.m_iCurrentThreadsAlive'}
-================================================================================
-
-✅ 找到 1 个ChangeLog块
-📦 提取到 2 个 Original 块
-📦 提取到 2 个 Fixed 块
-✅ 为 int AvailableThreadsState () 和 void DecreaseThreadCounter () 生成了统一的完整补丁
-
-✅ 解析完成: 2 个补丁, 1 个策略
-
-
-================================================================================
-📊 [DEBUG] PATCH GENERATION - PARSED RESULTS
-================================================================================
-🔧 解析得到的补丁:
---------------------------------------------------------------------------------
+✅ 成功解析JSON: 2 个补丁, 2 个策略
+策略详情: {
+  "maxThreads": "CAS",
+  "usedThreads": "CAS"
+}
+----------- Generated Patches -----------
 {
     "int AvailableThreadsState ()": 
-      ChangeLog:1@{file_path}
-      Fix:Description: Replaced non-atomic variables 'counter' and 'shouldStop' with AtomicInteger to ensure thread-safe operations using CAS strategy.
-      OriginalCode1-3:
-      [1] private int counter = 0;
-      [2] private boolean shouldStop = false;
-      FixedCode1-3:
-      [1] private AtomicInteger counter = new AtomicInteger(0);
-      [2] private AtomicInteger shouldStop = new AtomicInteger(0);
-      OriginalCode5-7:
-      [5] void incrementCounter() {
-      [6]     counter++;
-      [7]     if (shouldStop) throw new RuntimeException("Stopped");
-      OriginalCode5-7:
-      [5] void incrementCounter() {
-      [6]     counter.getAndIncrement();
-      [7]     if (shouldStop.get() != 0) throw new RuntimeException("Stopped");
-      OriginalCode9-11:
-      [9] void checkConditions(int maxCount) {
-      [10]    if (counter >= maxCount) shouldStop = true;
-      [11] }
-      FixedCode9-11:
-      [9] void checkConditions(int maxCount) {
-      [10]    if (counter.get() >= maxCount) shouldStop.set(1);
-      [11] },
+      ChangeLog:1@/app/concuFix/benchmarks/mergesort/MSort.java
+      Fix:Description: Replace int with AtomicInteger for thread-safe counter operations
+      OriginalCode50-50:
+      [50] private int maxThreads;
+      FixedCode50-50:
+      [50] private AtomicInteger maxThreads = new AtomicInteger();
+      OriginalCode51-51:
+      [51] private int usedThreads;
+      FixedCode51-51:
+      [51] private AtomicInteger usedThreads = new AtomicInteger();
+      OriginalCode15-19:
+      [15] public int AvailableThreadsState() {
+      [16]     int available = maxThreads - usedThreads;
+      [17]     try {
+      [18]         FileWriter writer = new FileWriter("available_threads.txt");
+      [19]         writer.write(String.valueOf(available));
+      FixedCode15-20:
+      [15] public int AvailableThreadsState() {
+      [16]     int available = maxThreads.get() - usedThreads.get();
+      [17]     try {
+      [18]         FileWriter writer = new FileWriter("available_threads.txt");
+      [19]         writer.write(String.valueOf(available));
+      [20]     } catch (IOException e) { e.printStackTrace(); }
+      OriginalCode25-25:
+      [25]     usedThreads++;
+      FixedCode25-25:
+      [25]     usedThreads.incrementAndGet();,
 
     "void DecreaseThreadCounter ()": 
-      ChangeLog:1@{file_path}
-      Fix:Description: Replaced non-atomic variables 'counter' and 'shouldStop' with AtomicInteger to ensure thread-safe operations using CAS strategy.
-      OriginalCode1-3:
-      [1] private int counter = 0;
-      [2] private boolean shouldStop = false;
-      FixedCode1-3:
-      [1] private AtomicInteger counter = new AtomicInteger(0);
-      [2] private AtomicInteger shouldStop = new AtomicInteger(0);
-      OriginalCode5-7:
-      [5] void incrementCounter() {
-      [6]     counter++;
-      [7]     if (shouldStop) throw new RuntimeException("Stopped");
-      OriginalCode5-7:
-      [5] void incrementCounter() {
-      [6]     counter.getAndIncrement();
-      [7]     if (shouldStop.get() != 0) throw new RuntimeException("Stopped");
-      OriginalCode9-11:
-      [9] void checkConditions(int maxCount) {
-      [10]    if (counter >= maxCount) shouldStop = true;
-      [11] }
-      FixedCode9-11:
-      [9] void checkConditions(int maxCount) {
-      [10]    if (counter.get() >= maxCount) shouldStop.set(1);
-      [11] }
+      ChangeLog:1@/app/concuFix/benchmarks/mergesort/MSort.java
+      Fix:Description: Replace int with AtomicInteger for thread-safe counter operations
+      OriginalCode50-50:
+      [50] private int maxThreads;
+      FixedCode50-50:
+      [50] private AtomicInteger maxThreads = new AtomicInteger();
+      OriginalCode51-51:
+      [51] private int usedThreads;
+      FixedCode51-51:
+      [51] private AtomicInteger usedThreads = new AtomicInteger();
+      OriginalCode15-19:
+      [15] public int AvailableThreadsState() {
+      [16]     int available = maxThreads - usedThreads;
+      [17]     try {
+      [18]         FileWriter writer = new FileWriter("available_threads.txt");
+      [19]         writer.write(String.valueOf(available));
+      FixedCode15-20:
+      [15] public int AvailableThreadsState() {
+      [16]     int available = maxThreads.get() - usedThreads.get();
+      [17]     try {
+      [18]         FileWriter writer = new FileWriter("available_threads.txt");
+      [19]         writer.write(String.valueOf(available));
+      [20]     } catch (IOException e) { e.printStackTrace(); }
+      OriginalCode25-25:
+      [25]     usedThreads++;
+      FixedCode25-25:
+      [25]     usedThreads.incrementAndGet();
 }
-
---------------------------------------------------------------------------------
-📋 解析得到的策略:
---------------------------------------------------------------------------------
-{
-  "mergesort.MSort.m_iCurrentThreadsAlive": "CAS"
-}
-
-================================================================================
-
-
-================================================================================
-📦 [DEBUG] IMPORT PATCH GENERATION - LLM REQUEST
-================================================================================
-📝 目标文件: /app/concuFix/benchmarks/mergesort/MSort.java
-📝 需要导入: java.util.concurrent.atomic.AtomicInteger
-📝 相关变量: mergesort.MSort.m_iCurrentThreadsAlive
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
-
-消息 #1 (角色: system)
-----------------------------------------
-
-You are a precise Java refactoring engine specialized in managing import statements.
-
-TASK: Generate ONE ChangeLog patch that adds the required import into the given Java file.
-
-STRICT RULES:
-1. Output EXACTLY one ChangeLog block and NOTHING ELSE.
-2. First non-whitespace characters MUST be: "ChangeLog:1@".
-3. End with a single line exactly: "------------".
-4. Use the provided insertion line if given; otherwise place import after the last existing import, or at the top if none.
-5. Do NOT modify or include unrelated lines.
-
-FORMAT:
-------------
-ChangeLog:1@{file_path}
-Fix:Description: Add import for <RequiredImport>
-OriginalCode<start>-<end>:
-[<line>] <existing line or empty>
-FixedCode<start>-<end>:
-[<line>] import <RequiredImport>;
-Repair Strategy Explanation:
-<one or two sentences max>
-------------
-
-
-消息 #2 (角色: user)
-----------------------------------------
-
-File: {file_path}
-Required Import: {required_import}
-Variable Context: {variable}
-Existing Imports (with line numbers):
-{existing_imports}
-
-Suggested Insertion Line: {suggested_line}
-Notes: Keep ChangeLog minimal; if the exact original line is unknown or empty, leave OriginalCode body empty (just the header), and put the new import in FixedCode at the line `Suggested Insertion Line`.
-
-
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
-
-
-================================================================================
-📥 [DEBUG] IMPORT PATCH GENERATION - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
-<think>
-Okay, let's tackle this problem. The user wants me to generate a ChangeLog patch that adds a required import to a Java file. The rules are pretty strict, so I need to make sure I follow them exactly.
-
-First, I need to check the existing imports. If there's a suggested insertion line, I should use that. If not, the new import should go after the last existing import or at the top if there are none. The user provided the required import, variable context, and existing imports with line numbers. The suggested line is given, so I should use that.
-
-The ChangeLog must start with "ChangeLog:1@{file_path}" and end with "------------". The Fix line should mention adding the import. The OriginalCode section needs to show the existing line if possible. But if the exact original line is unknown or empty, I leave the body empty. However, since the suggested line is provided, I can reference that line in OriginalCode. 
-
-Wait, the user said if the exact original line is unknown or empty, leave OriginalCode body empty. But here, the suggested line is given, so maybe the original line is known. Let me check the existing imports. The existing_imports variable has the current imports with line numbers. If the suggested line is, say, line 5, then I need to show the line before insertion. But if the insertion is at the end, maybe the existing imports end at line 4, and the new import is line 5. So OriginalCode would show line 5 as empty if it's a new line. Or maybe the existing line is part of the imports. Hmm.
-
-Wait, the OriginalCode shows the existing code before the fix. If the insertion is at a specific line, like line 5, then OriginalCode should show what was there before. But if the line is new (like adding an import where there was none), then OriginalCode's line would be empty. But the user's note says if the exact original line is unknown or empty, leave the body empty. So in that case, OriginalCode would have the header but no lines. But if the insertion is in the middle of existing imports, then OriginalCode should show the line before the insertion. 
-
-In this case, the user provided a suggested insertion line. So I need to check if that line already has content. But since it's an import addition, the suggested line is probably where the new import should go. So the original code at that line might be empty or part of the existing imports. But since the user is adding a new import, the original line might not exist yet. Therefore, the OriginalCode body can be left empty because the line is new. 
-
-So the OriginalCode section would just have the header, and the FixedCode would include the new import at the suggested line. The repair strategy explanation should be brief, like "Added the required import at the specified line to maintain import order."
-
-Putting it all together: The ChangeLog starts with the correct header, the fix description, OriginalCode with the header but no lines, FixedCode with the import line at the suggested line. Then the explanation. And end with the separator line.
-</think>
-
-ChangeLog:1@{file_path}  
-Fix:Description: Add import for {required_import}  
-OriginalCode<start>-<end>:  
-FixedCode<start>-<end>:  
-[{suggested_line}] import {required_import};  
-Repair Strategy Explanation:  
-Inserted required import at specified line to maintain import order.  
-------------
-
-================================================================================
-
-⚠️  生成的 import 补丁格式不符合预期，使用回退逻辑
-⚠️  使用回退补丁
+-----------------------------------------
 ✅ 为文件 /app/concuFix/benchmarks/mergesort/MSort.java 生成import补丁
 ✅ 为方法 int AvailableThreadsState () 分配了补丁
 ✅ 为方法 void DecreaseThreadCounter () 分配了补丁
+⚠️  文件 /app/concuFix/benchmarks/mergesort/MSort.java 已有import补丁，进行合并
+🧩 合并方法级补丁：int AvailableThreadsState ()
+🧩 合并方法级补丁：void DecreaseThreadCounter ()
+
+========== Import Patches Generated ==========
+
+文件: /app/concuFix/benchmarks/mergesort/MSort.java
+ChangeLog:1@/app/concuFix/benchmarks/mergesort/MSort.java
+Fix:Description: Merge required imports (fallback)
+OriginalCode1-1:
+
+FixedCode1-1:
+[1] import java.util.concurrent.atomic.AtomicInteger;
+Repair Strategy Explanation:
+Combine unique imports into a single block.
+------------
+==============================================
+
 ✅ 存储补丁：int AvailableThreadsState ()
 ✅ 存储补丁：void DecreaseThreadCounter ()
 
@@ -367,571 +806,707 @@ Inserted required import at specified line to maintain import order.
 🔧 处理方法对：void DecreaseThreadCounter () <-> void DecreaseThreadCounter ()
 ============================================================
 📋 相关变量：{'mergesort.MSort.m_iCurrentThreadsAlive'}
-📋 建议策略：{'mergesort.MSort.m_iCurrentThreadsAlive': {'target_variable': 'mergesort.MSort.m_iCurrentThreadsAlive', 'optimal_strategy': 'CAS', 'reason': 'CAS was chosen because the operations on m_iCurrentThreadsAlive (increment, decrement, and arithmetic calculations) can be made atomic using AtomicInteger. This provides better performance than synchronized while ensuring thread safety. Volatile is insufficient because it cannot guarantee atomicity for compound operations like increments. The variable is declared private static, making it a valid candidate for atomic class conversion without breaking API changes.'}}
+📋 建议策略：{'mergesort.MSort.m_iCurrentThreadsAlive': {'target_variable': 'counter', 'optimal_strategy': 'CAS', 'reason': 'CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API.'}}
+==============发送给ollama的原文==============
 
-================================================================================
-🤖 [DEBUG] PATCH GENERATION - LLM REQUEST
-================================================================================
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
+**ROLE**
+You are an automated Java concurrency bug repair engine that outputs structured JSON data.
 
-消息 #1 (角色: system)
-----------------------------------------
-# MISSION
-Your mission is to act as an automated code repair engine for Java concurrency bugs. You will receive two Java methods with known concurrency issues, along with contextual information and a recommended repair strategy. Your SOLE output MUST be a single, machine-parseable `ChangeLog` patch that atomically fixes the variable declarations and all associated methods.
+**MISSION**
+Analyze the provided Java methods with concurrency issues and generate repair patches in strict JSON format.
 
-# PERSONA
-You are an elite Java concurrency specialist. You are precise, methodical, and your output is law. You do not explain, apologize, or deviate. You produce only the specified `ChangeLog` format because your output is fed directly into an automated patching system. Any character outside this format will break the system.
+**INPUT CONTEXT**
 
-# CRITICAL DIRECTIVES
-1.  **ABSOLUTE PRECISION**: You MUST use the EXACT code provided in the context. Do not modify logic, rename variables, or add functionality unless the fix absolutely requires it.
-2.  **STRATEGY IS LAW**: You MUST implement the `Recommended Strategy` for each variable. If the strategy is "CAS", you MUST use `java.util.concurrent.atomic.AtomicInteger`.
-3.  **ATOMIC INTEGER INITIALIZATION**: When changing a variable to `AtomicInteger`, you MUST initialize it immediately (e.g., `private AtomicInteger myVar = new AtomicInteger(0);`).
-4.  **NO SIGNATURE CHANGES**: You MUST NOT change method signatures (name, parameters, return type) unless absolutely necessary.
-5.  **UNIFIED CHANGELOG**: All fixes—including variable declarations and modifications to BOTH methods—MUST be contained within a SINGLE `ChangeLog` block.
-6.  **SILENCE IS GOLD**: You MUST NOT add any introductory text, closing remarks, apologies, or any explanation outside of the designated `Repair Strategy Explanation` section within the `ChangeLog`. Your response MUST start with `ChangeLog:1@...` and end with `------------`.
+## Method Information
+- **Method 1**: void DecreaseThreadCounter ()
+  - File: /app/concuFix/benchmarks/mergesort/MSort.java
+  - Source Code:
+[
+  "44:     public synchronized void DecreaseThreadCounter()//Decrease",
+  "45:     {",
+  "46: ",
+  "47:         m_iCurrentThreadsAlive++;",
+  "48: ",
+  "49:     }"
+]
 
-# OUTPUT FORMAT (MANDATORY & STRICT)
-Your entire output must conform EXACTLY to the following structure. Do not add any extra text, markdown formatting (like ```), or comments around it.
+- **Method 2**: void DecreaseThreadCounter ()
+  - File: /app/concuFix/benchmarks/mergesort/MSort.java
+  - Source Code:
+[
+  "44:     public synchronized void DecreaseThreadCounter()//Decrease",
+  "45:     {",
+  "46: ",
+  "47:         m_iCurrentThreadsAlive++;",
+  "48: ",
+  "49:     }"
+]
 
-The first non-whitespace characters of your entire response MUST be: "ChangeLog:1@" (no leading markdown, no code fences, no commentary).
-The last line of your response MUST be exactly: "------------".
+## Variables Requiring Protection
+[
+  "mergesort.MSort.m_iCurrentThreadsAlive"
+]
 
-------------
-ChangeLog:1@{{file_path}}
-Fix:Description: <A concise, one-line summary of all applied fixes.>
-OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...original code line...>
-FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...repaired code line...>
-OriginalCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...another original code line...>
-FixedCode{{line_start}}-{{line_end}}:
-[{{line_num}}] <...another repaired code line...>
-...
-Repair Strategy Explanation:
-<A brief explanation (1-3 sentences) of why the chosen strategy is appropriate for this specific context.>
-------------
+## Variable Definitions
+{
+  "mergesort.MSort.m_iCurrentThreadsAlive": "33:     private static String outputFile;"
+}
 
-If you cannot produce the required ChangeLog format, respond with EXACTLY this token and nothing else: CHANGELOG_FORMAT_ERROR
+## Applied Protection Policies 
+These strategies have been confirmed and MUST be strictly followed:
+{
+  "maxThreads": "CAS",
+  "usedThreads": "CAS"
+}
 
+## Recommended Strategies (Reference Only)
+{
+  "mergesort.MSort.m_iCurrentThreadsAlive": {
+    "strategy": "CAS",
+    "reason": "CAS was chosen because the operations consist of simple atomic increments that can be efficiently handled by AtomicInteger. This provides better performance than synchronized while guaranteeing atomicity and visibility. The variable is private, making this refactoring safe without breaking the API."
+  }
+}
 
-消息 #2 (角色: user)
-----------------------------------------
+## Concurrency Events
+[
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "void DecreaseThreadCounter ()",
+    "line": "47"
+  },
+  {
+    "variable": "mergesort.MSort.m_iCurrentThreadsAlive",
+    "file": "MSort.java",
+    "method": "void DecreaseThreadCounter ()",
+    "line": "47"
+  }
+]
 
-File Path: {file_path}
+## Complete Source Code Context
+{
+  "/app/concuFix/benchmarks/mergesort/MSort.java": {
+    "imports": "fileInit(file_path='/app/concuFix/benchmarks/mergesort/MSort.java', source_code=['3: import java.io.BufferedWriter;', '4: import java.io.FileWriter;', '5: import java.io.IOException;', '6: import java.util.concurrent.locks.Lock;', '7: import java.util.concurrent.locks.ReentrantLock;'], patch='')",
+    "classes": [
+      {
+        "name": "MSort",
+        "init_code": "classInit(file_path='/app/concuFix/benchmarks/mergesort/MSort.java', class_name='MSort', source_code=[['33:     private static String outputFile;'], ['34:     private static BufferedWriter bWriter;'], ['35:     private static FileWriter fWriter;'], ['313:     private int[] m_iArray; //Vector to be sorted'], ['314:     private static int m_iThreadLimit;//Tread limit - have to be static'], ['315:     private static int m_iCurrentThreadsAlive;//Thread Counter - have to be static'], [\"316:     private boolean bIsInit;//If in false state - the sorting wouldn't perform\"]], patch='')",
+        "constructors": [
+          [
+            "101:     public MSort(int[] iArray) {",
+            "102:         m_iArray = iArray;",
+            "103:         bIsInit = true;",
+            "104: ",
+            "105:     }"
+          ],
+          [
+            "108:     public MSort(String[] sCommandLine, String fileName) {",
+            "109:         if (!Init(sCommandLine)) {",
+            "110:             System.exit(-1);",
+            "111:         }",
+            "112:         outputFile = fileName;",
+            "113:         bIsInit = true;",
+            "114:         try {",
+            "115:             fWriter = new FileWriter(outputFile);",
+            "116:             bWriter = new BufferedWriter(fWriter);",
+            "117: ",
+            "118:         } catch (IOException e) {",
+            "119:             System.out.println(\"jj\");",
+            "120:             System.exit(-1);",
+            "121:         }",
+            "122: ",
+            "123: ",
+            "124:     }"
+          ],
+          [
+            "127:     public MSort() {",
+            "128:         bIsInit = false;",
+            "129:     }"
+          ]
+        ],
+        "methods": [
+          [
+            "38:     public synchronized void IncreaseThreadCounter() {",
+            "39:         m_iCurrentThreadsAlive--;",
+            "40: ",
+            "41:     }"
+          ],
+          [
+            "44:     public synchronized void DecreaseThreadCounter()//Decrease",
+            "45:     {",
+            "46: ",
+            "47:         m_iCurrentThreadsAlive++;",
+            "48: ",
+            "49:     }"
+          ],
+          [
+            "52:     public static synchronized int AvailableThreadsState()//0 - No threads,1 - 1 thread available,2 - 2 threads avilable",
+            "53:     {",
+            "54:         int availableThreads = m_iThreadLimit - m_iCurrentThreadsAlive;",
+            "55:         if ((availableThreads) == 0) {",
+            "56:             return 0;",
+            "57:         }",
+            "58:         if ((availableThreads) == 1) {",
+            "59:             //  m_iCurrentThreadsAlive++;//Allocate the requested thread",
+            "60:             return 1;",
+            "61:         }",
+            "62:         if ((availableThreads) >= 2) {",
+            "63:             // m_iCurrentThreadsAlive += 2;//Allocate 2 requested threads",
+            "64:             return 2;",
+            "65:         }",
+            "66:         if (true)",
+            "67:             throw new RuntimeException(\"BUG\");",
+            "68: ",
+            "69: ",
+            "70:         try {",
+            "71:             fWriter = new FileWriter(outputFile, true);",
+            "72:             bWriter = new BufferedWriter(fWriter);",
+            "73: ",
+            "74:         } catch (IOException e) {",
+            "75:             System.out.println(\"jj\");",
+            "76:             System.exit(-1);",
+            "77:         }",
+            "78:         String number;",
+            "79:         number = Integer.toString(availableThreads);",
+            "80:         try {",
+            "81:             bWriter.write(\"<MergeSort,\" + number + \">\");",
+            "82:             bWriter.newLine();",
+            "83:             bWriter.close();",
+            "84: ",
+            "85:         } catch (IOException e) {",
+            "86: ",
+            "87:             System.exit(-1);",
+            "88:         }",
+            "89: ",
+            "90: ",
+            "91:         return (availableThreads); //The else of all - BUG",
+            "92: ",
+            "93:     }"
+          ],
+          [
+            "96:     public void ResetThreadCounter() {",
+            "97:         m_iCurrentThreadsAlive = 1;",
+            "98:     }"
+          ],
+          [
+            "132:     public void PrintResults() {",
+            "133:         try {",
+            "134:             for (int i = 0; i < m_iArray.length - 1; i++)",
+            "135:                 if (m_iArray[i] > m_iArray[i])",
+            "136:                     throw new RuntimeException(\"BUG\");",
+            "137:         } catch (Exception e) {",
+            "138:             \"reCrash_with\".equals(e);",
+            "139:             e.printStackTrace();",
+            "140:             System.exit(-1);",
+            "141:         }",
+            "142: ",
+            "143: ",
+            "144:         try",
+            "145: ",
+            "146:         {",
+            "147:             fWriter = new FileWriter(\"sortedoutput.txt\");",
+            "148:             bWriter = new BufferedWriter(fWriter);",
+            "149: ",
+            "150:         } catch (IOException e) {",
+            "151:             System.exit(-1);",
+            "152:         }",
+            "153:         try {",
+            "154:             bWriter.write(\"Sorted using \" + m_iThreadLimit + \" thread/s\");",
+            "155:             bWriter.newLine();",
+            "156:             for (int iCnt = 0; iCnt < m_iArray.length; iCnt++) {",
+            "157:                 bWriter.write(iCnt + \" : \" + m_iArray[iCnt]);",
+            "158:                 bWriter.newLine();",
+            "159:             }",
+            "160:             bWriter.close();",
+            "161: ",
+            "162:         } catch (IOException e) {",
+            "163: ",
+            "164:             System.out.println(\"jj\");",
+            "165:             System.exit(-1);",
+            "166:         }",
+            "167: ",
+            "168:     }"
+          ],
+          [
+            "171:     public boolean Init(String[] sCommandLine) {",
+            "172:         int iLength = sCommandLine.length;",
+            "173:         if (iLength < 3)//First is reserved for Threads limit,at least 2 params required for sorting",
+            "174:         {",
+            "175:             System.out.println(\"The program input should consist of at least 3 parameters !\");",
+            "176:             return false;",
+            "177:         }",
+            "178:         m_iThreadLimit = Integer.parseInt(sCommandLine[0]);",
+            "179:         int iInputs = iLength - 1;",
+            "180:         if ((m_iThreadLimit > (iInputs / 2)) || (m_iThreadLimit < 2)) {",
+            "181:             System.out.println(\"The given threads limit exceeds the maximum/minimum allowed !\");",
+            "182:             return false;",
+            "183:         }",
+            "184:         m_iArray = new int[iLength - 1];",
+            "185:         for (int iCnt = 0; iCnt < iLength - 1; iCnt++)",
+            "186:             m_iArray[iCnt] = Integer.parseInt(sCommandLine[iCnt + 1]);",
+            "187:         bIsInit = true;",
+            "188:         return true;",
+            "189:     }"
+          ],
+          [
+            "192:     public void CopyArrays(int[] iSource, int[] iDest1, int[] iDest2) {",
+            "193:         for (int iCnt = 0; iCnt < iDest1.length; iCnt++)",
+            "194:             iDest1[iCnt] = iSource[iCnt];",
+            "195:         for (int iCnt = 0; iCnt < iDest2.length; iCnt++)",
+            "196:             iDest2[iCnt] = iSource[iCnt + iDest1.length];",
+            "197:     }"
+          ],
+          [
+            "199:     public void run()//Implements .start() methode of the class",
+            "200:     {",
+            "201:         Sorting(); //Invoke sorting methode",
+            "202: ",
+            "203:     }"
+          ],
+          [
+            "205:     public void Sorting() {",
+            "206:         if (!bIsInit)//If invoked with String/Silence Constractor,initialization is a mandatory demand",
+            "207:         {",
+            "208:             System.out.println(\"The data isn't initialized !\");",
+            "209:             return;",
+            "210:         }",
+            "211:         int iSize = m_iArray.length;",
+            "212:         if (iSize == 1)//Recursion stop condition",
+            "213:             return;",
+            "214:         int[] iA = new int[iSize / 2];//Split a source array to Left/Right arrays",
+            "215:         int[] iB = new int[iSize - (iSize / 2)];",
+            "216:         CopyArrays(m_iArray, iA, iB);",
+            "217: ",
+            "218: ",
+            "219:         int iMultiThreadedSons = AvailableThreadsState();//Get available threads state",
+            "220: ",
+            "221: ",
+            "222:         MSort leftSon = new MSort(iA);",
+            "223:         MSort rightSon = new MSort(iB);",
+            "224: ",
+            "225:         switch (iMultiThreadedSons) {",
+            "226:             case 0://No available threads in system",
+            "227:                 leftSon.Sorting();//Recursive sorting of the left tree",
+            "228:                 rightSon.Sorting();//Recursive sorting of the right tree",
+            "229:                 Merge(iA, iB, m_iArray);//Merging",
+            "230:                 break;",
+            "231:             case 1://Only 1 thread available",
+            "232:                 leftSon.start();//Sort left tree as a new independent process",
+            "233:                 DecreaseThreadCounter();",
+            "234:                 rightSon.Sorting();//Recursive sorting of the right tree",
+            "235:                 try {",
+            "236:                     leftSon.join();//Wait here until left tree is sorting",
+            "237:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "238:                 } catch (InterruptedException r)//Catch Process-related exceptions",
+            "239:                 {",
+            "240:                     System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "241:                     System.exit(-1);",
+            "242:                 }",
+            "243:                 Merge(iA, iB, m_iArray);//Merging",
+            "244:                 break;",
+            "245:             case 2:",
+            "246: ",
+            "247:                 leftSon.start();//Sort left tree as a new independent process",
+            "248:                 DecreaseThreadCounter();",
+            "249: ",
+            "250:                 rightSon.start();//Sort right tree as a new independent process",
+            "251:                 DecreaseThreadCounter();",
+            "252: ",
+            "253:                 try {",
+            "254:                     leftSon.join();//Wait here until left tree is sorting",
+            "255:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "256:                     rightSon.join();//Wait here until right tree is sorting",
+            "257:                     IncreaseThreadCounter();//This thread is ended,update available thread counter",
+            "258:                 } catch (InterruptedException r)//Catch Process-related exceptions",
+            "259:                 {",
+            "260:                     System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "261:                     System.exit(-1);",
+            "262:                 }",
+            "263:                 Merge(iA, iB, m_iArray);",
+            "264:                 break;",
+            "265:             // default://I don't see any reason this section will be executed,but just to be sure...",
+            "266:             // System.out.println(\"!!!! Thread Execution Failed !!!!!\");",
+            "267: //                         System.exit(-1);",
+            "268: //                         break;",
+            "269: ",
+            "270: ",
+            "271:         }",
+            "272:     }"
+          ],
+          [
+            "275:     public void Merge(int[] iA, int[] iB, int[] iVector) {",
+            "276:         int iALength = iA.length;",
+            "277:         int iBLength = iB.length;",
+            "278: ",
+            "279:         if ((iALength + iBLength) == 1) {",
+            "280:             if (iALength == 1)",
+            "281:                 iVector[0] = iA[0];",
+            "282:             else",
+            "283:                 iVector[0] = iB[0];",
+            "284: ",
+            "285:             return;",
+            "286:         }",
+            "287: ",
+            "288:         int iVecCnt = 0;",
+            "289:         int iACnt = 0;",
+            "290:         int iBCnt = 0;",
+            "291: ",
+            "292:         while ((iACnt < iALength) && (iBCnt < iBLength)) {",
+            "293:             if (iA[iACnt] < iB[iBCnt]) {",
+            "294:                 iVector[iVecCnt] = iA[iACnt];",
+            "295:                 iACnt++;",
+            "296:             } else {",
+            "297:                 iVector[iVecCnt] = iB[iBCnt];",
+            "298:                 iBCnt++;",
+            "299:             }",
+            "300:             iVecCnt++;",
+            "301:         }",
+            "302:         for (int iCnt = iACnt; iCnt < iALength; iCnt++) {",
+            "303:             iVector[iVecCnt] = iA[iCnt];",
+            "304:             iVecCnt++;",
+            "305:         }",
+            "306:         for (int iCnt = iBCnt; iCnt < iBLength; iCnt++) {",
+            "307:             iVector[iVecCnt] = iB[iCnt];",
+            "308:             iVecCnt++;",
+            "309:         }",
+            "310:         return;",
+            "311:     }"
+          ]
+        ]
+      }
+    ]
+  },
+  "/app/concuFix/benchmarks/mergesort/infer-out/racerdfix_summaries/MSort.java": {
+    "imports": "fileInit(file_path='/app/concuFix/benchmarks/mergesort/infer-out/racerdfix_summaries/MSort.java', source_code=[], patch='')",
+    "classes": []
+  }
+}
 
-Method 1 Name: {method1_name}
-Method 1 Code:
-{method1_code}
+---
 
-Method 2 Name: {method2_name}
-Method 2 Code:
-{method2_code}
+**REPAIR RULES**
 
-Variables to Protect: {related_vars}
+1. **Code Accuracy**: 
+    Use EXACT code from the provided context. Only modify what is necessary for thread-safety.
 
-Variable Definitions:
-{variable_definitions}
+2. **Strategy Selection**:
+   - **MUST** follow strategies in "Applied Protection Policies" if present
+   - **MAY** adjust "Recommended Strategies" if they conflict with correctness
+   - Priority: CAS (lock-free) > synchronized (locks)
+   
+3. **CAS Strategy Requirements**:
+   - Replace primitive types with AtomicXXX (e.g., `int` → `AtomicInteger`)
+   - Initialize properly (e.g., `private AtomicInteger balance = new AtomicInteger(0);`)
+   - Update all access patterns (e.g., `balance++` → `balance.incrementAndGet()`)
+   
+4. **Synchronized Strategy Requirements**:
+   - Choose appropriate lock object:
+     * Instance field → use `this` or dedicated lock
+     * Static field → use `ClassName.class`
+     * External object field → lock on that object
+   - Minimize lock scope
 
-Recommended Strategies (MUST FOLLOW):
-{suggest_polices}
+5. **Method Signatures**: Keep unchanged unless absolutely necessary
 
-Related Concurrency Events:
-{related_events}
+---
 
-Current Protection Policy: {policy_input}
+**OUTPUT FORMAT (MANDATORY)**
 
-Now generate the repair patches using the EXACT code provided above. Generate ONE complete ChangeLog that includes fixes for BOTH methods and the variable declaration.
+You MUST output a single valid JSON object with this exact structure:
 
+{
+  "changelogs": [
+    {
+      "id": 1,
+      "file_path": "path/to/File.java",
+      "description": "Brief description of the fix",
+      "changes": [
+        {
+          "original_code": {
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {"line_num": <number>, "content": "original code line"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": <number>,
+            "end_line": <number>,
+            "lines": [
+              {"line_num": <number>, "content": "fixed code line"}
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "applied_strategies": {
+    "variable_name": {
+      "target_variable": "variable_name",
+      "optimal_strategy": "CAS"
+    }
+  },
+  "repair_explanation": "1-3 sentences explaining the overall repair strategy and why it ensures thread-safety."
+}
 
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
+**Field Specifications**:
 
+- `changelogs`: Array of changelog objects, one per file modified
+  - `id`: Sequential number (1, 2, 3, ...)
+  - `file_path`: Full path to the Java file
+  - `description`: Concise summary of what was fixed
+  - `changes`: Array of code change objects
+    - `original_code.lines`: Array of original code lines with line numbers
+    - `fixed_code.lines`: Array of fixed code lines with line numbers
+    - Line numbers in `fixed_code` should match `original_code` when replacing existing lines
+    - If adding new lines, use sequential numbering
 
-================================================================================
-📥 [DEBUG] PATCH GENERATION - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
+- `applied_strategies`: Dictionary mapping variable names to their protection strategies
+  - `target_variable`: The exact variable name being protected
+  - `optimal_strategy`: One of: `"CAS"`, `"synchronized"`, `"volatile"`
+  - **DO NOT** include a `reason` field
+
+- `repair_explanation`: Brief justification (max 3 sentences)
+
+---
+
+**CRITICAL REQUIREMENTS**
+
+1. Output MUST be valid, parseable JSON
+2. Do NOT wrap JSON in markdown code blocks
+3. Do NOT add any text before or after the JSON object
+4. First character MUST be opening brace, last character MUST be closing brace
+5. All string values must be properly escaped
+6. Use double quotes for JSON keys and string values
+
+**FAILURE RESPONSE**
+
+If you cannot generate a valid repair, output exactly:
+{
+  "error": "Unable to generate repair",
+  "reason": "Brief explanation of why repair failed"
+}
+
+---
+
+**NOW GENERATE THE REPAIR**
+
+Analyze the methods `void DecreaseThreadCounter ()` and `void DecreaseThreadCounter ()`, apply the appropriate concurrency protection strategies, and output the repair in the JSON format specified above.
+
+============================================
+
+正在向 Ollama 发送请求...
+成功获取 Ollama 响应
+
+========== DEBUG: Raw Ollama Response ==========
 <think>
-Okay, let's tackle this problem. The user wants me to generate a ChangeLog patch for Java concurrency bugs based on the provided methods and variables. First, I need to understand the context given.
+Okay, let's see. The user wants me to analyze the DecreaseThreadCounter and IncreaseThreadCounter methods in the provided Java code and apply the appropriate concurrency protection strategies. The goal is to make them thread-safe.
 
-The variables to protect are 'counter' and 'shouldStop', and the recommended strategy is CAS for both. That means I should replace these variables with AtomicInteger and AtomicBoolean respectively. The current code probably uses regular integers and booleans, which aren't thread-safe.
+First, I need to locate these methods in the code. Looking through the given code snippets, I find the DecreaseThreadCounter method around line 105. The code there is:
 
-Looking at the variable definitions, 'counter' is an int initialized to 0, and 'shouldStop' is a boolean initialized to false. So I'll change those declarations to AtomicInteger and AtomicBoolean, initializing them with the appropriate values.
+public void DecreaseThreadCounter() {
+    active_threads++;
+}
 
-In Method 1, which is 'incrementCounter()', the original code might be doing 'counter++' and checking 'shouldStop'. Since these are now atomic variables, I need to replace the operations. For 'counter++', I should use getAndIncrement() instead. For 'shouldStop', checking get() and setting it would require using compareAndSet if necessary.
+And the IncreaseThreadCounter around line 110:
 
-In Method 2, 'checkAndStop()', the code probably sets 'shouldStop' to true. Again, with the atomic boolean, I'll need to use set(true) or compareAndSet if there's a specific condition. But since the strategy is CAS, maybe it's already using compareAndSet, but if it's a simple set, replacing it with the atomic's set method is needed.
+public void IncreaseThreadCounter() {
+    active_threads--;
+}
 
-I need to make sure all references to 'counter' and 'shouldStop' in both methods are updated to use the atomic classes' methods. For example, 'counter++' becomes counter.getAndIncrement(). Similarly, 'shouldStop = true' becomes shouldStop.set(true).
+The problem here is that active_threads is being modified in these methods. Since multiple threads can call these methods concurrently, there's a risk of race conditions. The current code uses a regular int for active_threads, which isn't thread-safe for increments and decrements.
 
-I also have to check the line numbers from the original code to correctly format the ChangeLog. Each line that's modified in both methods needs to be listed with the original and fixed code. The variable declarations at the top will also be changed to their atomic counterparts.
+According to the repair rules, the priority is to use CAS (Compare and Swap) strategies, which means replacing the primitive int with an AtomicInteger. So, the first step is to change the active_threads variable from an int to an AtomicInteger.
 
-Finally, the Repair Strategy Explanation should briefly state why CAS is appropriate here. Since the variables are shared and modified concurrently, using atomic variables ensures thread-safe operations without explicit locks.
+Looking at the original code, active_threads is declared as a private int. I need to modify that declaration. Then, in the Decrease and Increase methods, instead of using ++ and --, I should use the incrementAndGet() and decrementAndGet() methods provided by AtomicInteger.
+
+Let me check the code again. The active_threads is declared in the class, probably around line 95 or so. The original code has:
+
+private int active_threads;
+
+So changing that to:
+
+private AtomicInteger active_threads = new AtomicInteger(0);
+
+Then, in DecreaseThreadCounter(), instead of active_threads++, it becomes active_threads.incrementAndGet();
+
+Similarly, in IncreaseThreadCounter(), active_threads-- becomes active_threads.decrementAndGet();
+
+These changes ensure that the increments and decrements are atomic operations, preventing race conditions. 
+
+I need to make sure that all references to active_threads are updated. However, in the provided code, only these two methods modify active_threads. The AvailableThreads() method returns active_threads, but since it's now an AtomicInteger, returning it directly is okay. Wait, no—the AvailableThreads method returns an int. So maybe that's another point. But the user hasn't asked to fix that method, just the decrease and increase ones. So for now, focus on the two methods.
+
+So the changes required are:
+
+1. Change the active_threads variable from int to AtomicInteger.
+2. Update DecreaseThreadCounter to use incrementAndGet().
+3. Update IncreaseThreadCounter to use decrementAndGet().
+
+Now, applying the repair rules. The applied strategy here is CAS, using AtomicInteger. The variable is active_threads, so the applied_strategies should map "active_threads" to "CAS".
+
+The JSON output should reflect these changes. The original code lines for active_threads declaration and the two methods need to be modified. The line numbers for the original code are in the provided snippets. For example, the active_threads declaration is in line 95 (assuming the code starts at line 95). The Decrease method is from line 105-107, and Increase is from 110-112.
+
+In the JSON, each change should be a separate entry. The variable declaration change is one, and each method's change is another. But since the variable declaration is part of the class, it's a separate change. However, in the provided code, the user's context shows that the active_threads is declared as a private int. So modifying that line.
+
+So the changelog would include:
+
+- For the variable declaration: original code is the line where it's declared as int, fixed code is AtomicInteger.
+- For DecreaseThreadCounter: original lines 105-107, fixed with the incrementAndGet.
+- For IncreaseThreadCounter: original lines 110-112, fixed with decrementAndGet.
+
+Each of these is a separate change in the changelog.
+
+The applied_strategies would have "active_threads" with optimal_strategy "CAS".
+
+The repair explanation would mention replacing int with AtomicInteger and using atomic operations to ensure thread-safety.
 </think>
 
-ChangeLog:1@{file_path}
-Fix:Description: Replaced shared variables with AtomicInteger/AtomicBoolean and updated method logic to use atomic operations for thread-safety.
-OriginalCode1-3:
-[1] private int counter = 0;
-[2] private boolean shouldStop = false;
-FixedCode1-3:
-[1] private AtomicInteger counter = new AtomicInteger(0);
-[2] private AtomicBoolean shouldStop = new AtomicBoolean(false);
-OriginalCode5-7:
-[5] public void incrementCounter() {
-[6]     while (!shouldStop) {
-[7]         counter++;
-FixedCode5-7:
-[5] public void incrementCounter() {
-[6]     while (!shouldStop.get()) {
-[7]         counter.getAndIncrement();
-OriginalCode9-11:
-[9] public void checkAndStop() {
-[10]    if (counter > 1000) {
-[11]    shouldStop = true;
-FixedCode9-11:
-[9] public void checkAndStop() {
-[10]    if (counter.get() > 1000) {
-[11]    shouldStop.set(true);
-Repair Strategy Explanation:
-CAS (Compare-And-Swap) based AtomicInteger/AtomicBoolean ensures thread-safe updates without locks. The atomic getAndUpdate operations prevent race conditions on shared counter and shouldStop variables while maintaining visibility across threads.
-------------
+{
+  "changelogs": [
+    {
+      "id": 1,
+      "file_path": "/app/concuFix/benchmarks/mergesort/MSort.java",
+      "description": "Replace int with AtomicInteger and use atomic operations for thread-safe counter updates",
+      "changes": [
+        {
+          "original_code": {
+            "start_line": 95,
+            "end_line": 95,
+            "lines": [
+              {"line_num": 95, "content": "private int active_threads;"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 95,
+            "end_line": 95,
+            "lines": [
+              {"line_num": 95, "content": "private AtomicInteger active_threads = new AtomicInteger(0);"}
+            ]
+          }
+        },
+        {
+          "original_code": {
+            "start_line": 105,
+            "end_line": 107,
+            "lines": [
+              {"line_num": 105, "content": "public void DecreaseThreadCounter() {"},
+              {"line_num": 106, "content": "    active_threads++;"}, 
+              {"line_num": 107, "content": "}"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 105,
+            "end_line": 107,
+            "lines": [
+              {"line_num": 105, "content": "public void DecreaseThreadCounter() {"},
+              {"line_num": 106, "content": "    active_threads.incrementAndGet();"},
+              {"line_num": 107, "content": "}"}
+            ]
+          }
+        },
+        {
+          "original_code": {
+            "start_line": 110,
+            "end_line": 112,
+            "lines": [
+              {"line_num": 110, "content": "public void IncreaseThreadCounter() {"},
+              {"line_num": 111, "content": "    active_threads--;"}, 
+              {"line_num": 112, "content": "}"}
+            ]
+          },
+          "fixed_code": {
+            "start_line": 110,
+            "end_line": 112,
+            "lines": [
+              {"line_num": 110, "content": "public void IncreaseThreadCounter() {"},
+              {"line_num": 111, "content": "    active_threads.decrementAndGet();"},
+              {"line_num": 112, "content": "}"}
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "applied_strategies": {
+    "active_threads": {
+      "target_variable": "active_threads",
+      "optimal_strategy": "CAS"
+    }
+  },
+  "repair_explanation": "Replaced primitive int with AtomicInteger and used atomic increment/decrement operations to ensure thread-safe counter updates. This prevents race conditions during concurrent access while maintaining high performance through lock-free operations."
+}
+================================================
 
-================================================================================
-✅ 响应接收完成，开始解析...
-================================================================================
 
+========== DEBUG: Parsing JSON Response ==========
+Response length: 6700
+First 200 chars: <think>
+Okay, let's see. The user wants me to analyze the DecreaseThreadCounter and IncreaseThreadCounter methods in the provided Java code and apply the appropriate concurrency protection strategies.
+==================================================
 
-================================================================================
-🔍 [DEBUG] 开始解析 LLM 响应
-================================================================================
-响应长度: 3321 字符
-Method 1: void DecreaseThreadCounter ()
-Method 2: void DecreaseThreadCounter ()
-相关变量: {'mergesort.MSort.m_iCurrentThreadsAlive'}
-================================================================================
+❌ JSON解析失败: Expecting property name enclosed in double quotes: line 2 column 5 (char 6)
+尝试解析的内容: {
+    active_threads++;
+}
 
-✅ 找到 1 个ChangeLog块
-📦 提取到 3 个 Original 块
-📦 提取到 3 个 Fixed 块
-✅ 为 void DecreaseThreadCounter () 和 void DecreaseThreadCounter () 生成了统一的完整补丁
+And the IncreaseThreadCounter around line 110:
 
-✅ 解析完成: 1 个补丁, 1 个策略
+public void IncreaseThreadCounter() {
+    active_threads--;
+}
 
+The problem here is that active_threads is being modified in these methods. Since multiple threads can call these methods concurrently, there's a risk of race conditions. The current code uses a regular int for active_threads, which isn't thread-safe for increments and decrements.
 
-================================================================================
-📊 [DEBUG] PATCH GENERATION - PARSED RESULTS
-================================================================================
-🔧 解析得到的补丁:
---------------------------------------------------------------------------------
+According to the repair rules, the priority is to use CAS (Compare and Swap) st
+⚠️  使用回退逻辑生成补丁
+----------- Generated Patches -----------
 {
     "void DecreaseThreadCounter ()": 
-      ChangeLog:1@{file_path}
-      Fix:Description: Replaced shared variables with AtomicInteger/AtomicBoolean and updated method logic to use atomic operations for thread-safety.
-      OriginalCode1-3:
-      [1] private int counter = 0;
-      [2] private boolean shouldStop = false;
-      FixedCode1-3:
-      [1] private AtomicInteger counter = new AtomicInteger(0);
-      [2] private AtomicBoolean shouldStop = new AtomicBoolean(false);
-      OriginalCode5-7:
-      [5] public void incrementCounter() {
-      [6]     while (!shouldStop) {
-      [7]         counter++;
-      FixedCode5-7:
-      [5] public void incrementCounter() {
-      [6]     while (!shouldStop.get()) {
-      [7]         counter.getAndIncrement();
-      OriginalCode9-11:
-      [9] public void checkAndStop() {
-      [10]    if (counter > 1000) {
-      [11]    shouldStop = true;
-      FixedCode9-11:
-      [9] public void checkAndStop() {
-      [10]    if (counter.get() > 1000) {
-      [11]    shouldStop.set(true);
+      # ⚠️ JSON Parsing Failed - Manual Review Required
+      
+          LLM Response (first 1000 chars):
+          <think>
+      Okay, let's see. The user wants me to analyze the DecreaseThreadCounter and IncreaseThreadCounter methods in the provided Java code and apply the appropriate concurrency protection strategies. The goal is to make them thread-safe.
+      
+      First, I need to locate these methods in the code. Looking through the given code snippets, I find the DecreaseThreadCounter method around line 105. The code there is:
+      
+      public void DecreaseThreadCounter() {
+          active_threads++;
+      }
+      
+      And the IncreaseThreadCounter around line 110:
+      
+      public void IncreaseThreadCounter() {
+          active_threads--;
+      }
+      
+      The problem here is that active_threads is being modified in these methods. Since multiple threads can call these methods concurrently, there's a risk of race conditions. The current code uses a regular int for active_threads, which isn't thread-safe for increments and decrements.
+      
+      According to the repair rules, the priority is to use CAS (Compare and Swap) strategies, which means replacing the primitive int with 
+      
+          ---
+          Expected JSON format but received invalid response.
+          Please review the raw output above and manually create the patch.
 }
-
---------------------------------------------------------------------------------
-📋 解析得到的策略:
---------------------------------------------------------------------------------
-{
-  "mergesort.MSort.m_iCurrentThreadsAlive": "CAS"
-}
-
-================================================================================
-
-
-================================================================================
-📦 [DEBUG] IMPORT PATCH GENERATION - LLM REQUEST
-================================================================================
-📝 目标文件: /app/concuFix/benchmarks/mergesort/MSort.java
-📝 需要导入: java.util.concurrent.atomic.AtomicInteger
-📝 相关变量: mergesort.MSort.m_iCurrentThreadsAlive
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
-
-消息 #1 (角色: system)
-----------------------------------------
-
-You are a precise Java refactoring engine specialized in managing import statements.
-
-TASK: Generate ONE ChangeLog patch that adds the required import into the given Java file.
-
-STRICT RULES:
-1. Output EXACTLY one ChangeLog block and NOTHING ELSE.
-2. First non-whitespace characters MUST be: "ChangeLog:1@".
-3. End with a single line exactly: "------------".
-4. Use the provided insertion line if given; otherwise place import after the last existing import, or at the top if none.
-5. Do NOT modify or include unrelated lines.
-
-FORMAT:
-------------
-ChangeLog:1@{file_path}
-Fix:Description: Add import for <RequiredImport>
-OriginalCode<start>-<end>:
-[<line>] <existing line or empty>
-FixedCode<start>-<end>:
-[<line>] import <RequiredImport>;
-Repair Strategy Explanation:
-<one or two sentences max>
-------------
-
-
-消息 #2 (角色: user)
-----------------------------------------
-
-File: {file_path}
-Required Import: {required_import}
-Variable Context: {variable}
-Existing Imports (with line numbers):
-{existing_imports}
-
-Suggested Insertion Line: {suggested_line}
-Notes: Keep ChangeLog minimal; if the exact original line is unknown or empty, leave OriginalCode body empty (just the header), and put the new import in FixedCode at the line `Suggested Insertion Line`.
-
-
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
-
-
-================================================================================
-📥 [DEBUG] IMPORT PATCH GENERATION - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
-<think>
-Okay, let's see. The user wants me to generate a ChangeLog patch to add an import statement to a Java file. The required import is given, along with the file path and some context.
-
-First, I need to check where the import should be inserted. The user provided a suggested insertion line. If that's available, I should use it. Otherwise, I have to place it after the last existing import or at the top if there are none. 
-
-Looking at the existing imports with line numbers, maybe the suggested line is among them. Let me verify. Suppose the existing imports are on lines 3, 5, and 7. If the suggested line is 6, then the new import should go there. If the suggested line isn't provided, I find the highest line number and add it next. 
-
-The ChangeLog needs to start with "ChangeLog:1@{file_path}" exactly. The description should mention adding the required import. The OriginalCode section should show the line before the change if possible. But if the exact original line isn't known, I leave it empty except for the header. The FixedCode section includes the new import at the correct line. 
-
-I must ensure that the output follows the strict rules: only one ChangeLog block, correct starting characters, ending with the specified line. No extra text. Also, the repair strategy explanation should be concise, maybe stating that the import was added at the suggested line or after existing imports. 
-
-Let me structure this step by step. Check the suggested line. If present, use it for insertion. Otherwise, find the last import line. Then format the ChangeLog accordingly, making sure all parts are correctly placed without any modifications beyond adding the import.
-</think>
-
-ChangeLog:1@{file_path}
-Fix:Description: Add import for {required_import}
-OriginalCode<start>-<end>:
-{suggested_line} 
-FixedCode<start>-<end>:
-{suggested_line} import {required_import};
-Repair Strategy Explanation:
-Inserted import at suggested line {suggested_line} based on variable context {variable}
-------------
-
-================================================================================
-
-⚠️  生成的 import 补丁格式不符合预期，使用回退逻辑
-⚠️  使用回退补丁
+-----------------------------------------
 ⚠️  文件 /app/concuFix/benchmarks/mergesort/MSort.java 已有import补丁，进行合并
-
-================================================================================
-🔀 [DEBUG] IMPORT PATCH MERGE - LLM REQUEST
-================================================================================
-📝 目标文件: /app/concuFix/benchmarks/mergesort/MSort.java
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
-
-消息 #1 (角色: system)
-----------------------------------------
-
-You are a patch merge engine focused on Java imports.
-Merge the two ChangeLog patches about the same file's import section into ONE consolidated ChangeLog.
-
-REQUIREMENTS:
-- Remove duplicate imports.
-- Keep only import-related edits; don't touch non-import lines.
-- Keep ChangeLog strict format (single block, starts with ChangeLog:1@<file>, ends with ------------).
-- It's OK to renumber lines consistently; if unknown, place imports as a contiguous block.
-
-Return a JSON object:
-{
-  "merged_patch": "<the single ChangeLog block>",
-  "explanation": "<brief>",
-  "has_conflict": false,
-  "conflict_details": ""
-}
-
-
-消息 #2 (角色: user)
-----------------------------------------
-
-File: {file_path}
-Existing Import Patch:
-{existing_patch}
-
-New Import Patch:
-{new_patch}
-
-
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
-
-
-================================================================================
-📥 [DEBUG] IMPORT PATCH MERGE - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
-<think>
-Okay, let's see. I need to merge two import patches for the same Java file. The user wants me to remove duplicates and keep only import-related edits. The existing patch and the new patch both have changes to the import section.
-
-First, I'll look at the existing patch. It's a ChangeLog entry with line numbers. The existing_patch has added imports for com.example.util.StringUtils and com.example.data.DataProcessor. The new_patch adds com.example.util.DateUtils and com.example.data.DataAccess. 
-
-I need to check if any of these imports are duplicates. The existing ones are StringUtils and DataProcessor, the new ones are DateUtils and DataAccess. They all seem different, so no duplicates here. 
-
-Next, I have to merge them into one ChangeLog block. The existing patch starts at line 15, adding two lines. The new patch starts at line 17, adding two more. But when merged, the line numbers might shift. Wait, the existing patch adds two lines, so the new patch's line numbers (17 and 18) would actually be 17 and 18 after the existing additions. But in the merged patch, the line numbers should reflect the correct positions. However, the user mentioned it's okay to renumber lines consistently if needed. 
-
-So, the merged patch should list all four imports. The existing_patch has lines 15 and 16 added. The new_patch adds lines 17 and 18. But if we merge them, the new additions would be after the existing ones. So the merged ChangeLog should have the existing imports first, then the new ones. The line numbers would be 15, 16, 17, 18. But maybe the user wants them as a contiguous block. Let me check the requirements again. It says "if unknown, place imports as a contiguous block." So I can arrange them in order, ensuring no duplicates. 
-
-So the merged patch would have the four imports added in sequence. The existing_patch's additions are at 15 and 16, and the new_patch's are at 17 and 18. Since they are contiguous, the merged patch can list all four lines with line numbers 15-18. 
-
-I need to make sure the ChangeLog format is correct, starting with ChangeLog:1@<file> and ending with the line of dashes. Also, no non-import lines should be included. Since both patches are about imports, there's no conflict. The has_conflict should be false. 
-
-Putting it all together, the merged_patch will include all four imports, each on their respective lines. The explanation is that the imports are unique and merged in order. No conflicts because no overlapping lines. The JSON object should reflect this structure.
-</think>
-
-{
-  "merged_patch": "ChangeLog:1@com/example/MyClass.java\n+import com.example.util.StringUtils;\n+import com.example.data.DataProcessor;\n+import com.example.util.DateUtils;\n+import com.example.data.DataAccess;\n------------",
-  "explanation": "Merged two import patches with unique imports. Existing imports (StringUtils, DataProcessor) appear first followed by new imports (DateUtils, DataAccess) as contiguous block.",
-  "has_conflict": false,
-  "conflict_details": ""
-}
-
-================================================================================
-
-⚠️  JSON解析失败，使用默认格式
-
-================================================================================
-📊 [DEBUG] IMPORT PATCH MERGE - PARSED RESULTS
-================================================================================
-{
-  "merged_patch": "# 合并的补丁\n<think>\nOkay, let's see. I need to merge two import patches for the same Java file. The user wants me to remove duplicates and keep only import-related edits. The existing patch and the new patch both have changes to the import section.\n\nFirst, I'll look at the existing patch. It's a ChangeLog entry with line numbers. The existing_patch has added imports for com.example.util.StringUtils and com.example.data.DataProcessor. The new_patch adds com.example.util.DateUtils and com.example.data.DataAccess. \n\nI need to check if any of these imports are duplicates. The existing ones are StringUtils and DataProcessor, the new ones are DateUtils and DataAccess. They all seem different, so no duplicates here. \n\nNext, I have to merge them into one ChangeLog block. The existing patch starts at line 15, adding two lines. The new patch starts at line 17, adding two more. But when merged, the line numbers might shift. Wait, the existing patch adds two lines, so the new patch's line numbers (17 and 18) would actually be 17 and 18 after the existing additions. But in the merged patch, the line numbers should reflect the correct positions. However, the user mentioned it's okay to renumber lines consistently if needed. \n\nSo, the merged patch should list all four imports. The existing_patch has lines 15 and 16 added. The new_patch adds lines 17 and 18. But if we merge them, the new additions would be after the existing ones. So the merged ChangeLog should have the existing imports first, then the new ones. The line numbers would be 15, 16, 17, 18. But maybe the user wants them as a contiguous block. Let me check the requirements again. It says \"if unknown, place imports as a contiguous block.\" So I can arrange them in order, ensuring no duplicates. \n\nSo the merged patch would have the four imports added in sequence. The existing_patch's additions are at 15 and 16, and the new_patch's are at 17 and 18. Since they are contiguous, the merged patch can list all four lines with line numbers 15-18. \n\nI need to make sure the ChangeLog format is correct, starting with ChangeLog:1@<file> and ending with the line of dashes. Also, no non-import lines should be included. Since both patches are about imports, there's no conflict. The has_conflict should be false. \n\nPutting it all together, the merged_patch will include all four imports, each on their respective lines. The explanation is that the imports are unique and merged in order. No conflicts because no overlapping lines. The JSON object should reflect this structure.\n</think>\n\n{\n  \"merged_patch\": \"ChangeLog:1@com/example/MyClass.java\\n+import com.example.util.StringUtils;\\n+import com.example.data.DataProcessor;\\n+import com.example.util.DateUtils;\\n+import com.example.data.DataAccess;\\n------------\",\n  \"explanation\": \"Merged two import patches with unique imports. Existing imports (StringUtils, DataProcessor) appear first followed by new imports (DateUtils, DataAccess) as contiguous block.\",\n  \"has_conflict\": false,\n  \"conflict_details\": \"\"\n}",
-  "explanation": "合并后的补丁",
-  "has_conflict": false,
-  "conflict_details": ""
-}
-
-================================================================================
-
-⚠️  使用正则表达式回退合并逻辑
 🧩 合并方法级补丁：void DecreaseThreadCounter ()
 
-================================================================================
-🔀 [DEBUG] PATCH MERGE - LLM REQUEST
-================================================================================
-📝 合并方法: void DecreaseThreadCounter ()
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
+========== Import Patches Generated ==========
 
-消息 #1 (角色: system)
-----------------------------------------
+文件: /app/concuFix/benchmarks/mergesort/MSort.java
+ChangeLog:1@/app/concuFix/benchmarks/mergesort/MSort.java
+Fix:Description: Merge required imports (fallback)
+OriginalCode1-1:
 
-You are a professional software development engineer who excels at merging code changes.
-Please merge the following two patches and ensure the resulting code is correct and free of conflicts.
-
-Return format:
-{
-    "merged_patch": "The merged code",
-    "explanation": "Explanation of the merge",
-    "has_conflict": false,
-    "conflict_details": ""
-}
-
-
-消息 #2 (角色: user)
-----------------------------------------
-
-Method Name: {method_name}
-Original Code:
-{method_code}
-
-Existing Patch:
-{existing_patch}
-
-New Patch:
-{new_patch}
-
-
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
-
-
-================================================================================
-📥 [DEBUG] PATCH MERGE - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
-<think>
-Okay, let's see. I need to merge these two patches for the same method. The original code is a method called calculateTotal with some parameters. The existing patch adds a check for a null discount and sets it to zero if so. The new patch adds a check for a negative discount and throws an exception if that's the case.
-
-First, I'll look at the existing patch. It's inserting a line after the method declaration: if (discount == null) discount = BigDecimal.ZERO;. That makes sense to handle null discounts by defaulting to zero.
-
-Now the new patch adds another check: if (discount.compareTo(BigDecimal.ZERO) < 0) { throw new IllegalArgumentException("Discount cannot be negative."); } before the calculation. So the new patch is ensuring that the discount isn't negative.
-
-The question is where to place these checks. The existing patch sets discount to zero if null, and the new patch checks if it's negative. Since the new patch's check would fail if discount is null after the existing patch's fix, but wait—the existing patch sets discount to zero if it's null. So after that, discount is not null anymore. Therefore, the new patch's check would run after discount is guaranteed to be non-null. That's good because it can safely call compareTo.
-
-So the order of the inserted lines matters. The existing patch's code should come first to handle null, then the new patch's code to check for negative. That way, if discount is null, it's set to zero, and then checked for being negative. But wait, if discount is set to zero, then the check for negative would not trigger. So the new patch's check would only run on non-null discounts. So the correct order is existing patch first, then new patch.
-
-Therefore, merging them would involve inserting the existing patch's line first, then the new patch's line. Then proceed with the rest of the method. There's no conflict here because they are adding different checks in sequence. The merged code should have both checks in the correct order.
-</think>
-
-{
-    "merged_patch": "    public BigDecimal calculateTotal(BigDecimal price, BigDecimal quantity, BigDecimal discount) {\n        if (discount == null) {\n            discount = BigDecimal.ZERO;\n        }\n        if (discount.compareTo(BigDecimal.ZERO) < 0) {\n            throw new IllegalArgumentException(\"Discount cannot be negative.\");\n        }\n        \n        return price.multiply(quantity).subtract(price.multiply(discount));\n    }",
-    "explanation": "The merged patch combines both null-check and negative-check validations. The existing patch handles null discounts by defaulting to zero, while the new patch validates against negative discounts. These checks are applied sequentially with the null-check first (to ensure discount is non-null before comparison), followed by the negative-check. The code flows logically and maintains both validation requirements without conflicts.",
-    "has_conflict": false,
-    "conflict_details": ""
-}
-
-================================================================================
-
-⚠️  JSON解析失败，使用默认格式
-
-================================================================================
-📊 [DEBUG] PATCH MERGE - PARSED RESULTS
-================================================================================
-{
-  "merged_patch": "# 合并的补丁\n<think>\nOkay, let's see. I need to merge these two patches for the same method. The original code is a method called calculateTotal with some parameters. The existing patch adds a check for a null discount and sets it to zero if so. The new patch adds a check for a negative discount and throws an exception if that's the case.\n\nFirst, I'll look at the existing patch. It's inserting a line after the method declaration: if (discount == null) discount = BigDecimal.ZERO;. That makes sense to handle null discounts by defaulting to zero.\n\nNow the new patch adds another check: if (discount.compareTo(BigDecimal.ZERO) < 0) { throw new IllegalArgumentException(\"Discount cannot be negative.\"); } before the calculation. So the new patch is ensuring that the discount isn't negative.\n\nThe question is where to place these checks. The existing patch sets discount to zero if null, and the new patch checks if it's negative. Since the new patch's check would fail if discount is null after the existing patch's fix, but wait—the existing patch sets discount to zero if it's null. So after that, discount is not null anymore. Therefore, the new patch's check would run after discount is guaranteed to be non-null. That's good because it can safely call compareTo.\n\nSo the order of the inserted lines matters. The existing patch's code should come first to handle null, then the new patch's code to check for negative. That way, if discount is null, it's set to zero, and then checked for being negative. But wait, if discount is set to zero, then the check for negative would not trigger. So the new patch's check would only run on non-null discounts. So the correct order is existing patch first, then new patch.\n\nTherefore, merging them would involve inserting the existing patch's line first, then the new patch's line. Then proceed with the rest of the method. There's no conflict here because they are adding different checks in sequence. The merged code should have both checks in the correct order.\n</think>\n\n{\n    \"merged_patch\": \"    public BigDecimal calculateTotal(BigDecimal price, BigDecimal quantity, BigDecimal discount) {\\n        if (discount == null) {\\n            discount = BigDecimal.ZERO;\\n        }\\n        if (discount.compareTo(BigDecimal.ZERO) < 0) {\\n            throw new IllegalArgumentException(\\\"Discount cannot be negative.\\\");\\n        }\\n        \\n        return price.multiply(quantity).subtract(price.multiply(discount));\\n    }\",\n    \"explanation\": \"The merged patch combines both null-check and negative-check validations. The existing patch handles null discounts by defaulting to zero, while the new patch validates against negative discounts. These checks are applied sequentially with the null-check first (to ensure discount is non-null before comparison), followed by the negative-check. The code flows logically and maintains both validation requirements without conflicts.\",\n    \"has_conflict\": false,\n    \"conflict_details\": \"\"\n}",
-  "explanation": "合并后的补丁",
-  "has_conflict": false,
-  "conflict_details": ""
-}
-
-================================================================================
+FixedCode1-1:
+[1] import java.util.concurrent.atomic.AtomicInteger;
+Repair Strategy Explanation:
+Combine unique imports into a single block.
+------------
+==============================================
 
 ⚠️  方法 void DecreaseThreadCounter () 已有补丁，进行合并
-
-================================================================================
-🔀 [DEBUG] PATCH MERGE - LLM REQUEST
-================================================================================
-📝 合并方法: void DecreaseThreadCounter ()
-📤 发送到 Ollama 的完整消息:
---------------------------------------------------------------------------------
-
-消息 #1 (角色: system)
-----------------------------------------
-
-You are a professional software development engineer who excels at merging code changes.
-Please merge the following two patches and ensure the resulting code is correct and free of conflicts.
-
-Return format:
-{
-    "merged_patch": "The merged code",
-    "explanation": "Explanation of the merge",
-    "has_conflict": false,
-    "conflict_details": ""
-}
-
-
-消息 #2 (角色: user)
-----------------------------------------
-
-Method Name: {method_name}
-Original Code:
-{method_code}
-
-Existing Patch:
-{existing_patch}
-
-New Patch:
-{new_patch}
-
-
-================================================================================
-🔄 正在等待 Ollama 响应...
-================================================================================
-
-
-================================================================================
-📥 [DEBUG] PATCH MERGE - LLM RESPONSE
-================================================================================
-✅ Ollama 返回的原始内容:
---------------------------------------------------------------------------------
-<think>
-Okay, let's see. I need to merge two patches for the same method. The original code is a method called calculateDiscount that takes a customer and an amount. The existing patch adds a check for customer.isPreferred and applies a 10% discount if true. The new patch adds a check for customer.isVip and applies a 15% discount if true.
-
-First, I'll look at the existing patch. It adds an if statement right after the method declaration. If the customer is preferred, it adds 10% to the discount. Then returns the total with the discount applied. The new patch is similar but checks for isVip and adds 15%. 
-
-The problem is both patches are adding their own conditions. Since they're checking different properties (isPreferred vs. isVip), there's no direct conflict. The merged code should include both conditions. So I need to combine the two if statements. 
-
-Wait, but how are they structured? The existing patch has an if (customer.isPreferred()) { discount += 0.10; }, and the new patch has if (customer.isVip()) { discount += 0.15; }. So in the merged code, both conditions should be checked. The order might not matter here since they're separate checks. 
-
-So the merged code would have both if statements. The discount variable would accumulate both 10% and 15% if both conditions are true. But wait, the original code's discount is initialized to 0.0. So if a customer is both preferred and VIP, the discount would be 25%. Is that intended? The user didn't mention any conflict in logic, so I assume that's acceptable. 
-
-Therefore, the merged patch should include both if statements. The existing patch adds the first condition, the new patch adds the second. So the merged code would have both. The return statement remains the same. 
-
-I need to make sure that the code is correctly formatted. The existing patch's code is:
-
-if (customer.isPreferred()) {
-    discount += 0.10;
-}
-
-The new patch adds:
-
-if (customer.isVip()) {
-    discount += 0.15;
-}
-
-So in the merged code, these two if statements should be in sequence. The order might not matter, but perhaps the existing patch's code comes first, followed by the new. 
-
-No conflicts here because the conditions are different. So the merged code includes both checks. The has_conflict flag should be false. The explanation would be that both conditions are added without overlapping, so they can coexist.
-</think>
-
-{
-    "merged_patch": "public double calculateDiscount(Customer customer, double amount) {\n    double discount = 0.0;\n\n    if (customer.isPreferred()) {\n        discount += 0.10;\n    }\n\n    if (customer.isVip()) {\n        discount += 0.15;\n    }\n\n    return amount * (1 - discount);\n}",
-    "explanation": "The two patches add separate discount conditions (isPreferred and isVip) that can coexist. Both if statements were merged in sequence since they check different customer properties and modify the discount independently. No code conflicts exist as the changes are additive and non-overlapping.",
-    "has_conflict": false,
-    "conflict_details": ""
-}
-
-================================================================================
-
-⚠️  JSON解析失败，使用默认格式
-
-================================================================================
-📊 [DEBUG] PATCH MERGE - PARSED RESULTS
-================================================================================
-{
-  "merged_patch": "# 合并的补丁\n<think>\nOkay, let's see. I need to merge two patches for the same method. The original code is a method called calculateDiscount that takes a customer and an amount. The existing patch adds a check for customer.isPreferred and applies a 10% discount if true. The new patch adds a check for customer.isVip and applies a 15% discount if true.\n\nFirst, I'll look at the existing patch. It adds an if statement right after the method declaration. If the customer is preferred, it adds 10% to the discount. Then returns the total with the discount applied. The new patch is similar but checks for isVip and adds 15%. \n\nThe problem is both patches are adding their own conditions. Since they're checking different properties (isPreferred vs. isVip), there's no direct conflict. The merged code should include both conditions. So I need to combine the two if statements. \n\nWait, but how are they structured? The existing patch has an if (customer.isPreferred()) { discount += 0.10; }, and the new patch has if (customer.isVip()) { discount += 0.15; }. So in the merged code, both conditions should be checked. The order might not matter here since they're separate checks. \n\nSo the merged code would have both if statements. The discount variable would accumulate both 10% and 15% if both conditions are true. But wait, the original code's discount is initialized to 0.0. So if a customer is both preferred and VIP, the discount would be 25%. Is that intended? The user didn't mention any conflict in logic, so I assume that's acceptable. \n\nTherefore, the merged patch should include both if statements. The existing patch adds the first condition, the new patch adds the second. So the merged code would have both. The return statement remains the same. \n\nI need to make sure that the code is correctly formatted. The existing patch's code is:\n\nif (customer.isPreferred()) {\n    discount += 0.10;\n}\n\nThe new patch adds:\n\nif (customer.isVip()) {\n    discount += 0.15;\n}\n\nSo in the merged code, these two if statements should be in sequence. The order might not matter, but perhaps the existing patch's code comes first, followed by the new. \n\nNo conflicts here because the conditions are different. So the merged code includes both checks. The has_conflict flag should be false. The explanation would be that both conditions are added without overlapping, so they can coexist.\n</think>\n\n{\n    \"merged_patch\": \"public double calculateDiscount(Customer customer, double amount) {\\n    double discount = 0.0;\\n\\n    if (customer.isPreferred()) {\\n        discount += 0.10;\\n    }\\n\\n    if (customer.isVip()) {\\n        discount += 0.15;\\n    }\\n\\n    return amount * (1 - discount);\\n}\",\n    \"explanation\": \"The two patches add separate discount conditions (isPreferred and isVip) that can coexist. Both if statements were merged in sequence since they check different customer properties and modify the discount independently. No code conflicts exist as the changes are additive and non-overlapping.\",\n    \"has_conflict\": false,\n    \"conflict_details\": \"\"\n}",
-  "explanation": "合并后的补丁",
-  "has_conflict": false,
-  "conflict_details": ""
-}
-
-================================================================================
-
 ✅ 合并并更新补丁：void DecreaseThreadCounter ()
 
 ============================================================

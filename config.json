@@ -2,6 +2,6 @@
   "llm_model": "gpt-4",
   "temperature": 0.2,
   "other_config_key": "other_config_value",
-  "project_dir": "/app/concuFix/benchmarks/airline",
-  "output_dir": "/app/concuFix/results/airline"
+  "project_dir": "/app/concuFix/benchmarks/critical",
+  "output_dir": "/app/concuFix/results/critical"
 }
