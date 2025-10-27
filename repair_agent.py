@@ -111,6 +111,7 @@ class RepairAgent():
 
         print(f"\n{'='*60}")
         print(f"✅ 处理完成，共生成 {len(self.patches)} 个补丁")
+        print(f"补丁内容：{format_patch_dict_pretty(self.patches)}")
         print(f"{'='*60}\n")
         
         # 所有方法对修复完成后，判断需要添加的import
@@ -158,9 +159,7 @@ class RepairAgent():
                 if not patch_content or len(patch_content.strip()) == 0:
                     return False, f"方法 {method_name} 的补丁内容为空"
                 
-                # 检查是否包含错误方法和修复后代码
-                if "错误方法:" not in patch_content and "Buggy Method:" not in patch_content:
-                    return False, f"方法 {method_name} 的补丁缺少错误方法部分"
+                # 检查是否包含修复后代码
                 
                 if "修复后代码:" not in patch_content and "Fixed Code:" not in patch_content:
                     return False, f"方法 {method_name} 的补丁缺少修复后代码部分"
@@ -421,36 +420,20 @@ You MUST output a single valid JSON object with this exact structure:
   "applied_strategies": {{
     "variable_name": {{
       "target_variable": "variable_name",
-      "optimal_strategy": "CAS"
+      "optimal_strategy": "strategy_name"
     }}
   }},
   "repair_explanation": "1-3 sentences explaining the overall repair strategy and why it ensures thread-safety."
 }}
 
-**Field Specifications**:
+**Note**:
 
-- `patches`: Dictionary mapping method names to their repair information
-  - `buggy_method`: The complete original method code (including signature)
-  - `fixed_code`: The complete fixed method code (including signature)
-  
-- `applied_strategies`: Dictionary mapping variable names to their protection strategies
-  - `target_variable`: The exact variable name being protected
-  - `optimal_strategy`: One of: "CAS", "synchronized", "volatile"
-  - **DO NOT** include a `reason` field
-
-- `repair_explanation`: Brief justification (max 3 sentences)
-
+1. You may use <think></think> tags for reasoning, but you must limit thinking to maximum 2000 tokens.
+2. After the <think></think> tags,you MUST produce the json of Output. Output MUST follow the exact JSON structure specified above.
+3. Output MUST be valid, parseable JSON. Do NOT add any text before or after the JSON object
+4. The `fixed_code` should contain the number of the lines as in the fixed method.
+5. The `optimal_strategy` must be one of: "CAS", "synchronized".
 ---
-
-**CRITICAL REQUIREMENTS**
-
-1. Output MUST be valid, parseable JSON
-2. Do NOT wrap JSON in markdown code blocks
-3. Do NOT add any text before or after the JSON object
-4. First character MUST be opening brace {{, last character MUST be closing brace }}
-5. All string values must be properly escaped
-6. Use double quotes for JSON keys and string values
-7. Include COMPLETE method code in both buggy_method and fixed_code fields
 
 **FAILURE RESPONSE**
 
@@ -513,9 +496,9 @@ Analyze the methods `{method1_name}` and `{method2_name}`, apply the appropriate
             print(f"解析ollama响应时出现错误: {e}")
             raise
         
-        print("\n========== DEBUG: Raw Ollama Response ==========")
-        print(response.content)  
-        print("================================================\n")
+        # print("\n========== DEBUG: Raw Ollama Response ==========")
+        # print(response.content)  
+        # print("================================================\n")
         
         patches, policies = self._parse_patch_generation_response(
             response.content, 
@@ -730,15 +713,21 @@ If no new imports are needed, return:
 
     def _parse_patch_generation_response(self, response: str, method1_name: str, method2_name: str, 
                                         related_vars: set, suggest_policies: Dict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-        """解析LLM的JSON响应，提取补丁和策略（新格式：错误方法+修复后代码）"""
+        """解析LLM的JSON响应，提取补丁和策略（新格式：修复后代码）"""
         import re
         import json
         
         print("\n========== DEBUG: Parsing JSON Response ==========")
         print(f"Response length: {len(response)}")
-        print(f"First 200 chars: {response[:200]}")
+        print(f"Complete response: {response}")
         print("==================================================\n")
-        
+
+        # 此处将response中的<think></think>标签内容在json中删除
+        response = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL)
+        print("清理后的响应内容:")
+        print(response)
+        print("=================================")
+
         try:
             json_str = self._extract_json(response)
             if not json_str:
@@ -754,11 +743,10 @@ If no new imports are needed, return:
             patches_data = data.get("patches", {})
             
             for method_name, patch_info in patches_data.items():
-                buggy_method = patch_info.get("buggy_method", "")
                 fixed_code = patch_info.get("fixed_code", "")
                 
                 # 构建新格式的补丁字符串
-                patch_content = f"错误方法:\n{buggy_method}\n\n修复后代码:\n{fixed_code}"
+                patch_content = f"修复后代码:\n{json.dumps(fixed_code, ensure_ascii=False, indent=2)}"
                 patches[method_name] = patch_content
             
             # 如果没有为两个方法都生成补丁，使用相同的补丁

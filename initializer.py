@@ -134,8 +134,8 @@ class Initializer():
             
             print("++++++++++++++++")
             print("提示词所求：")
-            print(variable_to_init)
-            print(processed_methods_body)
+            # print(variable_to_init)
+            # print(processed_methods_body)
             
             # Ollama API配置
             ollama_api_url = "http://localhost:11434/api/generate"
@@ -181,9 +181,9 @@ Follow these steps in order to determine the optimal protection strategy:
 
 ## Input Code Snippets
 
-Variable Initialization: {{variable_to_init}}
+Variable Initialization: {variable_to_init}
 
-Codes Using the Variable: {{processed_methods_body}}
+Codes Using the Variable: {processed_methods_body}
 
 
 ---
@@ -206,6 +206,8 @@ Your final output must be a single JSON object in the specified format. In the r
 - The `reason` field should be a simple explanation (maximum 2-3 sentences)
             """  
             
+            print(prompt)
+
             # 辅助函数：提取JSON部分（排除<think></think>标签内容）
             def extract_json_from_response(text: str) -> Optional[str]:
                 """
@@ -429,7 +431,6 @@ Example output format:
         #print(processed_lines)
         return processed_lines
 
-
     def _extract_variable_to_methods(self,bug_report,source_info)->None:
         # 方法1：直接遍历keys
         for variable in bug_report.variable_to_methods:
@@ -460,9 +461,7 @@ Example output format:
         # 方法2：显式调用keys()
         # for variable in self.variable_to_methods.keys():
         #     print(variable)
-    
-    
-    
+  
     # 初始化 Tree-sitter Java 解析器
     def _init_java_parser(self):
         JAVA_LANGUAGE = Language(tree_sitter_java.language())
